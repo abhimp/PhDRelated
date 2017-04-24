@@ -1,0 +1,50 @@
+\documentclass[english,12pt]{article}
+
+
+\usepackage{amsmath}
+\usepackage{balance}  % to better equalize the last page
+%%\usepackage{graphics} % for EPS, load graphicx instead
+\usepackage{graphicx}
+% \usepackage{subfigure}
+\usepackage[font = small]{caption}
+\usepackage{subcaption}
+\usepackage{txfonts}
+\usepackage{color}
+\usepackage{textcomp}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{todonotes}
+\usepackage{multirow}
+\usepackage{comment}
+\usepackage{url}
+\usepackage[ruled,vlined]{algorithm2e}
+\geometry{verbose,a4paper,tmargin=2.54cm,bmargin=2.54cm,lmargin=2.54cm,rmargin=2.54cm}
+\usepackage[automake, acronym]{glossaries}
+\linespread{1.2}
+
+\loadglsentries{tex/abbrs.tex}
+\makeglossaries
+
+\begin{document}
+	
+	\input{tex/firstpage.tex}
+%	\input{Introduction.tex}
+	\input{tex/Motivation.tex}
+	\input{tex/RelatedWork.tex}
+%	\input{Contribution.tex}
+%	\input{Motivation.tex}
+%	\input{SystemOverview.tex}
+%	\input{OfflineProcessing.tex}
+%	\input{AlertSystem.tex}
+%	\input{UserInterface.tex}
+%	\input{Accuracy.tex}
+%	\input{Feedback.tex}
+%	\input{Conclusion.tex}
+	
+	
+	
+%	\bibliographystyle{abbrv}
+	\bibliography{bib/reg}
+	
+	
+\end{document} 

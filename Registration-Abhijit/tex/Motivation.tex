@@ -1,0 +1,13 @@
+\section{Motivation}
+
+Internet is the network which connects different computing devices all over the globe. The conceptual platform form Internet and all othe computer network are followed by Internet protocol suite which is commonly known as TCP/IP model. TCP/IP model is made of two original protocol \acrfull{tcp} and \acrfull{ip}. TCP/IP protocol suite first developed in 1975 and become standard for inter-networking.
+
+Internet become more popular with \acrfull{www}, which server content as html page to user over the application layer proto \acrfull{http}. \acrshort{www} started with serving small text based pages. Now, it serves web based application which are complement of Desktop application. With the help of \acrshort{www}, Internet grows to many folds. Recent studies show that, most of the Internet traffic served by \acrshort{http} alone. Even in the boom of Smart-Phone, most of the application communicate with their server using \acrshort{http} only.
+
+\acrshort{http} uses \acrshort{tcp} as underlying transport layer. \acrshort{tcp} provides application to application to connection oriented reliable data communication. Although \acrshort{tcp} serves the purpose of \acrshort{http} and other application layer protocol, it have some inherent problem. They are:
+\begin{itemize}
+	\item \acrshort{tcp} is extreamly tightly coupled with underlying network layer protocol \acrshort{ip}. \acrshort{tcp} connection breaks in the event of \acrshort{ip} address change.
+	\item \acrshort{tcp} is highly conservative. It starts very slowly (in \acrshort{tcp}, it call slow-start) and grows gradually. Short lived connection finishes data transimission before \acrshort{tcp} can gain speed.
+\end{itemize}
+
+As most of the \acrshort{http} communications are short lived, it greatly affected by \acrshort{tcp}. There are several research going on to solve these two problem. There are several optimization to avoid slow start phase. Internet gaint Google proposed several alogorithm to optimize \acrshort{tcp}'s initial slow start phase \cite{google-fast-open,google-long-initcwnd}.
