@@ -9,15 +9,15 @@ To evaluate the performance of Viscous, we perform several experiments over \tex
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[width=\linewidth]{img/experimentalTopology1}
-	\caption{Topology 1}
+	\includegraphics[width=0.7\linewidth]{img/experimentalTopology1}
+	\caption{Topology 1: One of the end hosts has a single interface}
 	\label{fig:experimentalTopology1}
 \end{figure}
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[width=\linewidth]{img/experimentalTopology2}
-	\caption{Topology 2}
+	\includegraphics[width=0.7\linewidth]{img/experimentalTopology2}
+	\caption{Topology 2: Both the end hosts have two interfaces}
 	\label{fig:experimentalTopology2}
 \end{figure}
 
@@ -32,7 +32,7 @@ The various hardware and operating system level parameters used in our experimen
     \item \textbf{MPTCP}: We have used MultiPath TCP version 0.91 for comparing the performance of Viscous with MPTCP.
     \item \textbf{Operating System}: In our virtual machine configurations for test setup, the guest operating system is Ubuntu 14.04.4 LTS, whereas the host operating system is Ubuntu 16.04.1 LTS. 
 \end{itemize}
-We setup the link bandwidths for different paths in the topologies as follows. In Topology-1, the two paths from the two interfaces of the host $H1$ up to the common point has a bandwidth of $50$ Mbps, and from the common point to the interface of the host $H2$ has a bandwidth of $100$ Mbps. For Topology-2, all the links have a link bandwidth of $50$ Mbps. 
+We setup the link bandwidths for different paths in the topologies as follows. In Topology-1, the two paths from the two interfaces of the host $H1$ up to the common point has a bandwidth of $50$ Mbps, and from the common point to the interface of the host $H2$ has a bandwidth of $100$ Mbps. For Topology-2, all the links have a link bandwidth of $100$ Mbps. 
  
 Next we present the results and observations from various test scenarios as performed over the two topologies. 
 
@@ -64,25 +64,25 @@ In this experiment, we have explored the performance of \acrshort{quic}, \acrsho
     \begin{center}
         \begin{minipage}{0.45\linewidth}
             \centering
-            \includegraphics[width=0.24\linewidth]{img/exp6/time_elapsed_1}
+            \includegraphics[width=\linewidth]{img/exp6/time_elapsed_1}
             \label{fig:exp6_time_16}
             \subcaption{RTT=16ms}
         \end{minipage}
         \begin{minipage}{0.45\linewidth}
             \centering
-            \includegraphics[width=0.24\linewidth]{img/exp6/time_elapsed_5}
+            \includegraphics[width=\linewidth]{img/exp6/time_elapsed_5}
             \label{fig:exp6_time_80}
             \subcaption{RTT=80ms}
         \end{minipage}
         \begin{minipage}{0.45\linewidth}
             \centering
-            \includegraphics[width=0.24\linewidth]{img/exp6/time_elapsed_10}
+            \includegraphics[width=\linewidth]{img/exp6/time_elapsed_10}
             \label{fig:exp6_time_160}
             \subcaption{RTT=160ms}
         \end{minipage}
         \begin{minipage}{0.45\linewidth}
             \centering
-            \includegraphics[width=0.24\linewidth]{img/exp6/time_elapsed_20}
+            \includegraphics[width=\linewidth]{img/exp6/time_elapsed_20}
             \label{fig:exp6_time_320}
             \subcaption{RTT=320ms}
         \end{minipage}
@@ -90,15 +90,14 @@ In this experiment, we have explored the performance of \acrshort{quic}, \acrsho
     \end{center}
 \end{figure}
 
-
-First, we observe the average flow completion time for all the flows over Topology-1 without any background traffic, as shown in Fig.~\ref{fig:exp6_time}. From the figure, we can see that Viscous performs much better when multiple short-lived flows are transferred over the network. QUIC in this scenario does not perform good. Although QUIC can multiplex multiple flows coming from the application layer, it maintains flow specific congestion window, resulting in a slow start problem for the flows. Further, QUIC fails to utilize multiple interfaces available in the network which is one of the main reasons behind its poor performance over the test topology. MPTCP suffers from the path imbalance problem as discussed earlier, and TCP Cubic can not utilize multi-homing capacity for the flows. To analyze the effect of short-lived flows, we compare the congestion window evolution for TCP and Viscous for a specific case, as given in Fig.~\ref{fig:exp6_cwnd}, when RTT=$16$ ms and number of parallel thread = $5$. We observe that the average congestion window for TCP is significantly less. The congestion window evolutions for Viscous along the two paths have been shown (Viscous-0 and Viscous-1), and in both the paths, Viscous can achieve a significant higher values of the congestion window. Consequently, Viscous sub-flows can utilize the available bandwidth at the paths in a significantly better way for multiplexed short-lived flows. 
-
 \begin{figure}[!t]
 	\centering
-	\includegraphics[width=\linewidth]{img/exp6/cwnd_sample1_5_20}
+	\includegraphics[width=0.5\linewidth]{img/exp6/cwnd_sample1_5_20}
 	\caption{Experiment 1: Congestion Window Evolution}
 	\label{fig:exp6_cwnd}
 \end{figure}
+
+First, we observe the average flow completion time for all the flows over Topology-1 without any background traffic, as shown in Fig.~\ref{fig:exp6_time}. From the figure, we can see that Viscous performs much better when multiple short-lived flows are transferred over the network. QUIC in this scenario does not perform good. Although QUIC can multiplex multiple flows coming from the application layer, it maintains flow specific congestion window, resulting in a slow start problem for the flows. Further, QUIC fails to utilize multiple interfaces available in the network which is one of the main reasons behind its poor performance over the test topology. MPTCP suffers from the path imbalance problem as discussed earlier, and TCP Cubic can not utilize multi-homing capacity for the flows. To analyze the effect of short-lived flows, we compare the congestion window evolution for TCP and Viscous for a specific case, as given in Fig.~\ref{fig:exp6_cwnd}, when RTT=$16$ ms and number of parallel thread = $5$. We observe that the average congestion window for TCP is significantly less. The congestion window evolutions for Viscous along the two paths have been shown (Viscous-0 and Viscous-1), and in both the paths, Viscous can achieve a significant higher values of the congestion window. Consequently, Viscous sub-flows can utilize the available bandwidth at the paths in a significantly better way for multiplexed short-lived flows. 
 
 %
 %
@@ -127,25 +126,25 @@ First, we observe the average flow completion time for all the flows over Topolo
     \begin{center}
         \begin{minipage}{0.45\linewidth}
             \centering
-            \includegraphics[width=0.24\linewidth]{img/exp6/goodput_1}
+            \includegraphics[width=\linewidth]{img/exp6/goodput_1}
             \label{fig:exp6_goodput_16}
             \subcaption{RTT=16ms}
         \end{minipage}
         \begin{minipage}{0.45\linewidth}
             \centering
-            \includegraphics[width=0.24\linewidth]{img/exp6/goodput_5}
+            \includegraphics[width=\linewidth]{img/exp6/goodput_5}
             \label{fig:exp6_goodput_80}
             \subcaption{RTT=80ms}
         \end{minipage}
         \begin{minipage}{0.45\linewidth}
             \centering
-            \includegraphics[width=0.24\linewidth]{img/exp6/goodput_10}
+            \includegraphics[width=\linewidth]{img/exp6/goodput_10}
             \label{fig:exp6_goodput_160}
             \subcaption{RTT=160ms}
         \end{minipage}
         \begin{minipage}{0.45\linewidth}
             \centering
-            \includegraphics[width=0.24\linewidth]{img/exp6/goodput_20}
+            \includegraphics[width=\linewidth]{img/exp6/goodput_20}
             \label{fig:exp6_goodput_320}
             \subcaption{RTT=320ms}
         \end{minipage}
@@ -157,6 +156,77 @@ Next, we observe the average goodput of the flows for the four different protoco
 
 
 \subsection{Experiment 2 (Performance over Topology-1 in the Presence of Background Flows)}
+
+\begin{figure}[!t]
+	\begin{center}
+		\begin{minipage}{0.45\linewidth}
+			\centering
+			\includegraphics[width=\linewidth]{img/exp7/time_elapsed_1}
+			\label{fig:exp7_time_16}
+			\subcaption{RTT=16ms}
+		\end{minipage}
+		\begin{minipage}{0.45\linewidth}
+			\centering
+			\includegraphics[width=\linewidth]{img/exp7/time_elapsed_5}
+			\label{fig:exp7_time_80}
+			\subcaption{RTT=80ms}
+		\end{minipage}
+		\begin{minipage}{0.45\linewidth}
+			\centering
+			\includegraphics[width=\linewidth]{img/exp7/time_elapsed_10}
+			\label{fig:exp7_time_160}
+			\subcaption{RTT=160ms}
+		\end{minipage}
+		\begin{minipage}{0.45\linewidth}
+			\centering
+			\includegraphics[width=\linewidth]{img/exp7/time_elapsed_20}
+			\label{fig:exp7_time_320}
+			\subcaption{RTT=320ms}
+		\end{minipage}
+		\caption{\label{fig:exp7_time}Experiment 2: Flow Completion Time over Topology-1 with Background Traffic}
+	\end{center}
+\end{figure}
+
+\begin{figure}[!t]
+	\centering
+	\includegraphics[width=0.5\linewidth]{img/exp7/cwnd_sample2_10_20}
+	\caption{Experiment 2: Congestion window evolution}
+	\label{fig:exp7_cwnd}
+\end{figure}
+
+
+\begin{figure}[!t]
+	\begin{center}
+		\begin{minipage}{0.45\linewidth}
+			\centering
+			\includegraphics[width=\linewidth]{img/exp7/goodput_1}
+			\label{fig:exp7_goodput_16}
+			\subcaption{RTT=16ms}
+		\end{minipage}
+		\begin{minipage}{0.45\linewidth}
+			\centering
+			\includegraphics[width=\linewidth]{img/exp7/goodput_5}
+			\label{fig:exp7_goodput_80}
+			\subcaption{RTT=80ms}
+		\end{minipage}
+		\begin{minipage}{0.45\linewidth}
+			\centering
+			\includegraphics[width=\linewidth]{img/exp7/goodput_10}
+			\label{fig:exp7_goodput_160}
+			\subcaption{RTT=160ms}
+		\end{minipage}
+		\begin{minipage}{0.45\linewidth}
+			\centering
+			\includegraphics[width=\linewidth]{img/exp7/goodput_20}
+			\label{fig:exp7_goodput_320}
+			\subcaption{RTT=320ms}
+		\end{minipage}
+		\caption{\label{fig:exp7_goodput}Experiment 2: Goodput over Topology-1 with Background Traffic}
+	\end{center}
+\end{figure}
+
+
+
 We have performed the similar experiment as given in Experiment 1, however, in this scenario we have considered the performance of the protocols in the presence of  background traffic. To generate background traffic, we have sent continuous HTTP traffic from $H3$ to $H4$ and $H5$ over Topology-1. This traffic is also in the form of the exponential in nature with mean number of packets as $25$ per second. We have plotted the results in Fig.~\ref{fig:exp7_time}, Fig.~\ref{fig:exp7_goodput} and Fig.~\ref{fig:exp7_cwnd}, for average flow completion time, average goodput for the flows and congestion window evolution over time, respectively. Similar to the previous case, we have found that Viscous performs much better than other competing protocols even in the presence of background traffic. Viscous takes less time than other end-to-end protocols, and the drop in performance for Viscous is comparatively less than other protocols when background traffic is present. The effectiveness of Viscous lies in the fact of proper utilization of available capacity over multiple paths, even in the presence of short-lived flows. Fig.~\ref{fig:exp7_cwnd} shows that Viscous can attain a significant boost in congestion window size at both the paths, compared to TCP Cubic. 
 
 %\begin{figure*}[!t]
@@ -196,74 +266,7 @@ We have performed the similar experiment as given in Experiment 1, however, in t
 %        \caption{\label{fig:exp7_goodput}Experiment 2: Goodput over Topology-1 with Background Traffic}
 %    \end{center}
 %\end{figure*}
-\begin{figure}[!t]
-    \begin{center}
-        \begin{minipage}{0.45\linewidth}
-            \centering
-            \includegraphics[width=0.24\linewidth]{img/exp7/time_elapsed_1}
-            \label{fig:exp7_time_16}
-            \subcaption{RTT=16ms}
-        \end{minipage}
-        \begin{minipage}{0.45\linewidth}
-            \centering
-            \includegraphics[width=0.24\linewidth]{img/exp7/time_elapsed_5}
-            \label{fig:exp7_time_80}
-            \subcaption{RTT=80ms}
-        \end{minipage}
-        \begin{minipage}{0.45\linewidth}
-            \centering
-            \includegraphics[width=0.24\linewidth]{img/exp7/time_elapsed_10}
-            \label{fig:exp7_time_160}
-            \subcaption{RTT=160ms}
-        \end{minipage}
-        \begin{minipage}{0.45\linewidth}
-            \centering
-            \includegraphics[width=0.24\linewidth]{img/exp7/time_elapsed_20}
-            \label{fig:exp7_time_320}
-            \subcaption{RTT=320ms}
-        \end{minipage}
-        \caption{\label{fig:exp7_time}Experiment 2: Flow Completion Time over Topology-1 with Background Traffic}
-    \end{center}
-\end{figure}
 
-\begin{figure}[!t]
-    \begin{center}
-        \begin{minipage}{0.45\linewidth}
-            \centering
-            \includegraphics[width=0.24\linewidth]{img/exp7/goodput_1}
-            \label{fig:exp7_goodput_16}
-            \subcaption{RTT=16ms}
-        \end{minipage}
-        \begin{minipage}{0.45\linewidth}
-            \centering
-            \includegraphics[width=0.24\linewidth]{img/exp7/goodput_5}
-            \label{fig:exp7_goodput_80}
-            \subcaption{RTT=80ms}
-        \end{minipage}
-        \begin{minipage}{0.45\linewidth}
-            \centering
-            \includegraphics[width=0.24\linewidth]{img/exp7/goodput_10}
-            \label{fig:exp7_goodput_160}
-            \subcaption{RTT=160ms}
-        \end{minipage}
-        \begin{minipage}{0.45\linewidth}
-            \centering
-            \includegraphics[width=0.24\linewidth]{img/exp7/goodput_20}
-            \label{fig:exp7_goodput_320}
-            \subcaption{RTT=320ms}
-        \end{minipage}
-        \caption{\label{fig:exp7_goodput}Experiment 2: Goodput over Topology-1 with Background Traffic}
-    \end{center}
-\end{figure}
-
-
-
-\begin{figure}[!t]
-    \centering
-    \includegraphics[width=\linewidth]{img/exp7/cwnd_sample2_10_20}
-    \caption{Experiment 2: Congestion window evolution}
-    \label{fig:exp7_cwnd}
-\end{figure}
 
 \subsection{Experiment 3 (Performance over Topology-2 in the Presence of Background Flows)}
 
@@ -309,25 +312,25 @@ We have performed the similar experiment as given in Experiment 1, however, in t
     \begin{center}
         \begin{minipage}{0.45\linewidth}
             \centering
-            \includegraphics[width=0.24\linewidth]{img/exp10/time_elapsed_1}
+            \includegraphics[width=\linewidth]{img/exp10/time_elapsed_1}
             \label{fig:exp10_time_16}
             \subcaption{RTT=16ms}
         \end{minipage}
         \begin{minipage}{0.45\linewidth}
             \centering
-            \includegraphics[width=0.24\linewidth]{img/exp10/time_elapsed_5}
+            \includegraphics[width=\linewidth]{img/exp10/time_elapsed_5}
             \label{fig:exp10_time_80}
             \subcaption{RTT=80ms}
         \end{minipage}
         \begin{minipage}{0.45\linewidth}
             \centering
-            \includegraphics[width=0.24\linewidth]{img/exp10/time_elapsed_10}
+            \includegraphics[width=\linewidth]{img/exp10/time_elapsed_10}
             \label{fig:exp10_time_160}
             \subcaption{RTT=160ms}
         \end{minipage}
         \begin{minipage}{0.45\linewidth}
             \centering
-            \includegraphics[width=0.24\linewidth]{img/exp10/time_elapsed_20}
+            \includegraphics[width=\linewidth]{img/exp10/time_elapsed_20}
             \label{fig:exp10_time_320}
             \subcaption{RTT=320ms}
         \end{minipage}
@@ -339,25 +342,25 @@ We have performed the similar experiment as given in Experiment 1, however, in t
         \begin{center}
             \begin{minipage}{0.45\linewidth}
                 \centering
-                \includegraphics[width=0.24\linewidth]{img/exp10/goodput_1}
+                \includegraphics[width=\linewidth]{img/exp10/goodput_1}
                 \label{fig:exp10_goodput_16}
                 \subcaption{RTT=16ms}
             \end{minipage}
             \begin{minipage}{0.45\linewidth}
                 \centering
-                \includegraphics[width=0.24\linewidth]{img/exp10/goodput_5}
+                \includegraphics[width=\linewidth]{img/exp10/goodput_5}
                 \label{fig:exp10_goodput_80}
                 \subcaption{RTT=80ms}
             \end{minipage}
             \begin{minipage}{0.45\linewidth}
                 \centering
-                \includegraphics[width=0.24\linewidth]{img/exp10/goodput_10}
+                \includegraphics[width=\linewidth]{img/exp10/goodput_10}
                 \label{fig:exp10_goodput_160}
                 \subcaption{RTT=160ms}
             \end{minipage}
             \begin{minipage}{0.45\linewidth}
                 \centering
-                \includegraphics[width=0.24\linewidth]{img/exp10/goodput_20}
+                \includegraphics[width=\linewidth]{img/exp10/goodput_20}
                 \label{fig:exp10_goodput_320}
                 \subcaption{RTT=320ms}
             \end{minipage}
@@ -366,17 +369,20 @@ We have performed the similar experiment as given in Experiment 1, however, in t
     \end{figure}
 
 
-Next we perform similar experiments over Topology-2, where both the server and the client have multiple interfaces. The results are shown in Fig.~\ref{fig:exp10_time} for average flow completion time, and in Fig.~\ref{fig:exp10_goodput} for average goodput of the flows. Similar to the earlier scenarios, here we observe that Viscous attains better goodput and lower flow completion time compared to QUIC, TCP Cubic and MPTCP. Further, we observe that in this scenario, Viscous attains better goodput compared to the goodput over Topology-1, as shown in Fig.~\ref{fig:exp6_goodput}. This indicates that Viscous can properly utilize multihoming of devices, both at the Viscous client as well as the Viscous server. 
+Next we perform similar experiments over Topology-2, where both the server and the client have multiple interfaces. The results are shown in Fig.~\ref{fig:exp10_time} for average flow completion time, and in Fig.~\ref{fig:exp10_goodput} for average goodput of the flows. Similar to the earlier scenarios, here we observe that Viscous attains better goodput and lower flow completion time compared to QUIC, TCP Cubic and MPTCP. Similar to the previous case, QUIC in this scenario as well, does not perform good for short flows. Although QUIC can multiplex multiple flows coming from the application layer, it maintains flow specific congestion window, resulting in a slow start problem for the flows. Further, QUIC fails to utilize multiple interfaces available in the network which is one of the main reasons behind its poor performance over the test topology. MPTCP suffers from the path imbalance problem as discussed earlier, and TCP Cubic can not utilize multi-homing capacity for the flows. As a consequence, we observe significant performance improvement using Viscous, compared to other protocols. Additionally, we observe that in this scenario, Viscous attains better goodput compared to the goodput over Topology-1, as shown in Fig.~\ref{fig:exp6_goodput}. This indicates that Viscous can properly utilize multihoming of devices, both at the Viscous client as well as at the the Viscous server. 
 
 
 \subsection{Experiment 4: Performance for Long Flows over a Single Path -- Worst Case Performance of Viscous}
 
-Till now we have tested the performance of Viscous for short-lived flows. To compare its performance for long flows, we have performed this experiment, where we send various size of file from the host $H3$ to the host $H2$ over Topology-1. We plot the time required to transmit a complete file over the network using TCP and Viscous, when both uses only one path in the network. The results are plotted in Fig.~\ref{fig:exp1_singlepath}. From this figure, we observe that the performance of Viscous is almost equal for long flows over a single path, which we consider as the worst case performance for this protocol. This experiment shows that in the worst case, Viscous performs as good as TCP Cubic, however, under the scenarios with multiple short-lived event triggered or user generated flows, Viscous can significantly boost up the end-to-end performance. 
 
 \begin{figure}[!t]
-    \centering
-    \includegraphics[width=\linewidth]{img/exp1/tcp-mpudp_res}
-    \caption{Performance Comparison between Viscous and TCP for Long Flows over a Single Path}
-    \label{fig:exp1_singlepath}
+	\centering
+	\includegraphics[width=0.5\linewidth]{img/exp1/tcp-mpudp_res}
+	\caption{Performance Comparison between Viscous and TCP for Long Flows over a Single Path}
+	\label{fig:exp1_singlepath}
 \end{figure}
+
+
+Till now we have tested the performance of Viscous for short-lived flows. To compare its performance for long flows, we have performed this experiment, where we send various size of file from the host $H3$ to the host $H2$ over Topology-1. We plot the time required to transmit a complete file over the network using TCP and Viscous, when both uses only one path in the network. The results are plotted in Fig.~\ref{fig:exp1_singlepath}. From this figure, we observe that the performance of Viscous is almost equal for long flows over a single path, which we consider as the worst case performance for this protocol. This experiment shows that in the worst case, Viscous performs as good as TCP Cubic, however, under the scenarios with multiple short-lived event triggered or user generated flows, Viscous can significantly boost up the end-to-end performance. 
+
 

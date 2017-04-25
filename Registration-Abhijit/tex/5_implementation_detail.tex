@@ -1,123 +1,114 @@
-\section{Impletemention}
-We have implemented and tested Viscous protocol using C++ language in linux\footnote{Our implementation may not work in other Unix based kernel. There is some dependency from Linux kernel.} kernel environment with pthread. We have performed most of the experiment in network emulator Mininet and real network using raspberry pis. 
-
-Before we go deep into implementation, we will discuss the packet structure being used in our implementation.
+\section{Viscous Implementation: Packet Structure and Protocol Modules}
+We have implemented and tested Viscous using C++ language in Linux\footnote{Our implementation may not work in other Unix based kernel. There is some dependency from Linux kernel.} kernel environment with \texttt{pthread} library. 
+In this section, we give the implementation details for Viscous. 
 
 \subsection{Packet Structure}
-In Fig.~\ref{fig:packet_format}, we have depicted the packet structure we use in our implementation. \acrshort{tcp} packet structure influences our packet structure. Each packet is divided into three parts. They are a) mandatory header, b) variable length optional headers for additional information, and c) data region.
+Fig.~\ref{fig:packet_format} depicts the packet structure used in Viscous. The basic packet structure for Viscous is influenced by TCP packet structure. Each packet is divided into three parts -- a) {\em Mandatory Header}, b) {\em Variable Length Optional Headers} for additional information, and c) {\em Data Region}. The maximum size of a Viscous packet is based on the Maximum Transmission Unit (MTU) for the corresponding network. At the current implementation of Viscous, we do not allow segmentation. 
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
     \centering
-    \includegraphics[width=1\linewidth]{img/Packet_format.eps}
+    \includegraphics[width=0.75\linewidth]{img/Packet_format.eps}
     %\framebox[0.9\linewidth]{\input{img/Packet_format.tex}}
     \caption{Viscous packet header structure}
     \label{fig:packet_format}
 \end{figure}
-\subsubsection{Mandatory header}
-Every packet starts with 28 bytes mandatory headers. It several fields. These fields are:
+
+\subsubsection{Mandatory Header}
+Every packet starts with $28$ bytes mandatory headers. Different fields in the mandatory header are as follows. 
 \begin{itemize}
-    \item \textbf{Ver}: 4 bit protocol version number. The current version is 1.
+    \item \textbf{Ver}: $4$ bit protocol version number. The current version is 1.
     
-    \item \textbf{OHLen}: 4 bit optional header count. We can accommodate at most 16 optional headers in a packet. As optional header size are different, it makes sense to store the number of optional headers than total size of it.
+    \item \textbf{OHLen}: $4$ bit optional header count. We can accommodate at most $16$ optional headers in a packet. As optional header size are different, it makes sense to store the number of optional headers than total size of it.
+    \item \textbf{Ifc-s}: $4$ bit application defined source interface ID.
+    \item \textbf{Ifc-d}: $4$ bit application defined destination interface ID. Each application can use the device and list down the interface IDs available. At the current implementation of Viscous, we assume that a device cannot have more than $15$ interfaces. Interface IDs start with $1$. Interface id $0$ (zero) means it is not a valid interface. In our implementation, we use a pair of local and remote interface IDs as the channel identifier. So, our implementation can support at most ($15\times15$) $225$ channels.
+    \item \textbf{Flag}: Set of $1$ bit flags. We discuss it later in this section.
+    \item \textbf{Sequence Number}: $16$ bit sequence number for a single packet. This sequence number is packet sequence number. In Viscous, we use packet based sequence number because of two reasons: a) packets are not created by the channel handler and b) As we multiplex multiple flows, it is easier to track a packet from a flow than an byte sequence from a flow. Sequence numbers are used by the channel handler to provide reliable communication between two applications. Two channels can have same sequence number for a packet.
+    \item \textbf{ACK Number}: $16$ bit acknowledge number. In Viscous, we use cumulative acknowledgment number similar to TCP. It denotes that the receiver has received contiguous packets up to this sequence number, and it has not received the next packet until the time it was sent from the receiver.
     
-    \item \textbf{Ifc\_s}: 4 bit application defined source interface id.
-    \item \textbf{Ifc\_d}: 4 bit application defined destination interface id.
+    \item \textbf{Window Size}: Receiver's advertise window. This is used for flow control in Viscous. 
     
-    \hspace{3pt} Each application can use the device and list down the interface ids available. We assume that a device cannot have more than 15 interfaces. Interface ids start with 1. Interface id $0$ (zero) means it is not a valid interface. In our implementation, we use a pair of local and remote interface id as channel identifier. So, our implementation can support at most ($15\times15$) $225$ channels.
+    \item \textbf{Fingerprint}: It is the client's unique ID generated by the server. Every packet includes this field except the \texttt{SYN} packet. In Viscous, packets are discarded silently if this field is 0 (zero) or if there are no connections that matches with the fingerprint (i.e. invalid fingerprint).
     
-    \item \textbf{Flag}: Set of 1 bit flags. We will discuss it later in this section.
+    \item \textbf{Flow ID}: We use a $16$ bit flow ID in Viscous. To keep implementation simple, we use a $16$ bit integer as the flow identifier.
     
-    \item \textbf{Sequenc Number}: 16-bit sequence number for a packet for a single packet. This sequence number is packet sequence number, not octet. We are using packet based sequence number because of two reasons: a) Packets are not created by channel handler and b) As we multiplex multiple flows, it is easier to track a packet from a flow than an octet from a flow.Sequence numbers are used by channel handler to provides reliable communication between two application. Two channel can have (and will have) same sequence number.
+    \item \textbf{Flow Sequence Number}: $16$ bit sequence number for each flow. It is independent of the packet sequence number. This parameter is required at the flow layer to reorder the packets at the receiver side. While the sequence number fields determine number of packets transmitted over a connection, the flow sequence number indicates the number of packets transmitted or received from a single flow. Because of the similar reason for using packet based sequence number, we also use packet based flow sequence number at the flow layer.
     
-    \item \textbf{Ack Number}: 16 bit acknowledge number. It cumulative acknowledgment number like \acrshort{tcp} acknowledgment number. It denotes that, the receiver receives contiguous packet up to this sequence number and it did not receive next packet until the time it was sent from the receiver.
+    \item \textbf{Original ACK Number}: Viscous uses selective acknowledge mechanism. When the receiver receives an out of order packet, it is supposed to send duplicate acknowledgment packets acknowledging the last conscious packet received. The receiver puts the original sequence number of the packet which triggers the duplicate acknowledgment. This field gives sender an indication about the packets received at the receiver side. So, the sender does not resend them again. It helps Viscous in reducing number of overall retransmissions.
     
-    \item \textbf{Window Size}: Reciever's advertise window.
+    \item \textbf{Padding}: We use a $16$ bit padding to keep the header size in the power of $2$. This is currently an empty space in the header that can be reused later on. 
     
-    \item \textbf{Finger Print}: It is client's unique id generated by the server. Every packet includes this field except the $SYN$ packet. Packets will be discarded silently if this field is 0 (zero) or if there are no connection matching this fingerprint (i.e. invalid fingerprint).
-    
-    \item \textbf{Flow Id}: 16 bit flow id. To keep implementation simple, we use a 16bit integer as the flow identifier.
-    
-    \item \textbf{Flow Sequence Number}: 16-bit sequence number of each flow. It is independent of the sequence number. It requires at the flow layer to reorder packet at the receiver side. Similar reason as the sequence number, we use packet based flow sequence number.
-    
-    \item \textbf{Original Ack Number}: Viscous uses selective acknowledge mechanism. When the receiver receives an out of order packet, it is supposed to send duplicate acknowledgment packet acknowledging last conscious packet received. The receiver will put original sequence number of the packet which triggers the duplicate acknowledgment. This field gives sender an indication about packets received at the receiver side. So, send will no resend them again. It helps Viscous in reducing overall retransmission.
-    
-    \item \textbf{Padding}: It is not a field.
-    
-    \item \textbf{Sent timestamp}: When a sender sends a data packet it includes a current Unix timestamp in microseconds ($\mu s$). When a receiver receives a data packets, it includes this timestamp with ack packet. It helps sender in measuring round trip time ($rtt$) more accurately.
+    \item \textbf{Sender Timestamp}: When a sender sends a data packet it includes a current Unix timestamp in microseconds ($\mu s$). When a receiver receives a data packets, it includes this timestamp with the ACK packet. It helps the sender in measuring the RTT more accurately.
 \end{itemize}
 
-\subsubsection{Flags}
-In our implementation, we reserve 16bit for several 1bit flags. Although we can use 16 different flags, currently we are using only eight flags. Figure \ref{fig:flags} gives an illustration of every flag and their position in bit fields. These flags are:
-\begin{figure}[!h]
+\subsubsection{Flags in Viscous Mandatory Header}
+In our implementation, we reserve $16$ bits for several $1$ bit flags. Although we can use $16$ different flags, currently we are using only eight flags. Fig.~\ref{fig:flags} gives an illustration of every flag and their position in bit fields. These flags are as follows. 
+
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=.5\linewidth]{img/flags}
-    \caption{Flags in Viscous packet header}
+    \caption{Flags in Viscous Packet Header}
     \label{fig:flags}
 \end{figure}
 
 \begin{itemize}
-    \item \textbf{$ACK$}: Acknowledgement flag. Describes that the packet contains acknowledgment number.
-    \item \textbf{$DAT$}: Data flag. In our implementation, a packet will go up to flow layer only if packets marked as DATA packet.
-    \item \textbf{$SYN$}: Synchronisation flag. Used for connection establishment.
+    \item \textbf{$ACK$}: Acknowledgment flag that describes that the packet contains an acknowledgment number.
+    \item \textbf{$DAT$}: Data flag. In our implementation, a packet goes up to the flow layer only, if the packet is marked as DATA packet.
+    \item \textbf{$SYN$}: Synchronization flag used for connection establishment.
     \item \textbf{$FFN$}: Flow finished indicator. We use it to close a single flow.
     \item \textbf{$CFN$}: Connection/client finish flag. We use it for connection closure.
-    \item \textbf{$FAC$}: Flow acknowledgement. Not being used now.
-    \item \textbf{$PSH$}: Push flag. It is the indicator that flow just started i.e. this is the first packet of a flag.
-    \item \textbf{$CSN$}: Channel Synchronisation flag. It is being used when we try to set up a channel. It is the first packet; every channel sends to another end. It is two-way handshaking, not three-way.
+    \item \textbf{$FAC$}: Flow acknowledgment. 
+    \item \textbf{$PSH$}: Push flag. It is the indicator that a flow has just started, i.e. this is the first packet of a flow.
+    \item \textbf{$CSN$}: Channel Synchronization flag. It is being used when we try to set up a channel. It is the first packet that every channel sends to the other end. It is a two-way handshaking for channel establishment.
 \end{itemize}
 
 
-\subsection{Modules and Layers}
-We have developed several modules to perform different purposes throughout the lifetime of the protocol. Block diagram at figure \ref{fig:ProtocolDiagram} gives an elaborate description of our modular implementation.
+\subsection{Modules and Layers in Viscous Design}
+We have developed several modules to perform different purposes throughout the lifetime of the Viscous protocol. These modules support application programmability, where an application developer can independently change a module without affecting others, based on the need from the application. The block diagram given in Fig.~\ref{fig:ProtocolDiagram} gives an elaborate description of our modular implementation of Viscous.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
-    \includegraphics[width=.9\linewidth]{img/ModularDiagram}
-    \caption{Internal Packet/Data flow diagram}
+    \includegraphics[width=.8\linewidth]{img/ModularDiagram}
+    \caption{Internal Packet and Data Flow Diagram for Viscous}
     \label{fig:ModularDiagram}
 \end{figure}
 
-Now we describe each module in detail.
+The various modules and their functionalities in Viscous are as follows. 
 
 \subsubsection{Application}
-An application is the users' application using the Viscous library. Viscous exposes few \acrshort{api}s like a) start the client, b) add new flow, c)send data, d) stop/finish flow, d) stop client. These are the methods; the application needs to access Viscous library. Few \acrshort{api}s are provided via callbacks. These are a) new client added, b) new flow received, c) data received, d) flow closed. We use callback based \acrshort{api}s because it is easier to implement. It is expected that callback methods will be brief. Otherwise, it can degrade overall performance.
+An application is the users' application using the Viscous library. Viscous exposes few application programming interfaces (APIs) like (a) start the client, (b) add new flow, (c)send data, (d) stop/finish flow, and (e) stop client. These are the methods developed under Viscous, and an application needs to access the Viscous library to call the corresponding API from Viscous Application module. Few of these APIs are provided via callbacks, such as -- (a) addition of new clients, (b) reception of a new flow, (c) data received, and (d) flow closed. We use callback based APIs because it is easier to implement and it is expected that the callback methods are brief in general. This provides application programmability support with better performance guarantee in terms of execution time. 
 
 
 \subsubsection{Flow Handler}
-Application directly sends data to this module and receives from it. Flow handler packetizes the raw data from the application and sends packets to lower layer for further processing. It does not need to store any outgoing packets as channel layer ensures the reliability. It only keeps track of the packets it sends to control the flow rate.
+In Viscous, an application directly sends data to this module and receives from it. Flow handler packetizes the raw data from the application and sends packets to the lower layer for further processing. It does not need to store any outgoing packets, as the channel layer ensures the reliability. It only keeps track of the packets that it sends, to control the flow rate. Viscous uses a sliding window based flow control mechanism based on the receiver advertised window size. 
 
-It reorders the out of packets it receives from the lower layer. There is a receives buffer that store out-of-order packets. This buffer is an array of packets. The first index point to the next expected packet sequence. Whenever flow-handler receives one or more contiguous packets from expected sequence, it delivers the data from those to the application.
+The flow handler also reorders the out of order packets that  it receives from the lower layer. There is a receive buffer that stores all the out of order packets. This buffer is an array of packets. The first index of this packet array point to the next expected packet sequence. Whenever the flow handler receives one or more contiguous packets from the expected sequence, it delivers the data from those flows to the application. In Viscous, there is one independent flow handler instance for each of the flows.
 
-There are one independent flow handler instances for each of the flows.
-
-\subsubsection{Multiplxer}
-The multiplexer is responsible for multiplexing the outgoing packets from multiple flows and forwards it to the packet scheduler. It is also responsible for demultiplexing incoming packet and forward them to appropriate flow handler. In the event of unknown flow id in the incoming packet, it simply creates a new flow handler for the new packet. Validation of the packet done mainly by channel handler.
+\subsubsection{Multiplexer}
+The multiplexer is responsible for multiplexing the outgoing packets from multiple flows and forwards them to the packet scheduler. It is also responsible for demultiplexing incoming packets and forwarding them to the appropriate flow handler. In the event of an unknown flow ID in the incoming packet, it simply creates a new flow handler for the new packet. Validation of the packet is done mainly by the channel handler.
 
 \subsubsection{Client Handler}
-Client handler is the manager of Viscous protocol \acrshort{api}. All incoming packets go through this module. For incoming packets, it checks packets validity using the fingerprint. 
-
-After validation, it forwards each incoming packet to Channel Handler via channel scheduler for further validation and processing for congestion control algorithm. If channel handler return packet with marking as a valid packet, it forwards the packet to the multiplexer.
+The client handler is the manager of Viscous protocol API. All incoming packets go through this module. For incoming packets, it checks the packet's validity using the fingerprint.  After validation, it forwards each incoming packet to the channel handler via channel scheduler for further validation and processing of the congestion control algorithm. If the channel handler returns a packet with marking as a valid packet, it forwards the packet to the multiplexer.
 
 \subsubsection{Channel scheduler}
-It schedules channel for the outgoing packet. It schedules outgoing packets to one of the channels. We used ack driven channel scheduler. A packet is scheduled to a channel only when the channel is capable of sending new packets i.e. after receiving the acknowledgment packet. \noteam{We need to give some reference. Sourav can help.}
+It schedules the channel for the outgoing packets. The channel scheduler schedules outgoing packets to one of the channels. As mentioned earlier, we have used ACK driven channel scheduler in Viscous design. A packet is scheduled to a channel only when the channel is capable of sending new packets i.e. after receiving the acknowledgment packet. %\noteam{We need to give some reference. Sourav can help.}
 
 \subsubsection{Channel Handler}
-Channel handler is responsible for reliable communication and congestion controling in network. Instead of trying to build new congestion control algorithm, we tried follow standard \acrshort{tcp}\cite{RFC2582} congestion control algorithm. We mimic tcp new reno algorithm from RFC2582\cite{RFC2582} and other RFCs\cite{RFC2581,RFC2988,RFC2001,RFC0793} with some modifications. This modifications are as follows:
+Channel handler is responsible for reliable communication and congestion control in the network. Instead of trying to build new congestion control algorithm, we have followed the standard TCP~\cite{RFC2582} congestion control algorithm for the Viscous implementation version $1.0$. We mimic TCP New Reno algorithm as given in RFC2582~\cite{RFC2582} and other RFCs, such as~\cite{RFC2581,RFC2988,RFC2001,RFC0793} with some modifications. These modifications are as follows:
 \begin{itemize}
-    \item Channel handler handles packets, not byte-stream. So sequence number represents a packet, not a byte. We are using packet based sequence number because of following reasons: a) Packets are not created by channel handler and b) As we multiplex multiple flows, it is easier to track a packet from a flow than an octet from a flow.
-    \item Each acknowledgment packet contains the original sequence number, that is the sequence number of the packet for which this acknowledgment triggered. It gives a similar effect as TCP Sack \cite{RFC2018}.
-    \item We have modified the fast recovery phase describe in RFC2581\cite{RFC2582} with Sack modification. After receiving the first partial new acknowledgment, channel handler sends all the unacknowledged (via sack/original ack in the packet header) packet up to $recovery$ for each duplicate ack. This modification reduces retransmission due to timeout events when a run of packets get lost in the network.
+    \item Channel handler handles packets, not the byte streams. So, the sequence number represents a packet, not a byte. 
+    \item Each acknowledgment packet contains the original sequence number, that is the sequence number of the packet for which this acknowledgment is triggered. It gives a similar effect as TCP SACK~\cite{RFC2018}.
+    \item We have modified the fast recovery phase described in RFC2581~\cite{RFC2582} with SACK modification. After receiving the first partial new acknowledgment, the channel handler sends all the unacknowledged (via SACK or the original ACK in the packet header) packets for each duplicate ACK. This modification reduces retransmission due to timeout events when a burst of packets get lost in the network.
 \end{itemize}
 
 \subsubsection{Receiver}
-A receiver is an independent module run in an independent thread. Its only job is to wait for a datagram on a datagram socket (i.e. UDP socket). Whenever some packets arrive, it receives the packets and forwards to another module.
+A Viscous receiver is an independent module run as an independent thread. Its only job is to wait for a datagram on a datagram socket (i.e. UDP socket). Whenever some UDP packets arrive at a Viscous receiver, it receives the packets and forwards them to the channel handler.
 
 \subsubsection{Sender}
-It is also an independent module. Only one instance can be there for an app. It looks at a common queue with channel handlers. Whenever some channel handler decides to send a packet, it put the packet in a common queue. Then sender picks up the packet from the queue and sends to the network.
+It is also an independent module. Only one instance of Viscous sender can be there for an application. The Viscous sender checks a common queue with channel handlers. Whenever some channel handler decides to send a packet, it put the packet in a common queue. Then the sender picks up the packet from the queue and sends to the network via packet socket interface. It can be noted that the standard Linux datagram socket does not allow to mention the interface ID for sending a packet, which is required for multi-interface packet transmission. Therefore we use the packet socket API to encapsulate a Viscous packet inside an UDP datagram followed by a MAC frame, and then send it to the network. Using the MAC frame, we can decide the interface through which the packet can be transmitted. This supports multi-homing over Viscous implementation.  
+%
+%We use packet socket interface for sending purpose. There is no way define sending network interface in datagram socket \acrshort{api}. So, we encode Mac frame, then send it to the network. This method allows us to send through any interface we want.
 
-We use packet-socket interface for sending purpose. There is no way define sending network interface in datagram socket \acrshort{api}. So, we encode Mac frame, then send it to the network. This method allows us to send through any interface we want.
-
-Although using packet-socket we can send a packet through any interface we want, Unix network policy does not permit us. To overcome Unix systems problem, we follow the routing configuration\footnote{http://multipath-tcp.org/pmwiki.php/Users/ConfigureRouting} given by \acrshort{mptcp}.
+Although using packet-socket we can send a packet through any interface we want, however the Unix network policy does not permit us to do so at the user level. To overcome the restriction with Unix systems, we follow the routing configuration\footnote{http://multipath-tcp.org/pmwiki.php/Users/ConfigureRouting} given by MPTCP implementation. Next we discuss the performance improvement that we achieve for Viscous under various network scenarios, compared to TCP Cubic, QUIC and MPTCP. 
 
 %\subsection{Mobility}
 %\noteam{write it down}
