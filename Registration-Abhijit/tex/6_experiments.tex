@@ -89,6 +89,8 @@ In this experiment, we have explored the performance of \acrshort{quic}, \acrsho
         \caption{\label{fig:exp6_time}Experiment 1: Flow Completion Time over Topology-1 without Background Flows}
     \end{center}
 \end{figure}
+
+
 First, we observe the average flow completion time for all the flows over Topology-1 without any background traffic, as shown in Fig.~\ref{fig:exp6_time}. From the figure, we can see that Viscous performs much better when multiple short-lived flows are transferred over the network. QUIC in this scenario does not perform good. Although QUIC can multiplex multiple flows coming from the application layer, it maintains flow specific congestion window, resulting in a slow start problem for the flows. Further, QUIC fails to utilize multiple interfaces available in the network which is one of the main reasons behind its poor performance over the test topology. MPTCP suffers from the path imbalance problem as discussed earlier, and TCP Cubic can not utilize multi-homing capacity for the flows. To analyze the effect of short-lived flows, we compare the congestion window evolution for TCP and Viscous for a specific case, as given in Fig.~\ref{fig:exp6_cwnd}, when RTT=$16$ ms and number of parallel thread = $5$. We observe that the average congestion window for TCP is significantly less. The congestion window evolutions for Viscous along the two paths have been shown (Viscous-0 and Viscous-1), and in both the paths, Viscous can achieve a significant higher values of the congestion window. Consequently, Viscous sub-flows can utilize the available bandwidth at the paths in a significantly better way for multiplexed short-lived flows. 
 
 \begin{figure}[!t]
@@ -220,7 +222,7 @@ We have performed the similar experiment as given in Experiment 1, however, in t
             \label{fig:exp7_time_320}
             \subcaption{RTT=320ms}
         \end{minipage}
-        \caption{{\label{fig:exp7_time}Experiment 2: Flow Completion Time over Topology-1 with Background Traffic}
+        \caption{\label{fig:exp7_time}Experiment 2: Flow Completion Time over Topology-1 with Background Traffic}
     \end{center}
 \end{figure}
 
