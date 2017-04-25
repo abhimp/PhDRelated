@@ -33,7 +33,7 @@ MPTCP\cite{scharf2013multipath} is a recent drop in replacement for TCP. It is b
 \subsubsection{The Architectural Priciples}
 Application connects using regular socket API. MPTCP manages underlying TCP connections called subflow. Subflow are responsible for tranferring data between hosts. MPTCP acts as a sub layer in the stack shown in Fig.~\ref{fig:mptcpstack}. MPTCP uses additional signal using TCP optional header.
 
-\begin{figure}
+\begin{figure}[h!]
 \centering
 \includegraphics{img/mptcp/paasch1}
 \caption{MultiPath TCP in the TCP/IP Stack}
@@ -49,7 +49,7 @@ There are three phases in MPTCP:
 \textbf{Connection Estabishment:}
 MPTCP establishes connection using normal TCP's three-way handshaking. During connection establishment phase, MPTCP add $MP_CAPABLE$ option with it $SYN$ packet. If server is MPTCP supported then it adds $MP_CAPABLE$ option with $SYN+ACK$ packet. And final $ACK$ packet also contain $MP_CAPABLE$ option. MPTCP (server or client) add a random key for sequrity with its $SYN$ packet. 
 
-\begin{figure}
+\begin{figure}[h!]
 \centering
 \includegraphics[width=\linewidth]{img/mptcp/paasch2}
 \caption{Three-way handshaking to establish MPTCP connection}
@@ -57,17 +57,24 @@ MPTCP establishes connection using normal TCP's three-way handshaking. During co
 \end{figure}
 Three way handshaking shown in Fig.~\ref{fig:ConnectionEstablishment} create one MPTCP subflow to a interface. To use another path, MPTCP needs to add another subflow using three way handshake. However, this subflows need to be identified properly. Normal TCP identified by 4 touple of $<src_ip,dst_ip,src_port,dst_port>$. MPTCP cannot use this as this tuple is host dependent. And network middlebox like NAT can change them. So MPTCP need something more. 
 
-\begin{figure}
+\begin{figure}[h!]
     \centering
     \includegraphics[width=\linewidth]{img/mptcp/paasch3}
     \caption{}
     \label{fig:4way}
 \end{figure}
+
 \textbf{Create additional subflow:} MPTCP uses 4 way handshaking shown in Fig.~\figurename{fig:4way} to add subflow. To add extra subflow, MPTCP uses $MP_JOIN$ option with $SYN$ packet. $MP_JOIN$ option used to authenticate the subflow. Here $token$ is the trancated hash of key it receives during $MP_CAPABLE$ exchange. In this phase two parties first exchange random nonce and then it compute HMAC based on the nonce and forward it to other party. Once both party receives the $ACK$ for the random nonce it shared, the subflow is established.
 
 \textbf{Data transfer:}
-As all the subflows are added, data can be transmitted between two host. TCP maintain congestion algorithm, Whose main goal is not to take over all the available bandwidth. If we run simple single path congestion control algorithm in each flows, it may be unfair to other normal TCP. It may happen that more than one flow goes through same bottleneck. As per normal TCP congestion control algorithm, all flows through a bottle share the bottle neck equally. So, having more subflow through a bottleneck means having more 
+As all the subflows are added, data can be transmitted between two host. MPTCP need a congestion control algorithm. At the begining, MPTCP was using coupled congestion control algorithm named \textit{link increases algorithm} (LIA)\cite{LIARFC6356}. 
 
+\textbf{LIA:} Objective of LIA is to balance load over multiple subflow. If congestion decrease in a flow, it pushes more packet towards that and vice versa. Here MPTCP uses modified version of Additive-Increase-Multiplecative-Decrease(AIMD). The formulas are as follows:
+For each $ACK$, increase $w_r$ by 
+$$min\left( \frac{max_{i\epsilon R_u} w_i/rtt_i^2}{\left(\sum_{i\epsilon R_u}w_i/rtt_i\right)^2}, \frac{1}{w_r}\right) $$
+And one packet, decrease by $$\frac{wr}{2}$$
+
+\textbf{OLIA:} All subflows may not go through distinct path. It may happens that 2 or more subflows going through same bottle neck. LIA will try balnce between them. As paths are same, This two subflow start behaving like individual TCP flow. That will unfaire to other normal TCP flow, as MPTCP will grab more share to the bottleneck. So LIA is not pareto optimal\cite{OLIARamin2012}. Khalili \textbf{et. al.} propose a modification to the LIA algorithm name as \textit{Opputunistic Link Increases Algorithm} (OLIA).
 
 
 MPTCP uses coupled congestion control algorithm which is also known as LIA\cite{LIARFC6356}. However, LIA is not Pareto optimal\cite{OLIARamin2012}. It decreases the bandwidth utilization of other TCP flows on the Internet. So Khalili \textit{et. al.} suggested using OLIA, as new more conservative congestion control algorithm for MPTCP to avoid the more aggressive behavior. Ferlin \textit{et. al.} argued that it not the case when the path does not share any bottle neck\cite{MPTCP-SBD}. They developed a mechanism to detect shared bottleneck call MPTCP-SBD.
