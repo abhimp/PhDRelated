@@ -24,10 +24,51 @@ ECCP\cite{ECCP} puts a layer abstraction below the transport layer. Similar to M
 There are some other protocol for mobility like TCP-Migrate, Locator/Identifier Separator Protocol (LISP)\cite{LISPRFC6830} I3\cite{I3-internet-indirection-infrastructure}. To provide mobility, there is some name service based protocol like XIA\cite{XIA}, NDN\cite{ndn}, msocket\cite{Yadav2016}.
 
 \subsection{Stream Control Transfer Protocol (SCTP)}
-SCTP\cite{RFC4960} is a transport layer message-based multi-streaming protocol. It is UDP like message-oriented, and it ensures end-to-end reliability. SCTP is easy to deploy protocol. In the event of unavailability of native support, one can use UDP encapsulated SCTP\cite{6951}. Advantages over TCP is that supports multihoming delivery at both the end. Packet transfer mechanism eliminated head-of-the-blocking like TCP. However, many NAT boxes and routers discard SCTP packets as they cannot handle them. It is one of the reasons SCTP is not widely used.
+SCTP\cite{RFC4960} is a transport layer message-based multi-streaming protocol. It is UDP like message-oriented, and it ensures end-to-end reliability. SCTP is easy to deploy protocol. In the event of unavailability of native support, one can use UDP encapsulated SCTP\cite{RFC6951}. Advantages over TCP is that supports multihoming delivery at both the end. Packet transfer mechanism eliminated head-of-the-blocking like TCP. However, many NAT boxes and routers discard SCTP packets as they cannot handle them. It is one of the reasons SCTP is not widely used.
 
 \subsection{MultiPath-TCP (MPTCP)}
-MPTCP\cite{scharf2013multipath} is a recent drop in replacement for TCP. It is backward compatible, transparent to the application protocol. MPTCP supports mobility and multihoming. MPTCP utilize multiple network interface available to a device to speed up data transfer rate. MPTCP is just an extension of TCP\cite{mptcpsurvey}. It adds MPTCP layer on top of TCP and provides a congestion control algorithm. Normal TCP is a variation of MPTCP with a single sub flow. There are several challenges in designing the congestion control algorithm for MPTCP. 
+MPTCP\cite{scharf2013multipath} is a recent drop in replacement for TCP. It is backward compatible, transparent to the application protocol. MPTCP supports mobility and multihoming. MPTCP utilize multiple network interface available to a device to speed up data transfer rate. MPTCP is just an extension of TCP\cite{mptcpsurvey}. It adds MPTCP layer on top of TCP and provides a congestion control algorithm. Normal TCP is a variation of MPTCP with a single sub flow. There are several challenges in designing the congestion control algorithm for MPTCP.
+%MPTCP is designed with these 
+
+\subsubsection{The Architectural Priciples}
+Application connects using regular socket API. MPTCP manages underlying TCP connections called subflow. Subflow are responsible for tranferring data between hosts. MPTCP acts as a sub layer in the stack shown in Fig.~\ref{fig:mptcpstack}. MPTCP uses additional signal using TCP optional header.
+
+\begin{figure}
+\centering
+\includegraphics{img/mptcp/paasch1}
+\caption{MultiPath TCP in the TCP/IP Stack}
+\label{fig:mptcpstack}
+\end{figure}
+There are three phases in MPTCP:
+\begin{enumerate}
+    \item Connection Establishment
+    \item Add new sub-flow
+    \item Transmit data on the MPTCP connection.
+\end{enumerate}
+
+\textbf{Connection Estabishment:}
+MPTCP establishes connection using normal TCP's three-way handshaking. During connection establishment phase, MPTCP add $MP_CAPABLE$ option with it $SYN$ packet. If server is MPTCP supported then it adds $MP_CAPABLE$ option with $SYN+ACK$ packet. And final $ACK$ packet also contain $MP_CAPABLE$ option. MPTCP (server or client) add a random key for sequrity with its $SYN$ packet. 
+
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{img/mptcp/paasch2}
+\caption{Three-way handshaking to establish MPTCP connection}
+\label{fig:ConnectionEstablishment}
+\end{figure}
+Three way handshaking shown in Fig.~\ref{fig:ConnectionEstablishment} create one MPTCP subflow to a interface. To use another path, MPTCP needs to add another subflow using three way handshake. However, this subflows need to be identified properly. Normal TCP identified by 4 touple of $<src_ip,dst_ip,src_port,dst_port>$. MPTCP cannot use this as this tuple is host dependent. And network middlebox like NAT can change them. So MPTCP need something more. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{img/mptcp/paasch3}
+    \caption{}
+    \label{fig:4way}
+\end{figure}
+\textbf{Create additional subflow:} MPTCP uses 4 way handshaking shown in Fig.~\figurename{fig:4way} to add subflow. To add extra subflow, MPTCP uses $MP_JOIN$ option with $SYN$ packet. $MP_JOIN$ option used to authenticate the subflow. Here $token$ is the trancated hash of key it receives during $MP_CAPABLE$ exchange. In this phase two parties first exchange random nonce and then it compute HMAC based on the nonce and forward it to other party. Once both party receives the $ACK$ for the random nonce it shared, the subflow is established.
+
+\textbf{Data transfer:}
+As all the subflows are added, data can be transmitted between two host. TCP maintain congestion algorithm, Whose main goal is not to take over all the available bandwidth. If we run simple single path congestion control algorithm in each flows, it may be unfair to other normal TCP. It may happen that more than one flow goes through same bottleneck. As per normal TCP congestion control algorithm, all flows through a bottle share the bottle neck equally. So, having more subflow through a bottleneck means having more 
+
+
 
 MPTCP uses coupled congestion control algorithm which is also known as LIA\cite{LIARFC6356}. However, LIA is not Pareto optimal\cite{OLIARamin2012}. It decreases the bandwidth utilization of other TCP flows on the Internet. So Khalili \textit{et. al.} suggested using OLIA, as new more conservative congestion control algorithm for MPTCP to avoid the more aggressive behavior. Ferlin \textit{et. al.} argued that it not the case when the path does not share any bottle neck\cite{MPTCP-SBD}. They developed a mechanism to detect shared bottleneck call MPTCP-SBD.
 Currently, avaiable congestion algorithms are LIA, OLIA, BALIA and wVegas\cite{wVegas}. Apart from wVegas, all are an ack driven algorithm. Gonzalez \textit{et. al.} suggested a hybrid algorithm\cite{Balia-wvegas} using delay as well as the ack. \cite{aschedulermptcp,blestschedular,scheadulerformptcp} show several ways of scheduling a packet in a path over other. Hwang \textit{et. al.} suggested in \cite{scheadulerformptcp} that for small data transmission it is better to use single though single rather than using multipath as multipath need more time to setup. As flows can go through a heterogenious path. It may cause Head-of-the line blocking. So \cite{blestschedular} suggested predictive scheduling algorithm BLEST reduce Head-of-the-Blocking. Other than congestion control algorithm and scheduling algorithm, research has been don in combined congestion control algorithm\cite{outofordermptcp}, performance tuning \cite{optimization}, multimedia streaming \cite{streaming}.
