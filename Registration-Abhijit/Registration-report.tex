@@ -15,32 +15,31 @@
 \usepackage{booktabs}
 \usepackage{todonotes}
 \usepackage{multirow}
+%\usepackage{subfig}
+%\usepackage{subfloat}
 \usepackage{comment}
 \usepackage{url}
 \usepackage[ruled,vlined]{algorithm2e}
 \geometry{verbose,a4paper,tmargin=2.54cm,bmargin=2.54cm,lmargin=2.54cm,rmargin=2.54cm}
 \usepackage[automake, acronym]{glossaries}
 \linespread{1.2}
+\newcommand{\notesc}[1]{\textcolor{red}{SC: #1}}
+\newcommand{\noteam}[1]{\textcolor{green}{Abhijit: #1}}
+\newcommand{\notesb}[1]{\textcolor{blue}{Sourav: #1}}
 
 \loadglsentries{tex/abbrs.tex}
 \makeglossaries
 
 \begin{document}
 	
-	\input{tex/firstpage.tex}
+%	\input{tex/firstpage.tex}
+%    \input{tex/1_introduction.tex}
+%    \input{tex/2_motivation.tex}
 %	\input{Introduction.tex}
-	\input{tex/Motivation.tex}
+%	\input{tex/Motivation.tex}
 	\input{tex/RelatedWork.tex}
-%	\input{Contribution.tex}
-%	\input{Motivation.tex}
-%	\input{SystemOverview.tex}
-%	\input{OfflineProcessing.tex}
-%	\input{AlertSystem.tex}
-%	\input{UserInterface.tex}
-%	\input{Accuracy.tex}
-%	\input{Feedback.tex}
-%	\input{Conclusion.tex}
-	
+%    \input{tex/3_protocol.tex}
+%    \input{tex/4_implementation_detail.tex}
 	
 	
 	\bibliographystyle{abbrv}
