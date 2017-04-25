@@ -89,7 +89,7 @@ The multiplexer is responsible for multiplexing the outgoing packets from multip
 \subsubsection{Client Handler}
 The client handler is the manager of Viscous protocol API. All incoming packets go through this module. For incoming packets, it checks the packet's validity using the fingerprint.  After validation, it forwards each incoming packet to the channel handler via channel scheduler for further validation and processing of the congestion control algorithm. If the channel handler returns a packet with marking as a valid packet, it forwards the packet to the multiplexer.
 
-\subsubsection{Channel scheduler}
+\subsubsection{Channel Scheduler}
 It schedules the channel for the outgoing packets. The channel scheduler schedules outgoing packets to one of the channels. As mentioned earlier, we have used ACK driven channel scheduler in Viscous design. A packet is scheduled to a channel only when the channel is capable of sending new packets i.e. after receiving the acknowledgment packet. %\noteam{We need to give some reference. Sourav can help.}
 
 \subsubsection{Channel Handler}
