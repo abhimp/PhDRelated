@@ -23,6 +23,19 @@
 \usepackage[ruled,vlined]{algorithm2e}
 \geometry{verbose,a4paper,tmargin=2.54cm,bmargin=2.54cm,lmargin=2.54cm,rmargin=2.54cm}
 \usepackage[automake, acronym]{glossaries}
+
+%\numberwithin{page}{section} 
+%\renewcommand{\thepage}{\thesection-\arabic{page}}
+%\makeatletter
+%\section \patchcmd{\@sect}
+%{\protected@edef} 
+%{\def\arg{#1}\def\arg@{section}% 
+%    \ifx\arg\arg@\stepcounter{page}
+%    \fi
+%    \protected@edef}% <replace> 
+%{}{}% <success><failure> 
+%\makeatother
+
 \linespread{1.2}
 \newcommand{\notesc}[1]{\textcolor{red}{SC: #1}}
 \newcommand{\noteam}[1]{\textcolor{green}{Abhijit: #1}}
@@ -30,13 +43,21 @@
 
 \loadglsentries{tex/abbrs.tex}
 \makeglossaries
-
 \begin{document}
-	
+%	\setcounter{page}{1}
+%    \renewcommand{\thepage}{\arbic{\thesection}-\arabic{page}}
    \input{tex/firstpage.tex}
+%   \setcounter{page}{1}
    \input{tex/1_introduction.tex}
+%   \setcounter{page}{1}
    \input{tex/RelatedWork.tex}
+%   \setcounter{page}{1}
    \input{tex/2_motivation.tex}
+%   \setcounter{page}{1}
+    \input{tex/4_protocol.tex}
+    \input{tex/5_implementation_detail.tex}
+    \input{tex/6_experiments.tex}
+    \input{tex/7_conclusion.tex}
 %	\input{Introduction.tex}
 %	\input{tex/Motivation.tex}
 %    \input{tex/3_protocol.tex}
@@ -44,7 +65,7 @@
 	
 	
 	\bibliographystyle{abbrv}
-	\bibliography{bib/reg}
+	\bibliography{bib/reg,bib/merged}
 	
 	
 \end{document} 

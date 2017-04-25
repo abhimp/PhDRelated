@@ -67,18 +67,39 @@ Three way handshaking shown in Fig.~\ref{fig:ConnectionEstablishment} create one
 \textbf{Create additional subflow:} MPTCP uses 4 way handshaking shown in Fig.~\figurename{fig:4way} to add subflow. To add extra subflow, MPTCP uses $MP_JOIN$ option with $SYN$ packet. $MP_JOIN$ option used to authenticate the subflow. Here $token$ is the trancated hash of key it receives during $MP_CAPABLE$ exchange. In this phase two parties first exchange random nonce and then it compute HMAC based on the nonce and forward it to other party. Once both party receives the $ACK$ for the random nonce it shared, the subflow is established.
 
 \textbf{Data transfer:}
-As all the subflows are added, data can be transmitted between two host. MPTCP need a congestion control algorithm. At the begining, MPTCP was using coupled congestion control algorithm named \textit{link increases algorithm} (LIA)\cite{LIARFC6356}. 
+As all the subflows are added, data can be transmitted between two host. MPTCP need a congestion control algorithm. Straight forward extention of TCP congestion control algorithm may be unfair to the single path TCP.
+Paas \textbf{et. al.} in \cite{PaaschMptcp} suggested simple solution by using TCP independently at each path. However their results show that MPTCP dominate in the bandidth utilization.
 
-\textbf{LIA:} Objective of LIA is to balance load over multiple subflow. If congestion decrease in a flow, it pushes more packet towards that and vice versa. Here MPTCP uses modified version of Additive-Increase-Multiplecative-Decrease(AIMD). The formulas are as follows:
+\textbf{Link Increases Algorithm (LIA):} Using simple TCP in each path make single tcp strave. So Raiciu \textit{et. al.} proposes LIA to couple multiple path and use and aggresiveness factor to control the subflow window increament\cite{LIARFC6356}. The formulas without aggressive factor are as follows:
 For each $ACK$, increase $w_r$ by 
-$$min\left( \frac{max_{i\epsilon R_u} w_i/rtt_i^2}{\left(\sum_{i\epsilon R_u}w_i/rtt_i\right)^2}, \frac{1}{w_r}\right) $$
-And one packet, decrease by $$\frac{wr}{2}$$
+$$min\left( \frac{max_{i\epsilon \mathcal{R}_u} w_i/rtt_i^2}{\left(\sum_{i\epsilon \mathcal{R}_u}w_i/rtt_i\right)^2}, \frac{1}{w_r}\right) $$
+And one packet, decrease by $$\frac{w_r}{2}$$
 
-\textbf{OLIA:} All subflows may not go through distinct path. It may happens that 2 or more subflows going through same bottle neck. LIA will try balnce between them. As paths are same, This two subflow start behaving like individual TCP flow. That will unfaire to other normal TCP flow, as MPTCP will grab more share to the bottleneck. So LIA is not pareto optimal\cite{OLIARamin2012}. Khalili \textbf{et. al.} propose a modification to the LIA algorithm name as \textit{Opputunistic Link Increases Algorithm} (OLIA).
+where $\mathcal{R}_u$ path available to a user. $w_r$ congestion window size at path $r$.  $w_i$
+
+\textbf{OLIA:} All subflows may not go through distinct path. It may happens that 2 or more subflows going through same bottle neck. LIA will try balnce between them. As paths are same, This two subflow start behaving like individual TCP flow. That will unfaire to other normal TCP flow, as MPTCP will grab more share to the bottleneck. So LIA is not pareto optimal\cite{OLIARamin2012}. Khalili \textbf{et. al.} propose a modification to the LIA algorithm name as \textit{Oportunistic Link Increases Algorithm} (OLIA).
+
+On ack receive event, window will increase as per
+\begin{equation}
+\frac{w_r/rtt_r^2}{\left( \sum_{p\in\mathcal{R}_u}w_p/rtt_p\right)^2} + \frac{\alpha_r}{w_r}
+\end{equation}
+
+\begin{equation}
+    \alpha_r = \left\lbrace 
+    \begin{array}{ll}
+       \frac{1/|\mathcal{R}_u|}{|\mathcal{B}\smallsetminus \mathcal{M}|}  &\mbox{if} \hspace{0.3cm} r \in \mathcal{B}\smallsetminus\mathcal{M}\neq\emptyset   \\
+       - \frac{1/|\mathcal{R}_u|}{|\mathcal{M}|} \hspace{1cm}&\mbox{if} \hspace{0.3cm} r \in \mathcal{M} \hspace{0.3cm}\mbox{and}\hspace{0.3cm}\mathcal{B}\smallsetminus\mathcal{M}\neq \emptyset \\
+       0 & \mbox{otherwise}
+       \end{array} \right. 
+\end{equation}
 
 
-MPTCP uses coupled congestion control algorithm which is also known as LIA\cite{LIARFC6356}. However, LIA is not Pareto optimal\cite{OLIARamin2012}. It decreases the bandwidth utilization of other TCP flows on the Internet. So Khalili \textit{et. al.} suggested using OLIA, as new more conservative congestion control algorithm for MPTCP to avoid the more aggressive behavior. Ferlin \textit{et. al.} argued that it not the case when the path does not share any bottle neck\cite{MPTCP-SBD}. They developed a mechanism to detect shared bottleneck call MPTCP-SBD.
-Currently, avaiable congestion algorithms are LIA, OLIA, BALIA and wVegas\cite{wVegas}. Apart from wVegas, all are an ack driven algorithm. Gonzalez \textit{et. al.} suggested a hybrid algorithm\cite{Balia-wvegas} using delay as well as the ack. \cite{aschedulermptcp,blestschedular,scheadulerformptcp} show several ways of scheduling a packet in a path over other. Hwang \textit{et. al.} suggested in \cite{scheadulerformptcp} that for small data transmission it is better to use single though single rather than using multipath as multipath need more time to setup. As flows can go through a heterogenious path. It may cause Head-of-the line blocking. So \cite{blestschedular} suggested predictive scheduling algorithm BLEST reduce Head-of-the-Blocking. Other than congestion control algorithm and scheduling algorithm, research has been don in combined congestion control algorithm\cite{outofordermptcp}, performance tuning \cite{optimization}, multimedia streaming \cite{streaming}.
+\textbf{Balanced Linked Adaptation (Balia):}
+LIA and OLIA  suffer from the problem of on the unfair bandwidth allocation when it bottle neck with normal TCP flow. Walid \textit{et. al.} describe the balanced linked increases algorithm in \cite{walid2015balanced}. Balia balances trade of between TCP-Friendlyness and algorithmic responsiveness.
+
+
+%MPTCP uses coupled congestion control algorithm which is also known as LIA\cite{LIARFC6356}. However, LIA is not Pareto optimal\cite{OLIARamin2012}. It decreases the bandwidth utilization of other TCP flows on the Internet. So Khalili \textit{et. al.} suggested using OLIA, as new more conservative congestion control algorithm for MPTCP to avoid the more aggressive behavior. Ferlin \textit{et. al.} argued that it not the case when the path does not share any bottle neck\cite{MPTCP-SBD}. They developed a mechanism to detect shared bottleneck call MPTCP-SBD.
+%Currently, avaiable congestion algorithms are LIA, OLIA, BALIA and wVegas\cite{wVegas}. Apart from wVegas, all are an ack driven algorithm. Gonzalez \textit{et. al.} suggested a hybrid algorithm\cite{Balia-wvegas} using delay as well as the ack. \cite{aschedulermptcp,blestschedular,scheadulerformptcp} show several ways of scheduling a packet in a path over other. Hwang \textit{et. al.} suggested in \cite{scheadulerformptcp} that for small data transmission it is better to use single though single rather than using multipath as multipath need more time to setup. As flows can go through a heterogenious path. It may cause Head-of-the line blocking. So \cite{blestschedular} suggested predictive scheduling algorithm BLEST reduce Head-of-the-Blocking. Other than congestion control algorithm and scheduling algorithm, research has been don in combined congestion control algorithm\cite{outofordermptcp}, performance tuning \cite{optimization}, multimedia streaming \cite{streaming}.
 
 
 \subsection{Transmitting short-lived flows efficiently}
@@ -88,6 +109,15 @@ None of the above solutions have addressed the issue of short-lived connections.
 To address this issue Dukkipati \textit{et. al.} from Google suggested to increase initial congestion window size to least 10mss\cite{google-long-initcwnd} from 1mss. In general, it takes up to 3 round-trip time to reach congestion window to 10 MSS. For short flows like web browsing, Most of the time it does not have enough data to transmit after 4 RTT. TCP also take 1.5 RTT during connection establishment phase for three-way handshaking. In \cite{google-fast-open}, Radhakrishnan \textit{et. al.} from Google suggested that we can send during connection establishment phase, which saves time. However, this also not enough for short-lived connection over a long-fat link. Browser produces a very larger number of short-lived flows. Each of those connection goes through single TCP connection. Each of those connection needs to go through the similar issue. 
 
 \subsection{SPDY}
+As part of Google's "Let make the web faster" initiative, SPDY have been developed as a experimental protocol\cite{spdy}. SPDY offers a way to tries make web faster from the application layer. The goals of SPDY are:
+\begin{itemize}
+    \item Overall reduction in 50\% of page load time.
+    \item Easy deployability. SPDY uses TCP as under lying transport protocol so it does not require to change any thing.
+    \item It sould not require any changes in web content. i.e. it should be transparent to both user and website developer.
+\end{itemize}
+
+\subsubsection{Design and features}
+
 To solve this Google introduced experimental protocol SPDY\cite{spdy}. To avoid slow-start phase, Google multiplexed a large number of connection through a single TCP connection. SPDY become the standard from HTTP/2.0. In \cite{howspeedis}, Wang \textit{et. al.} show that uses of SPDY performs better with short-lived connections. SPDY decreases the retransmission count. However, SPDY hurts under high packet loss as it uses single TCP connection and that TCP connection decreases its window size drastically. 
 
 In \cite{canspdymake}, Eikhatib \textit{et. al.} shows that SPDY will work better only when a browser has to fetch large number small files from the server. Chinnaga \textit{et. al.} developed tool to test SPDY's perform\cite{scalabilitySPDY}. In \cite{han2015anatomy}, Han \textit{et. al.} explains how SPDY's performance can be improved using MPTCP.
