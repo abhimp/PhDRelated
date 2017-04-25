@@ -1,10 +1,10 @@
-\section{Viscous: Protocol Descriptions}
-To overcome the limitations of existing transport layer protocols as discussed in the previous section, we propose a new transport protocol called Viscous. It is a connection oriented multipath multi-flow transport protocol which is not coupled with the network stack, and work as a wrapper or a middleware between the users' application and the transport layer of the network protocol stack. The basic design philosophies for Viscous are as follows. 
+\section{Viscous: A New End-to-End Protocol for Ubiquitous Communication}
+To overcome the limitations of existing transport layer protocols as discussed in the previous section, we develop a new end-to-end protocol called Viscous. It is a connection oriented multipath multi-flow protocol which is not coupled with the network stack, and works as a wrapper or a middleware between the users' application and the transport layer of the network protocol stack. The basic design philosophies for Viscous are as follows. 
 \begin{enumerate}
 	\item To mitigate the signaling overhead associated with connection establishment, Viscous multiplexes multiple flows over a single Viscous connection. This reduces the connection setup time for short-lived flows. 
 	\item Viscous does not maintain a separate and independent congestion control for every application flows. Rather, it maintain a single congestion control mechanism for a Viscous connection which is a multiplex of multiple flows. Further, the congestion control is path specific, that is, congestion is monitored at every path from a source to a destination, where a Viscous sub-flow is initiated.  
 	\item Viscous follows a modular architecture for ease development of applications. Any Viscous module can be tuned independently to make it suitable for a specific performance bound. This way, application layer quality of service (QoS) can be provided with the help of Viscous. 
-	\item Viscous works on top of UDP, similar to Goggle's QUIC; therefore it mitigates the transport layer protocol overhead which is associated with TCP. 
+	\item Viscous works on top of UDP, similar to Google's QUIC; therefore it mitigates the transport layer protocol overhead which is associated with TCP. 
 	\item Viscous supports different types of mobility without breaking an existing connection. With the help of a unique client and server specific identifier which is shared during the initial connection establishment, Viscous can continue with the existing connection, even if the server or the client changes its IP address.   
 	\item Viscous follows a layered architecture with two different layers, as shown in Fig.~\ref{fig:sys-io}. The top layer consists of multiple flows from various applications, and the bottom layer consists of multiple channels, corresponding to each path between a server and a client. To avoid the signaling overhead from the connection establishment and the slow-start phase, congestion control and reliability are associated with the bottom layer which consists the channels. On the other hand, flow-control and data transmission are designed as a part of the upper layer, which is associated with the flows.
 	\item Consequently, Viscous decouples the congestion control from the flow control. This helps in avoiding slow start for all the flows between a source and a destination, those share common paths end-to-end. The flow control is kept flow specific, whereas the congestion control is kept channel or path specific. 
@@ -14,7 +14,7 @@ To overcome the limitations of existing transport layer protocols as discussed i
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[width=\linewidth]{img/sys-io}
+	\includegraphics[width=0.9\linewidth]{img/sys-io}
 	\caption{Flow-Channel architecture in the Viscous protocol. Application sends and receives data through the flows. Internally, Viscous sends and receives data using multiple channels over multiple paths.}
 	\label{fig:sys-io}
 \end{figure}
@@ -79,7 +79,7 @@ In Viscous, communication is possible only after association of the flows to the
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[width=1\linewidth]{img/ProtocolDiagram}
+	\includegraphics[width=0.8\linewidth]{img/ProtocolDiagram}
 	\caption{Three way handshaking between client and server and data transfer between them. Handshaking can go between any two pairs of interfaces.}
 	\label{fig:ProtocolDiagram}
 \end{figure}
