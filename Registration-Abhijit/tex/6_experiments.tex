@@ -2,7 +2,7 @@
 
 To evaluate the performance of Viscous, we perform several experiments over \texttt{Mininet} network emulation platform. We have used two different network topologies for emulation, as shown in Fig.~\ref{fig:experimentalTopology1} (Topology-1) and Fig.~\ref{fig:experimentalTopology2} (Topology-2). In Topology-1, $H1$ has multiple interfaces, but $H2$ has a single interface; whereas in Topology-2, both $H1$ and $H2$ have multiple interfaces. In these two topologies, $H1$ and $H2$ act as the Viscous server and the Viscous client, respectively, or vice-versa. Rest of the hosts generate background traffic; and we evaluate the performance of Viscous both in the presence as well as in the absence of background traffic.  We compare the performance of Viscous with following protocols;
 \begin{enumerate}
-	\item[(i)] TCP: We have used TCP Cubic with the optimizations proposed in~\cite{largecwnd}, where as initial congestion window size of $10$ is used to avoid network underutilization for short-lived flows. 
+	\item[(i)] TCP: We have used TCP Cubic with the optimizations proposed in~\cite{google-long-initcwnd}, where as initial congestion window size of $10$ is used to avoid network underutilization for short-lived flows. 
 	\item[(ii)] MPTCP: We have used Linux MPTCP kernel version 0.91 for our implementation.
 	\item [(iii)] QUIC: We have compared Viscous with QUIC implementation provided by \texttt{libquic}\footnote{\url{https://github.com/devsisters/libquic} (last accessed: April 25, 2017)}. 
 \end{enumerate}
