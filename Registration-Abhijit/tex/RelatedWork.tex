@@ -111,16 +111,20 @@ It can be noted that MPTCP first initiates the connection between the two end ho
 Once all the sub-flows are added, data can be transmitted between two hosts via multiple paths. MPTCP uses a congestion control algorithm, however, a straightforward extension of the TCP congestion control algorithm may perform poorly when the same session is shared over multiple paths. Paas \textbf{et. al.}~\cite{PaaschMptcp} have suggested a simple solution by using independent TCP congestion control for each path. However, their results show that MPTCP captures most of the bandwidth in a link that affects other ongoing communications over the shared paths. Accordingly, new congestion control algorithms have been proposed for MPTCP, as discussed next. 
 
 \textbf{Link Increases Algorithm (LIA)}: As mentioned that using the normal TCP congestion control algorithm at both the paths of MPTCP affects other independent TCP connections that share the path. Therefore, Raiciu \textit{et. al.}~\cite{LIARFC6356} have proposed a new congestion control algorithm, called {\em Link Increases Algorithm} (LIA) to couple multiple paths, and use an aggressiveness factor to control the subflow window increment. The congestion window tuning mechanism without the aggressive factor is as follows. For each \texttt{ACK}, MPTCP increase the congestion window ($w_r$) by the following factor. 
-$$w_{r+1} = \min\left( \frac{\max\limits_{i \in \mathcal{R}_u} w_i/rtt_i^2}{\left(\sum_{i \in \mathcal{R}_u}w_i/rtt_i\right)^2}, \frac{1}{w_r}\right) $$
+\begin{equation}
+w_{r+1} = \min\left( \frac{\max\limits_{i \in \mathcal{R}_u} w_i/rtt_i^2}{\left(\sum_{i \in \mathcal{R}_u}w_i/rtt_i\right)^2}, \frac{1}{w_r}\right)
+\end{equation}
 Here $\mathcal{R}_u$ is the set of paths available to the MPTCP sender $u$. $w_r$ and $rtt_r$ are the congestion window size and the RTT, respectively, at path $r \in \mathcal{R}_u$. On reception of a packet, the congestion window is decreased as follows.
-$$w_{r+1} = \frac{w_r}{2}$$
-
+\begin{equation}
+w_{r+1} = \frac{w_r}{2}
+\end{equation}
 
 \textbf{Opportunistic Linked-Increases Algorithm (OLIA):} In MPTCP, all the sub-flows may not go through a distinct path. It may happen that two or more sub-flows have overlapped path that may create bottleneck at the end-to-end flow. LIA tries to balance the congestion between the two available paths. However, as paths are same, these two sub-flows start behaving like individual TCP flows. This results in unfairness to other normal TCP flows, as MPTCP may grab more share of the bottleneck bandwidth. So LIA is not Pareto optimal~\cite{OLIARamin2012}. Khalili \textbf{et. al.}~\cite{OLIARamin2012} have propose a modification to the LIA algorithm named as \textit{Opportunistic Link Increases Algorithm} (OLIA). The congestion window tuning mechanism for OLIA works as follows.  On the reception of an \texttt{ACK} packet, the congestion window is increased as follows. 
 \begin{equation}
 w_r = \frac{w_r/rtt_r^2}{\left( \sum_{p \in \mathcal{R}_u}w_p/rtt_p\right)^2} + \frac{\alpha_r}{w_r}
 \end{equation}
-where,
+
+
 \begin{equation}
 \alpha_r = \left\lbrace 
 \begin{array}{ll}
@@ -130,6 +134,7 @@ where,
 \end{array} \right. 
 \end{equation}
 
+where $\mathcal{M}(t)$ is the set of paths of user $u$ with the largest window sizes at time $t$.  $\mathcal{B}$ is the set path at the time $t$ that are presumably the best path for $u$.
 
 \textbf{Balanced Linked Adaptation for Congestion Between MPTCP and Normal TCP}:
 LIA and OLIA  suffer from the problem of unfair bandwidth allocation when it bottlenecks with the normal TCP flows. Walid \textit{et. al.}~\cite{walid2015balanced} have presented another variant of MPTCP congestion control algorithm, called {\em Balanced Linked Increases Algorithm} (BALIA). BALIA balances the trade off between TCP-friendliness and algorithmic responsiveness in MPTCP.
@@ -179,12 +184,12 @@ SPDY is a multiplexed stream base protocol where the streams are bi-directional.
     \item \textbf{Server Push:} SPDY have an option to push objects to the client before it even asks for. It is useful in case of loading a page for the first time. Standard HTML page contains huge number objects to enrich the browsing experience. In this case, the server knows what the client is going to ask for, but the client may require time to process the page, and then ask the content from the server. Push will help in enriching the experience by putting in the tip of client's finger.
     \item \textbf{Hint:} Server Push is useful, however, a client may not require all of the objects as it may be in their cache. So, SPDY provides a header filed to tell the client what are the object it is supposed to ask and the server will be ready to serve those.
 \end{itemize}
-SPDY is a session layer protocol. It maintains a persistent TCP connection called session between the server and the client. Then it send multiple streams in interleaved fashion, as shown in Fig.~\ref{fig:http-timing-diagram}.
+SPDY is a session layer protocol. It maintains a persistent TCP connection called session between the server and the client. Then it send multiple streams in interleaved fashion, as shown in Fig.~\ref{fig:http-timing-diagram}\cite{quiclookathttp}.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\linewidth]{img/spdy/http-timing-diagram}
-    \caption{Comparison of Time to Fetch a HTTP Request}
+    \caption{Comparison of Time to Fetch a HTTP Request\cite{quiclookathttp}}
     \label{fig:http-timing-diagram}
 \end{figure}
 
