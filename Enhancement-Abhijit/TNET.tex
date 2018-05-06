@@ -1,0 +1,162 @@
+\documentclass[journal]{IEEEtran}
+
+% *** CITATION PACKAGES ***
+%
+\ifCLASSOPTIONcompsoc
+  \usepackage[nocompress]{cite}
+\else
+  % normal IEEE
+  \usepackage{cite}
+\fi
+% *** GRAPHICS RELATED PACKAGES ***
+\ifCLASSINFOpdf
+	\usepackage[pdftex]{graphicx}
+\else
+	\usepackage[dvips]{graphicx}
+\fi
+\usepackage{amsmath}
+%
+%\usepackage{algorithmic}
+%\usepackage{algorithm}
+
+%\usepackage{algorithmicx}
+
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+
+%\usepackage[noend]{algpseudocode}
+\usepackage{array}
+\ifCLASSOPTIONcompsoc
+  \usepackage[caption=false,font=footnotesize,labelfont=sf,textfont=sf]{subfig}
+\else
+  \usepackage[caption=false,font=footnotesize]{subfig}
+\fi
+\usepackage{fixltx2e}
+% \usepackage{stfloats}
+\usepackage{tikz}
+\usepackage{dblfloatfix}
+\usepackage{url}
+\usepackage{comment}
+\usepackage{color}
+\usepackage{subfloat}
+\usepackage[automake, acronym]{glossaries}
+\usepackage{widetext}
+%\usepackage{subcaption}
+%\usepackage{subfigure}
+\usepackage[keeplastbox]{flushend}
+\newtheorem{theorem}{Theorem}[section]
+
+%configure hyphenation
+\lefthyphenmin8
+\righthyphenmin8
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+\loadglsentries{tex/abbrs.tex}
+\makeglossaries
+
+
+\newcommand{\notesc}[1]{\textcolor{red}{SC: #1}}
+\newcommand{\noteam}[1]{\textcolor{green}{Abhijit: #1}}
+\newcommand{\notesb}[1]{\textcolor{blue}{Sourav: #1}}
+
+
+
+\let\oldnl\nl% Store \nl in \oldnl
+\newcommand\nonl{%
+	\renewcommand{\nl}{\let\nl\oldnl}}
+
+\begin{document}
+%\title{MPIoT: A simpler transport protocol}
+\title{Viscous: An End to End Protocol for Ubiquitous Communication over Internet of Everything}
+
+\author{\IEEEauthorblockN{Abhijit Mondal, Sandip Chakraborty\\}
+\IEEEauthorblockA{Department of Computer Science \& Engineering\\
+	Indian Institute of Technology, Kharagpur\\
+	Kharagpur, India 731303\\
+	Email: abhimondal@iitkgp.ac.in, sandipc@cse.iitkgp.ernet.in}
+}
+
+% conference papers do not typically use \thanks and this command
+% is locked out in conference mode. If really needed, such as for
+% the acknowledgement of grants, issue a \IEEEoverridecommandlockouts
+% after \documentclass
+
+% for over three affiliations, or if they all won't fit within the width
+% of the page (and note that there is less available width in this regard for
+% compsoc conferences compared to traditional conferences), use this
+% alternative format:
+% 
+%\author{\IEEEauthorblockN{Michael Shell\IEEEauthorrefmark{1},
+%Homer Simpson\IEEEauthorrefmark{2},
+%James Kirk\IEEEauthorrefmark{3}, 
+%Montgomery Scott\IEEEauthorrefmark{3} and
+%Eldon Tyrell\IEEEauthorrefmark{4}}
+%\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Electrical and Computer Engineering\\
+%Georgia Institute of Technology,
+%Atlanta, Georgia 30332--0250\\ Email: see http://www.michaelshell.org/contact.html}
+%\IEEEauthorblockA{\IEEEauthorrefmark{2}Twentieth Century Fox, Springfield, USA\\
+%Email: homer@thesimpsons.com}
+%\IEEEauthorblockA{\IEEEauthorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391\\
+%Telephone: (800) 555--1212, Fax: (888) 555--1212}
+%\IEEEauthorblockA{\IEEEauthorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}}
+
+
+
+
+% use for special paper notices
+%\IEEEspecialpapernotice{(Invited Paper)}
+
+
+
+
+% make the title area
+\maketitle
+
+
+
+\input{tex/0_abstract.tex}
+
+% no keywords
+
+
+
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+\IEEEpeerreviewmaketitle
+
+\input{tex/1_introduction.tex}
+
+\input{tex/1.1_relatedwork.tex}
+
+\input{tex/2_motivation.tex}
+
+\input{tex/3_protocol.tex}
+
+\input{tex/3.1_model.tex}
+
+\input{tex/4_implementation_detail.tex}
+
+
+%\input{tex/5_experiments.tex}
+
+\input{tex/5.1_experiment_setup.tex}
+
+\input{tex/5.2_experiment_results.tex}
+
+%\input{tex/7_related_work.tex}
+
+\input{tex/8_conclusion.tex}
+
+%\input{tex/9_acknoledgement.tex}
+
+\bibliographystyle{IEEEtranS}
+\bibliography{ref/lcnref.bib,ref/rfcref.bib} 
+\end{document}
+
+

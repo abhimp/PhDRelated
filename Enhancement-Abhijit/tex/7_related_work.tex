@@ -1,0 +1,9 @@
+\section{Related Work}
+Our work is motivated by the network requirement of existing low-end IoT devices and the smart router those are connected to it. 
+The concept of multipath is not new. A few efforts have been made to dynamically schedule between multiple interfaces in order to 
+improve the network performance, at transport layer as in Multipath \acrshort{tcp} (\acrshort{mptcp}). It provides the power 
+to use multiple paths to a regular \acrshort{tcp} session. But as \acrshort{tcp} based on kernel approach and there is need to change 
+the \acrshort{tcp} headers, it is not supported by all the available middleboxes. The difference between \acrshort{mpiot} and 
+\acrshort{mptcp} is as follows, in case of packet losses, short-time unavailability of a path or fluctuation of on a path \acrshort{mptcp} 
+can retransmit packets from one path to another, ideally from slower to faster path. But in the case of \acrshort{mpiot} packets once sent in a path,
+will be retransmitted to that path only.
