@@ -86,6 +86,7 @@ Till now, we measured the time with respect to a RTT. Let us assume that the mea
 B_i = \frac{cwnd_{avg_i}}{rtt_{m_i}}
 \end{equation}
 
+
 So, the overall throughput $\mathcal{B}$ of a Viscous connection is:
 $$ \mathcal{B} = \sum_{i}^{} B_i = \sum_{i}^{} \frac{cwnd_{avg_i}}{rtt_{m_i}} $$
 
@@ -155,7 +156,7 @@ Flow layer sends packets to the scheduler, and the scheduler schedules packets t
 		$\lambda_i =$& Data generation rate at application for the flow $f_i$. \\
 		$r_i =$& Maximum flow rate controlled receiver's window.\\
 		$\mathcal{X}_i =$& $\min(r_i, \lambda_i)$\\
-		$\mathcal{X} =$& Set of $mathcal{X}_i$ for all flows.\\
+		$\mathcal{X} =$& Set of $\mathcal{X}_i$ for all flows.\\
 		$\mu_i =$& Allocated bandwidth to flow $f_i$.\\
 		$\mathcal{\mu} =$& Set of allocated bandwidth.\\
 		\hline
@@ -177,14 +178,13 @@ Solution to this problem is as follows: $$\mu = F(\mathcal{B}, \mathcal{W}, \mat
 \label{eqn:formula}
 F(\mathcal{B}, \mathcal{W}, \mathcal{X}) = 
 \begin{cases}
-\Phi \hfill \text{if } |\mathcal{X}| == 0 \\ 
+\Phi & \text{if } |\mathcal{X}| == 0 \\ 
 
-\{\mu_i = \frac{w_i}{\sum_{\forall j}w_j} \mathcal{B} | \forall_i\} \\
-\hfill \text{if } \forall_i \mathcal{X}_i \ge \frac{w_i}{\sum_{\forall j}w_j} \mathcal{B} \\
+\{\mu_i = \frac{w_i}{\sum_{\forall j}w_j} \mathcal{B} | \forall_i\} 
+& \text{if } \forall_i \mathcal{X}_i \ge \frac{w_i}{\sum_{\forall j}w_j} \mathcal{B} \\
 
-\{\mu_i = \mathcal{X}_i\ | \forall_i \mathcal{X}_i \le \frac{w_i}{\sum_{\forall j}w_j} \mathcal{B} \} \cup \\
-\ \ \ F(\mathcal{B}', \mathcal{W}', \mathcal{X}') \\
-	\hfill \text{Otherwise}
+\{\mu_i = \mathcal{X}_i\ | \forall_i \mathcal{X}_i \le \frac{w_i}{\sum_{\forall j}w_j} \mathcal{B} \} \cup F(\mathcal{B}', \mathcal{W}', \mathcal{X}') 
+	& \text{Otherwise}
 %	\ \ \hfill \text{if } \exists_i \mathcal{X}_i \le \frac{w_i}{\sum_{\forall j}w_j} \mathcal{B} \text{ and } \exists_i \mathcal{X}_i > \frac{w_i}{\sum_{\forall j}w_j} \mathcal{B}
 \end{cases} \\
 \end{equation}
