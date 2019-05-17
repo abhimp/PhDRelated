@@ -1,4 +1,4 @@
-\documentclass[english,12pt]{article}
+\documentclass[times,english,12pt,a4paper]{article}
 
 
 \usepackage{amsmath}
@@ -21,6 +21,7 @@
 \usepackage{comment}
 \usepackage{url}
 \usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+\usepackage{setspace}
 \geometry{verbose,a4paper,tmargin=2.54cm,bmargin=2.54cm,lmargin=2.54cm,rmargin=2.54cm}
 %\usepackage[automake, acronym]{glossaries}
 \usepackage{afterpage}
@@ -45,10 +46,14 @@
 
 \newtheorem{theorem}{Theorem}[section]
 
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
 
-\lefthyphenmin5
-\righthyphenmin5
-\hyphenation{op-tical net-works semi-conduc-tor}
+%\lefthyphenmin5
+%\righthyphenmin5
+%\hyphenation{op-tical net-works semi-conduc-tor}
 
 \newcommand{\newnote}[2]{\todo[linecolor=#1,backgroundcolor=#1!25,bordercolor=#1]{#2}}
 \newcommand{\snotesc}[1]{\newnote{red}{SC: #1}}
@@ -69,10 +74,11 @@
 	\input{tex/firstpage.tex}
 	\blankpage
 	\addtocounter{page}{-1}
-	\input{tex/0_abstract.tex}
-	\newpage
-	\blankpage
+%	\input{tex/0_abstract.tex}
+%	\newpage
+%	\blankpage
 
+\onehalfspacing
 
 \input{tex/1_introduction}
 
@@ -85,7 +91,9 @@
 \input{tex/5_evaluation}
 
 \input{tex/6_conclusion}
-	
+
+\singlespacing
+
 \bibliographystyle{IEEEtran}
 \bibliography{ref/acmmproc}
 
