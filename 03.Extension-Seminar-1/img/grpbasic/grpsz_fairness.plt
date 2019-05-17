@@ -29,6 +29,6 @@ set xtics()
 set for [i=1:words(tics)] xtics add (word(tics, i) i-1)
 
 
-set yrange[0.9:1.02]
+set yrange[0.9:1.019]
 
 plot for [i=1:words(files)] "./fairness/".word(files, i) u ($4/1):($3/1) lc rgb word(colors, i) t word(legend, i)
