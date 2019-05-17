@@ -1,0 +1,5 @@
+NumNode:4 Quality Index: 4
+PeerId: 13625 avgQualityIndex: 3.961206896551724 avgStallTime: 64.16047662776964 startedAt: 1197.0 traceIdx: 39 QoE: 2186.5707655476126
+PeerId: 4550 avgQualityIndex: 3.978165938864629 avgStallTime: 64.15282396972384 startedAt: 1224.0 traceIdx: 47 QoE: 2192.6232828859065
+PeerId: 2828 avgQualityIndex: 3.981900452488688 avgStallTime: 64.15698186754025 startedAt: 1288.0 traceIdx: 57 QoE: 2205.077260980683
+PeerId: 8143 avgQualityIndex: 3.9761904761904763 avgStallTime: 64.16063432485794 startedAt: 1379.0 traceIdx: 28 QoE: 2189.730142760823
