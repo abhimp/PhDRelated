@@ -1,6 +1,6 @@
 set terminal postscript eps enhanced color font 'Helvetica Bold,25'
 set output "benefit_qoe_box_1.eps"
-set size 1, 0.8
+set size 1, 0.9
 set bmargin 3
 
 set style fill solid 0.25 border -1
