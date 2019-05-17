@@ -1,0 +1,116 @@
+\documentclass[english,12pt]{article}
+
+
+\usepackage{amsmath}
+\usepackage{balance}  % to better equalize the last page
+%%\usepackage{graphics} % for EPS, load graphicx instead
+\usepackage{graphicx}
+% \usepackage{subfigure}
+\usepackage[font = small]{caption}
+%\usepackage{subcaption}
+\usepackage{subfig}
+
+\usepackage{txfonts}
+\usepackage{color}
+\usepackage{cite}
+\usepackage{textcomp}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{todonotes}
+\usepackage{multirow}
+\usepackage{comment}
+\usepackage{url}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+\geometry{verbose,a4paper,tmargin=2.54cm,bmargin=2.54cm,lmargin=2.54cm,rmargin=2.54cm}
+%\usepackage[automake, acronym]{glossaries}
+\usepackage{afterpage}
+
+\newcommand\blankpage{%
+	\null
+	\thispagestyle{empty}%
+%	\addtocounter{page}{-1}%
+	\newpage}
+
+%\numberwithin{page}{section} 
+%\renewcommand{\thepage}{\thesection-\arabic{page}}
+%\makeatletter
+%\section \patchcmd{\@sect}
+%{\protected@edef} 
+%{\def\arg{#1}\def\arg@{section}% 
+%    \ifx\arg\arg@\stepcounter{page}
+%    \fi
+%    \protected@edef}% <replace> 
+%{}{}% <success><failure> 
+%\makeatother
+
+\newtheorem{theorem}{Theorem}[section]
+
+
+\lefthyphenmin5
+\righthyphenmin5
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+\newcommand{\newnote}[2]{\todo[linecolor=#1,backgroundcolor=#1!25,bordercolor=#1]{#2}}
+\newcommand{\snotesc}[1]{\newnote{red}{SC: #1}}
+\newcommand{\snoteam}[1]{\newnote{blue}{AM: #1}}
+
+\newcommand{\notesc}[1]{\snotesc{}\textcolor{red}{SC: #1}}
+\newcommand{\noteam}[1]{\snoteam{}\textcolor{blue}{AM: #1}}
+
+
+\newcommand{\lastaccessedtoday}{Last access \today}
+\newcommand{\etal}{{\it et. al.} }
+
+\let\oldnl\nl% Store \nl in \oldnl
+\newcommand\nonl{%
+	\renewcommand{\nl}{\let\nl\oldnl}}
+
+\begin{document}
+	\input{tex/firstpage.tex}
+	\blankpage
+	\addtocounter{page}{-1}
+	\input{tex/0_abstract.tex}
+	\newpage
+	\blankpage
+
+
+\input{tex/1_introduction}
+
+\input{tex/2_related}
+
+\input{tex/3_system}
+
+\input{tex/4_procedures}
+
+\input{tex/5_evaluation}
+
+\input{tex/6_conclusion}
+	
+\bibliographystyle{IEEEtran}
+\bibliography{ref/acmmproc}
+
+%%	\setcounter{page}{1}
+%%    \renewcommand{\thepage}{\arbic{\thesection}-\arabic{page}}
+%   \input{tex/firstpage.tex}
+%%   \setcounter{page}{1}
+%   \input{tex/1_introduction.tex}
+%%   \setcounter{page}{1}
+%   \input{tex/RelatedWork.tex}
+%%   \setcounter{page}{1}
+%   \input{tex/2_motivation.tex}
+%%   \setcounter{page}{1}
+%    \input{tex/4_protocol.tex}
+%    \input{tex/5_implementation_detail.tex}
+%    \input{tex/6_experiments.tex}
+%    \input{tex/7_conclusion.tex}
+%%	\input{Introduction.tex}
+%%	\input{tex/Motivation.tex}
+%%    \input{tex/3_protocol.tex}
+%%    \input{tex/4_implementation_detail.tex}
+%	
+%	
+%	\bibliographystyle{IEEEtran}
+%	\bibliography{bib/reg,bib/merged,bib/rfcref.bib}
+%	
+	
+\end{document} 

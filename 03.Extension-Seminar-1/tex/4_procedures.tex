@@ -1,0 +1,116 @@
+%\section{Design and Implementation}
+%\label{sec:groupDesign}
+%In this section we will describe the the system design and implementation of group based peer assisted video streaming service. 
+
+\subsection{Coalition Formation}
+FLSD forms coalitions among \textit{``similar"} players so that they can divide and share the DASH video segments among themselves to collectively download the video content. We define similarity based on the average network condition faced by a player, although the instantaneous network quality may change over time. To form a coalition, we use the expected playback quality for the player based on its viewport size and resolution (for example, playing a video on a laptop requires higher quality level than playing it over a smartphone, to ensure similar QoE for the user), along with the average network bandwidth. To estimate the average network bandwidth, a player $P_i$ waits for some time to download $\mathcal{T}$ number of video segments directly from the streaming server with a server-client based ABR algorithm (BOLA~\cite{bola2-acm-mmsys2018}, MPC~\cite{MPC-SIGCOMM-2015} or Pensieve~\cite{Pensieve}, as we use in our implementation) and measures the throughput $\tau_i$ based on the amount of data downloaded. 
+%Once $\tau_i$ is determined, player $P_i$ set the target quality $\mathcal{Q}_{p_i}$ based on any existing ABR algorithm. 
+Then the player $P_i$ tries to find a coalition $G_p$ in the vicinity (based on the information received through the \textit{Proximity Server}) such that $\mathcal{Q}_g \approx \mathcal{Q}_{p_i}$ and $\forall_{P_k \in G_p} delay(P_i, P_k) < t_d$ where $t_d$ is a threshold on the permissible delay between two coalition members (indicates network-proximity between two users). If there is no such coalition exists in the vicinity, the player continue as a standalone player until another player join with it to form a coalition. The coalition information is registered on the proximity server. 
+%
+%\begin{algorithm}[h]
+%	Start\;
+%	$\tau_i = 0$\;
+%	$z = 0$\;
+%	\While{True}{
+%		WaitForNextRequest()\;
+%		\eIf{Group formed?}{
+%			waitToRecvSegFromGroup()\;
+%			sendSegmentToPlayer()\;
+%		}{
+%			downloadBasic()\;
+%			sendSegmentToPlayer()\;
+%			$z = z + 1$\;
+%			\If{$z \ge \mathcal{T}$}{
+%				$\tau_i \leftarrow$ measureThroughput()\;
+%				formGroup($\tau_i$)\;
+%			}
+%		}
+%	}
+%	\caption{Group formation algorithm}
+%	\label{algo:groupFormation}
+%\end{algorithm}
+%\notesc{segment and chunk -- both the terms has been used -- use only ``segment".}
+In FLSD, we expect that the communication between two coalition members will be fast enough and does not affect the Internet speed. We can find this type of scenario when multiple users share a common Internet backbone, or in case of the Internet on cable where ISP connects multiple customers via a local area network. Although all the customers are in the same network, everyone has a different subscription plan. With these assumptions, we keep target video bitrate $\mathcal{Q}_g$ around $\min(2\times\tau_i, V_i)$, where $V_i$ is the maximum quality supported by the viewport. 
+%It will give enough time to download a video segment with higher bitrate than its bandwidth.
+
+After the coalition formation phase, we need to distribute the responsibility of segment downloading among the coalition members. Here each player collaboratively tries to increase the overall QoE of the coalition. However, it is crucial that the players in a coalition stay in playback sync, i.e. every player in a coalition needs to play approximately the same video segment. Whenever a new player joins a coalition, it matches its playback time as per the playback time of the coalition. In a steady state, every player stays in sync as all of them gets a video segment almost at the same time.
+
+\subsection{Segment Download and Distribution}
+Although a coalition is formed based on the average network bandwidth of a player, the instantaneous network quality over time may change drastically from the initial video start-up phase. We set our goal in a way so that a player with a better network quality over time should not suffer due to a player which experiences low network quality during the playback after joining a coalition. Also, we do not want a player to be a free rider; every player has to contribute to the coalition. 
+%Therefore, we define a fairness metric which is a function of the total download time to download the segment directly from the streaming server and the part of it that individual players download. 
+%\notesc{The fairness need to be pointed out -- may not be here, but at the proper place, how this is ensured. This function has never been mentioned later. At what stage this is handled, and how.} \noteam{I am trying to find out}
+So, in FLSD, a coalition need to collectively choose two different objectives -- i) which player would download the next DASH video segment, and ii) what would be the quality for the next video segment based on collective QoE of the coalition. We use a leader based system to compute these decisions, where the leader changes over time. In our algorithm, the leader downloads the current segment and takes two decisions -- i) the bit-rate for the current video segment and ii) the next player (the next leader) to download the next segment.
+The next leader selection should be done as soon as possible, however, it can decide the quality level just before sending the request to the the server.
+%We call this leadership process.
+
+\begin{algorithm}[!ht]
+    \scriptsize 
+	\DontPrintSemicolon
+	\caption{\label{algo:leadership}$LeaderShip()$ -- Schedule collaborative segment downloads by coalition members}
+	\KwIn{$P_i, S_i$}
+	
+	\While{$isNotAvailable(S_i)$ }{
+		$sleep(\delta)$ \hspace{1mm} //\texttt{Wait until the segment $S_i$ is available}\;
+	}
+
+	\While{$noBufferAvailable(P_i)$}{
+		$sleep(\delta)$ \hspace{1mm} //\texttt{Wait until the buffer is available} \;
+	}
+	
+	$P_{i+1} \leftarrow findNextLeader()$\;
+	$LeaderShip(P_{i+1}, S_{i+1})$ \hspace{1mm} //\texttt{Broadcast} \;
+	$\mathcal{Q}_i \leftarrow findCurrentQuality()$\;
+	$DownloadAndDistribute(P_i, S_i, \mathcal{Q}_i)$\;
+\end{algorithm}
+
+Algorithm~\ref{algo:leadership} summarizes the process for playback scheduling in a coalition. 
+%\notesc{Give comments in the algorithms, so that they become understandable.} 
+Here the subroutine $LeaderShip(P_i, S_i)$ informs every players (through gossiping) in the coalition that player $P_i$ is the leader for the segment $S_i$. This procedure runs asynchronously whenever a player is selected as the leader and ensures that only one player downloads a segment and other players retrieve the segment from it. 
+%\notesc{What is nonblocking RPC here -- you need to explain. If it is a RPC, where does it get executed?} 
+Every player waits for a time duration (sleep time) to ensure the availability of a live video segment in the streaming server as well as the availability of the player buffer to store the current segment. 
+%Now, we explain the $findNextLeader()$ (leader selection) and $findCurrentQuality()$ (video quality level selection) procedures.
+%A leader in a group choose next leader using $findNextLeader()$ which uses several parameters, like contributions (i.e. uploaded video data) of each player to the group $\overrightarrow{\mathcal{U}}$, qualities $\overrightarrow{\mathcal{Q}}$ of last $k$ segments, last $k$ leaders $\overrightarrow{\mathcal{P}}$, last leadership $\overrightarrow{\mathcal{L}_t}$ time for each player, expected throughput observed by each player. Similarly, the procedure $findCurrentQuality()$ uses adaptive bitrate algorithm (ABR) to find the next quality. Here we cannot use the existing ABR algorithm as that algorithm is not designed to handle the group environment. We will explain the challenges and the algorithms for this procedure.
+\subsubsection{Next Leader Selection} As different players experience different network quality over time, we need to schedule segment downloads in such a way so that every player gets enough time to download the video segment without compromising the quality; hence,  a player with a poor network quality should get more time to download a segment than a player with a better network quality. 
+%For example, if a player $P_1$ has twice the network bandwidth than another player $P_2$, then player $P_2$ should download one video segment from the streaming server, while the player $P_2$ should download two video segments of the same quality level within the same instance of time. Therefore, a total of three videos segments can be downloaded collectively by the two players in parallel; they can share the remaining segments with each other to render the complete video. 
+%\notesc{I am not sure, does your approach ensure that players can download video segments in parallel?} \noteam{A player cannot download two segments parallelly.}
+The size of the playback buffer is another important metric for the selection of the next leader to download the next video segment. Every browser-based player has a limited buffer \cite{sengupta2018hotdash}. 
+%A player cannot load a video segment if it does not have any buffer. 
+To overcome the limited buffer issue, we use a remote buffer management scheme which allows us to extend the playback buffer beyond its limit, as we discuss in the next subsection. We use Eq.~(\ref{eqn:nextLeader}) to find the next leader for downloading the next video segment. Here, $\mathcal{I}_x$ is the duration (idle time) from the last download for player $P_x$. $\mathcal{D}{q_x}$ and $\mathcal{D}{l_x}$ are the download queue length (i.e. number of pending segments to be download) at player $P_x$ and the download status\footnote{If the segment length is $m$ bytes, and $n$ bytes has been downloaded as of now, them  $\mathcal{D}{l_x} = \frac{m-n}{m}$ } of the ongoing download, respectively. $\mathcal{I}_{max}$ and $\mathcal{D}q_{max}$ are maximum possible idle time (which is $groupsize\times segment\_duration$) and maximum possible download queue length (same as play buffer length in term of number of segments).
+\begin{align}
+\label{eqn:nextLeader}
+P_i &= \underset{x \in G_p}{\mathrm{argmax}} \left( {\mathcal{I}_x}/{\mathcal{I}_{max}} - {\mathcal{D}{q_x}}/{\mathcal{D}q_{max}} - \mathcal{D}{l_x} \right)
+%f(x) &= 
+\end{align}
+%\notesc{What do you mean by status of ongoing download? What are $q_x$ and $l_x$? Do not use the terms that have not been defined elsewhere.} \noteam{$q_x$ or $l_x$ does not mean anything individually. I have changed the symbol}
+Eq.~(\ref{eqn:nextLeader}) selects the next leader who is idle for longest time (by looking at the $\mathcal{I}_x$) among all the players in the coalition. In case all the players are busy downloading video segments, the equation considers the download load ($\mathcal{D}{q_x}$ and $\mathcal{D}{l_x}$) on every players. The player with the lowest load is selected as the next leader. 
+%Overall, the Eqn.~\ref{eqn:nextLeader} selects a player with the lightest load.
+%\notesc{The intuition behind above equations should come up.}
+%\noteam{We can prove that the Eqn.~\ref{eqn:nextLeader} assign furtherest segment to the slowest player.}
+\subsubsection{Bitrate Selection}
+%In video streaming service, bitrate selection is very tricky and challenging task. It is even trickier for collaborative environment. We follow TCP's AIMD technique as guideline to our Selection procedure. But is case of quality drop, we follow seat belt technique. We don't drop quality for any sudden change in the network. We expect it will be fixed soon, and in the mean time other player can take over and maintain the video quality without stall or quality change.
+To select the bit-rate for segment $s_i$, we use Algorithm~\ref{algo:quality}. This algorithm executes just before a player starts downloading a segment. In the algorithm, $\varTheta$ is the measured throughput of the current player. The measured throughput has two components -- the weighted throughput ($\varTheta_w$) which changes its value slowly over the time, and $\varTheta_{last}$ which is the throughput measured during the last finished download by the current player. The weighted throughput $\varTheta_{w}$ is measured as $\varTheta_{w_i} = 0.8 \times \varTheta_{w_{i-1}} + 0.2 \times \varTheta_{last}$. We use $\varTheta$ as minimum of its components because it is the worst throughput the player observed till now. As we use $\varTheta$ to predict the time require to download a segment, it gives us a worst time bound. $d_t$ is the time left to download the segment $s_i$ so that no player in the coalition stalls. $Cl_{i,j}$ is the content length of the $i^{th}$ segment at the quality level $j$. $m^*_i$ is the selected quality level for the $i^{th}$ segment. 
+%\notesc{The algorithm is not clear. You should clearly highlight the flow and working procedure of the algorithm.}
+\begin{algorithm}[!ht]
+    \scriptsize
+	\DontPrintSemicolon
+	$m^*_{n} \leftarrow m^*_{n-1}$ \; \label{algo:quality:line:mstar}
+	$\varTheta \leftarrow \min(\varTheta_w, \varTheta_{last})$ \; \label{algo:quality:line:theta}
+%	$t_l \leftarrow d_t - \sum_{x \in \mathcal{D}_{q}} Cl_{x,m^*_{x}} / \varTheta$\;
+	$m^\prime \leftarrow \underset{m \in \mathcal{Q}}{\mathrm{argmin}} \{\left| d_t - \frac{Cl_{n,m}}{\varTheta}\right| \} $\; \label{algo:quality:line:mprime}
+	\eIf{$m^\prime > m^*_{n}$}{
+		\If{$m^*_{n-1} = m^*_{n-2}$}{
+			$m^*_{n} \leftarrow m^*_{n-1}+1$ \label{algo:quality:line:increment}
+		}
+	}{
+		$m^*_{n} = \lceil\frac{m^\prime + m^*_{n}}{2} \rceil$
+	}
+	\caption{\label{algo:quality}findCurrentQuality()}
+\end{algorithm}
+The Algorithm \ref{algo:quality} first selects the current segment quality $m^*_{n}$ same as the previous segment. However, a player needs to check if it can download this quality within the expected time. So, it finds out the throughput $\varTheta$. Then the algorithm figures out the suitable quality level $m^\prime$ that can be downloaded within the time limit $d_t$. As a high fluctuation in the quality level causes poor QoE, we do not change the quality abruptly and follow an additive increase multiplicative decrease principle. Therefore, we increase the quality level by one only when the same quality level is chosen for at least two consecutive segments when network quality improves. We drop the quality to average of $m^\prime$ and $m^*$, otherwise. 
+%The line no \ref{algo:quality:line:mprime} of algorithm \ref{algo:quality} is the place where we select the next quality. This line pick the nearest segment quality which can be download within the time limit. It can also counter little fluctuation in the measured throughput. Rest of the line the algorithm decide when to switch quality. If network quality becomes too bad, it will go down to half of the current quality level.
+\subsubsection{Remote Buffer Management}
+Whenever a player downloads a segment from the streaming server, it keeps it in its local buffer. Other players get the segment only when they need it. To speed up the procedure and to reduce the stall time, a player requests a buffer as soon as it needs it. If the downloader (the player who has been scheduled to download that segment) has already finished downloading that segment at that time, the same is fetched. However, if downloader is not yet finished the download, then it pushes the segment to the other players as soon as it completes the download. This procedure saves transmission time between two players while saving excess buffer uses during the normal execution.
+
+%\subsubsection{Starvation Handling}
+%Till now we have tried the minimised the stall and quality variation. However, there is a situation a group can suffer from starvation for a single player, whose network condition gone haywire for some unusual reasons. As these conditions are not possible to predict, it is impossible to come up with any Starvation avoidance algorithm. To, handle starvation, we monitor the download condition in each player. If a player finds a stalled downloading, it contacts to other player and trades the download with some other player.
+
