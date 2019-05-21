@@ -1,6 +1,6 @@
 set terminal postscript eps enhanced color font 'Helvetica Bold,25'
 set output "grp_buflen.eps"
-set size 1, 0.9
+set size 1, 0.8
 set bmargin 3
 
 set ylabel "Buffer Length (seconds)"

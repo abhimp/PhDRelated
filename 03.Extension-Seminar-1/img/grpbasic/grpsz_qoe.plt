@@ -1,7 +1,7 @@
 set terminal postscript eps enhanced color font 'Helvetica Bold,25'
 set output "grpsz_qoe.eps"
 
-set size 1, 0.9
+set size 1, 0.8
 set bmargin 3
 
 set style fill solid 0.25 border -1
