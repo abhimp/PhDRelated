@@ -22,9 +22,10 @@
 \usepackage{url}
 \usepackage[linesnumbered,ruled,vlined]{algorithm2e}
 \usepackage{setspace}
-\geometry{verbose,a4paper,tmargin=2.54cm,bmargin=2.54cm,lmargin=2.54cm,rmargin=2.54cm}
+\geometry{verbose,a4paper,tmargin=2.54cm,bmargin=2.54cm,lmargin=3.00cm,rmargin=2.04cm}
 %\usepackage[automake, acronym]{glossaries}
 \usepackage{afterpage}
+\usepackage{enumitem}
 
 \newcommand\blankpage{%
 	\null
@@ -32,16 +33,16 @@
 %	\addtocounter{page}{-1}%
 	\newpage}
 
-%\numberwithin{page}{section} 
+%\numberwithin{page}{section}
 %\renewcommand{\thepage}{\thesection-\arabic{page}}
 %\makeatletter
 %\section \patchcmd{\@sect}
-%{\protected@edef} 
-%{\def\arg{#1}\def\arg@{section}% 
+%{\protected@edef}
+%{\def\arg{#1}\def\arg@{section}%
 %    \ifx\arg\arg@\stepcounter{page}
 %    \fi
-%    \protected@edef}% <replace> 
-%{}{}% <success><failure> 
+%    \protected@edef}% <replace>
+%{}{}% <success><failure>
 %\makeatother
 
 \newtheorem{theorem}{Theorem}[section]
@@ -93,7 +94,7 @@
 \input{tex/6_conclusion}
 
 \singlespacing
-
+\small
 \bibliographystyle{IEEEtran}
 \bibliography{ref/acmmproc}
 
@@ -115,10 +116,10 @@
 %%	\input{tex/Motivation.tex}
 %%    \input{tex/3_protocol.tex}
 %%    \input{tex/4_implementation_detail.tex}
-%	
-%	
+%
+%
 %	\bibliographystyle{IEEEtran}
 %	\bibliography{bib/reg,bib/merged,bib/rfcref.bib}
-%	
-	
-\end{document} 
+%
+
+\end{document}
