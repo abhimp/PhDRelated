@@ -1,6 +1,6 @@
 set terminal postscript eps enhanced color font 'Helvetica Bold,25'
 set output "avgbitrate_var_box_1.eps"
-set size 1, 0.9
+set size 1, 0.8
 set bmargin 3
 
 set style fill solid 0.25 border -1
@@ -16,7 +16,7 @@ set ylabel "Bitrate (mbps)"
 
 colors = "black red blue magenta green #800000"
 files = "BOLA Penseiv RobustMPC DHTEnvironment GrpDeter"
-legend = "BOLA Pensieve MPC DHT CoaliDASH"
+legend = "BOLA Pensieve MPC DHT FLSD"
 
 set xtics()
 set for [i=1:words(files)] xtics add (word(legend, i) i)

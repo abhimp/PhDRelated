@@ -1,9 +1,9 @@
 %!PS-Adobe-2.0 EPSF-2.0
 %%Title: stalltime_box_1.eps
-%%Creator: gnuplot 5.2 patchlevel 2
-%%CreationDate: Tue Apr 23 13:19:24 2019
+%%Creator: gnuplot 5.2 patchlevel 6
+%%CreationDate: Tue May  7 07:13:49 2019
 %%DocumentFonts: (atend)
-%%BoundingBox: 50 50 410 276
+%%BoundingBox: 50 50 410 251
 %%EndComments
 %%BeginProlog
 /gnudict 256 dict def
@@ -43,12 +43,12 @@ gnudict begin
 /vpt vpt_ def
 /doclip {
   ClipToBoundingBox {
-    newpath 50 50 moveto 410 50 lineto 410 276 lineto 50 276 lineto closepath
+    newpath 50 50 moveto 410 50 lineto 410 251 lineto 50 251 lineto closepath
     clip
   } if
 } def
 %
-% Gnuplot Prolog Version 5.1 (Oct 2015)
+% Gnuplot Prolog Version 5.2 (Dec 2017)
 %
 %/SuppressPDFMark true def
 %
@@ -305,7 +305,7 @@ gnudict begin
   ColR ColG ColB setrgbcolor} def
 /BoxColFill {gsave Rec PolyFill} def
 /PolyFill {gsave Density fill grestore grestore} def
-/h {rlineto rlineto rlineto gsave closepath fill grestore} bind def
+/h {rlineto rlineto rlineto closepath gsave fill grestore stroke} bind def
 %
 % PostScript Level 1 Pattern Fill routine for rectangles
 % Usage: x y w h s a XX PatternFill
@@ -478,10 +478,10 @@ systemdict /pdfmark known not {
 SDict begin [
   /Title (stalltime_box_1.eps)
   /Subject (gnuplot plot)
-  /Creator (gnuplot 5.2 patchlevel 2)
+  /Creator (gnuplot 5.2 patchlevel 6)
 %  /Producer (gnuplot)
 %  /Keywords ()
-  /CreationDate (Tue Apr 23 13:19:24 2019)
+  /CreationDate (Tue May  7 07:13:49 2019)
   /DOCINFO pdfmark
 end
 } ifelse
@@ -522,7 +522,7 @@ doclip
 0 setgray
 newpath
 (Helvetica-Bold) findfont 250 scalefont setfont
-BackgroundColor 0 lt 3 1 roll 0 lt exch 0 lt or or not {BackgroundColor C 1.000 0 0 7200.00 4536.00 BoxColFill} if
+BackgroundColor 0 lt 3 1 roll 0 lt exch 0 lt or or not {BackgroundColor C 1.000 0 0 7200.00 4032.00 BoxColFill} if
 1.000 UL
 LTb
 LCb setrgbcolor
@@ -534,61 +534,80 @@ stroke
 925 750 M
 [ [(Helvetica-Bold) 250.0 0.0 true true 0 (-10)]
 ] -83.3 MRshow
+/Helvetica-Bold findfont 250 scalefont setfont
+/vshift -83 def
 1.000 UL
 LTb
 LCb setrgbcolor
-1075 1143 M
+1075 1087 M
 63 0 V
 5611 0 R
 -63 0 V
 stroke
-925 1143 M
+925 1087 M
 [ [(Helvetica-Bold) 250.0 0.0 true true 0 ( 0)]
 ] -83.3 MRshow
+/Helvetica-Bold findfont 250 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-1075 1536 M
+1075 1424 M
 63 0 V
 5611 0 R
 -63 0 V
 stroke
-925 1536 M
+925 1424 M
 [ [(Helvetica-Bold) 250.0 0.0 true true 0 ( 10)]
 ] -83.3 MRshow
+/Helvetica-Bold findfont 250 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-1075 1928 M
+1075 1760 M
 63 0 V
 5611 0 R
 -63 0 V
 stroke
-925 1928 M
+925 1760 M
 [ [(Helvetica-Bold) 250.0 0.0 true true 0 ( 20)]
 ] -83.3 MRshow
+/Helvetica-Bold findfont 250 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-1075 2321 M
+1075 2097 M
 63 0 V
 5611 0 R
 -63 0 V
 stroke
-925 2321 M
+925 2097 M
 [ [(Helvetica-Bold) 250.0 0.0 true true 0 ( 30)]
 ] -83.3 MRshow
+/Helvetica-Bold findfont 250 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-1075 2714 M
+1075 2434 M
 63 0 V
 5611 0 R
 -63 0 V
 stroke
-925 2714 M
+925 2434 M
 [ [(Helvetica-Bold) 250.0 0.0 true true 0 ( 40)]
 ] -83.3 MRshow
+/Helvetica-Bold findfont 250 scalefont setfont
+1.000 UL
+LTb
+LCb setrgbcolor
+1075 2771 M
+63 0 V
+5611 0 R
+-63 0 V
+stroke
+925 2771 M
+[ [(Helvetica-Bold) 250.0 0.0 true true 0 ( 50)]
+] -83.3 MRshow
+/Helvetica-Bold findfont 250 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
@@ -598,106 +617,103 @@ LCb setrgbcolor
 -63 0 V
 stroke
 925 3107 M
-[ [(Helvetica-Bold) 250.0 0.0 true true 0 ( 50)]
-] -83.3 MRshow
-1.000 UL
-LTb
-LCb setrgbcolor
-1075 3499 M
-63 0 V
-5611 0 R
--63 0 V
-stroke
-925 3499 M
 [ [(Helvetica-Bold) 250.0 0.0 true true 0 ( 60)]
 ] -83.3 MRshow
+/Helvetica-Bold findfont 250 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-1075 3892 M
+1075 3444 M
 63 0 V
 5611 0 R
 -63 0 V
 stroke
-925 3892 M
+925 3444 M
 [ [(Helvetica-Bold) 250.0 0.0 true true 0 ( 70)]
 ] -83.3 MRshow
+/Helvetica-Bold findfont 250 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-1075 4285 M
+1075 3781 M
 63 0 V
 5611 0 R
 -63 0 V
 stroke
-925 4285 M
+925 3781 M
 [ [(Helvetica-Bold) 250.0 0.0 true true 0 ( 80)]
 ] -83.3 MRshow
+/Helvetica-Bold findfont 250 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
 1849 750 M
 0 63 V
-0 3472 R
+0 2968 R
 0 -63 V
 stroke
 1849 500 M
 [ [(Helvetica-Bold) 250.0 0.0 true true 0 (BOLA)]
 ] -83.3 MCshow
+/Helvetica-Bold findfont 250 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
 2880 750 M
 0 63 V
-0 3472 R
+0 2968 R
 0 -63 V
 stroke
 2880 500 M
 [ [(Helvetica-Bold) 250.0 0.0 true true 0 (Pensieve)]
 ] -83.3 MCshow
+/Helvetica-Bold findfont 250 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
 3912 750 M
 0 63 V
-0 3472 R
+0 2968 R
 0 -63 V
 stroke
 3912 500 M
 [ [(Helvetica-Bold) 250.0 0.0 true true 0 (MPC)]
 ] -83.3 MCshow
+/Helvetica-Bold findfont 250 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
 4944 750 M
 0 63 V
-0 3472 R
+0 2968 R
 0 -63 V
 stroke
 4944 500 M
 [ [(Helvetica-Bold) 250.0 0.0 true true 0 (DHT)]
 ] -83.3 MCshow
+/Helvetica-Bold findfont 250 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
 5975 750 M
 0 63 V
-0 3472 R
+0 2968 R
 0 -63 V
 stroke
 5975 500 M
-[ [(Helvetica-Bold) 250.0 0.0 true true 0 (CoaliDASH)]
+[ [(Helvetica-Bold) 250.0 0.0 true true 0 (FLSD)]
 ] -83.3 MCshow
+/Helvetica-Bold findfont 250 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
 1.000 UL
 LTB
 LCb setrgbcolor
-1075 4285 N
-0 -3535 V
+1075 3781 N
+0 -3031 V
 5674 0 V
-0 3535 V
+0 3031 V
 -5674 0 V
 Z stroke
 1.000 UP
@@ -705,26 +721,29 @@ Z stroke
 LTb
 LCb setrgbcolor
 LCb setrgbcolor
-225 2517 M
+225 2265 M
 currentpoint gsave translate -270 rotate 0 0 moveto
 [ [(Helvetica-Bold) 250.0 0.0 true true 0 (Stall Time \(seconds\))]
 ] -83.3 MCshow
 grestore
+/Helvetica-Bold findfont 250 scalefont setfont
 LTb
 % Begin plot #1
 1.000 UP
 1.000 UL
 LTb
-0.00 0.00 0.00 C 1.000 UP
+0.00 0.00 0.00 C
+1.000 UP
 1.000 UL
 LTb
-0.00 0.00 0.00 C 0.250 1591 1143 516 0 BoxColFill
+0.00 0.00 0.00 C
+0.250 1591 1087 516 0 BoxColFill
 LCb setrgbcolor
-1591 1143 N
+1591 1087 N
 516 0 V
 -516 0 V
 Z stroke
-1591 1143 M
+1591 1087 M
 516 0 V
 -258 0 R
 -63 0 R
@@ -736,101 +755,109 @@ Z stroke
 1.000 UP
 stroke
 LTb
-1.00 0.00 0.00 C 1.000 UP
+1.00 0.00 0.00 C
+1.000 UP
 1.000 UL
 LTb
-1.00 0.00 0.00 C 0.250 2622 1143 516 387 BoxColFill
+1.00 0.00 0.00 C
+0.250 2622 1087 516 331 BoxColFill
 LCb setrgbcolor
-2622 1143 N
+2622 1087 N
 516 0 V
-0 387 V
+0 331 V
 -516 0 V
-0 -387 V
+0 -331 V
 Z stroke
-2622 1143 M
+2622 1087 M
 516 0 V
 -258 0 R
-0 387 R
-0 376 V
+0 331 R
+0 323 V
 -63 0 R
 126 0 V
-2817 1143 M
+2817 1087 M
 126 0 V
 % End plot #2
 % Begin plot #3
 1.000 UP
 stroke
 LTb
-0.00 0.00 1.00 C 1.000 UP
+0.00 0.00 1.00 C
+1.000 UP
 1.000 UL
 LTb
-0.00 0.00 1.00 C 0.250 3654 1143 516 738 BoxColFill
+0.00 0.00 1.00 C
+0.250 3654 1087 516 633 BoxColFill
 LCb setrgbcolor
-3654 1143 N
+3654 1087 N
 516 0 V
-0 738 V
+0 633 V
 -516 0 V
-0 -738 V
+0 -633 V
 Z stroke
-3654 1439 M
+3654 1341 M
 516 0 V
-3912 1143 M
-0 738 R
-0 1005 V
+3912 1087 M
+0 633 R
+0 861 V
 -63 0 R
 126 0 V
-3849 1143 M
+3849 1087 M
 126 0 V
 % End plot #3
 % Begin plot #4
 1.000 UP
 stroke
 LTb
-1.00 0.00 1.00 C 1.000 UP
+1.00 0.00 1.00 C
+1.000 UP
 1.000 UL
 LTb
-1.00 0.00 1.00 C 0.250 4686 1573 516 1117 BoxColFill
+1.00 0.00 1.00 C
+0.250 4686 1456 516 958 BoxColFill
 LCb setrgbcolor
-4686 1573 N
+4686 1456 N
 516 0 V
-0 1117 V
+0 958 V
 -516 0 V
-0 -1117 V
+0 -958 V
 Z stroke
-4686 2189 M
+4686 1984 M
 516 0 V
-4944 1143 M
-0 430 V
-0 1117 R
-0 1246 V
+4944 1087 M
+0 369 V
+0 958 R
+0 1067 V
 -63 0 R
 126 0 V
-4881 1143 M
+4881 1087 M
 126 0 V
 % End plot #4
 % Begin plot #5
 1.000 UP
 stroke
 LTb
-0.00 1.00 0.00 C 1.000 UP
+0.00 1.00 0.00 C
+1.000 UP
 1.000 UL
 LTb
-0.00 1.00 0.00 C 0.250 5717 1143 516 309 BoxColFill
+0.00 1.00 0.00 C
+0.250 5717 1087 516 265 BoxColFill
 LCb setrgbcolor
-5717 1143 N
+5717 1087 N
 516 0 V
-0 309 V
+0 265 V
 -516 0 V
-0 -309 V
+0 -265 V
 Z stroke
-5717 1234 M
+5717 1165 M
 516 0 V
--258 -91 R
-0 309 R
-0 178 V
+-258 -78 R
+0 265 R
+0 152 V
 -63 0 R
 126 0 V
-5912 1143 M
+5912 1087 M
 126 0 V
 % End plot #5
 stroke
@@ -840,10 +867,10 @@ LCb setrgbcolor
 1.000 UL
 LTB
 LCb setrgbcolor
-1075 4285 N
-0 -3535 V
+1075 3781 N
+0 -3031 V
 5674 0 V
-0 3535 V
+0 3031 V
 -5674 0 V
 Z stroke
 1.000 UP

@@ -1,7 +1,7 @@
 set terminal postscript eps enhanced color font 'Helvetica Bold,25'
 set output "grpsz_upload_download.eps"
 
-set size 1, 0.9
+set size 1, 0.8
 
 set boxwidth 0.9
 set style fill solid 1.00 border 0
@@ -24,6 +24,6 @@ tics = "3 4 5 6 7 8 9 10"
 set xtics()
 set for [i=1:words(tics)] xtics add (word(tics, i) i-1)
 
-set yrange[0:1150]
+set yrange [0:1190]
 
 plot for [i=1:words(files)] "./GroupSize/".word(files, i).".dat" u ($4/1000000):($3/1000000) lc rgb word(colors, i) t word(legend, i)
