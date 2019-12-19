@@ -1,3 +1,13 @@
 \section{Split-DASH System Architecture}
-The DASH or DASH like system provides a way (guideline) to change video quality instead of pausing a video streaming during bad network quality. There are several implementation of the DASH or DASH like streaming system and most of them have a HTML5 based implementation using {\tt Media Source Extension} (MSE). Also the 
+The DASH or DASH like system provides a way (guideline) to change video quality instead of pausing a video streaming during bad network quality. There are several implementation of the DASH or DASH like streaming system and most of them have a HTML5 based implementation using {\it Media Source Extension}(MSE)\cite{wiki:dash}. These implementations also support {\it Digital Right Management}(DRM) via {\it Encrypted Media Extension}(EME). These implementation have several modules implemented either in {\it Javascript} or in browser. The modules like playback, media decryption are implemented in browser or some browser extension/plugin (\ie Widevine plugin for DRM protection). The different modules are as follows:
+
+{\bf Playback module} or the player is the module which actually render the video. It is implemented mostly in the browser. It is mostly implemented in the browser and render in a html element. The player is accessed and controlled via MSE APIs.
+
+{\bf Buffer controller} manages and monitor video buffer. It is partly implemented using javascript and partly by the browser itself.
+
+{\bf Adaptive bitrate controller} is the module decides the quality based on the network condition. It can have multiple algorithm and implemented in javascript it self. It is the most crucial part of DASH like streaming system yet the most flexible part. Any streaming provider can implement there won algorithm based on their requirement. We will discuss more about ABR later part of the article.
+
+{\bf Download manager} is responsible for downloading the segment/chunk chosen by the ABR algorithm. It monitors the progress of ongoing downloads to gain fine tune information about the network condition. Most of the time it download chunk using AJAX (Asynchronous JavaScript And XML)
+
+
 The DASH or DASH like systems have multiple components for different tasks to be performs. Among those modules, video renderer, buffer manager, bitrate adaptation module and download manager major and almost every implementation have these modules in same or different name. 
