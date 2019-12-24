@@ -18,9 +18,16 @@ The DASH or DASH like system provides a way (guideline) to change video quality 
    \begin{center}
            \includegraphics[width=0.7\linewidth]{img/playerDiagram_basic}
    \end{center}
-   \caption{\label{fig:playerDiagram_basic} Average bitrate variation during playback}
+   \caption{\label{fig:playerDiagram_basic} Original DASH based streaming system.}
 \end{figure}
 
 The inter-connection of the modules are depicted in the Fig.~\ref{fig:playerDiagram_basic}. Here, the ABR controller controls the playback via buffer controller while instructing download manager to download appropriate segment in the appropriate time. The ABR controller is the most important component. There are active research going on to improve ABR controller. As ABR controller is the part of the player, it need to be implemented in client application it self. In case HTML based player, ABRs need to be implemented in javascript. The ABR algorithm like MPC\cite{dash:mpc}, BOLA\cite{dash:bola} or the alogorithms described in \cite{dash:probe,dash:cs2p,dash:CFA,dash:rnb,dash:buffer} does not have any special library requirement and can be implemented easily in any technology. However, as machine learning based ABR algorithm like Pensieve\cite{dash:pensieve}, OBOE\cite{dash:oboe} or HotDASH\cite{dash:hotdash} need specialized machine learning (ML) library and very hard to implement if the technology does not have support for required library. So, it is very difficult to deploy these algorithm in browser based video player.
 
-Authors of the ML based algorithm show prototype by modifying the system little bit. The new architecture looks like Fig.~[ref].
+
+\begin{figure}[ht]
+	\begin{center}
+		\includegraphics[width=0.7\linewidth]{img/playerDiagram_ml}
+	\end{center}
+	\caption{\label{fig:playerDiagram_ml} Modified DASH based streaming system to support ML based ABR algorithm}
+\end{figure}
+Authors of the ML based algorithm show prototype by modifying the system little bit. The new architecture looks like Fig.~\ref{fig:playerDiagram_ml}.
