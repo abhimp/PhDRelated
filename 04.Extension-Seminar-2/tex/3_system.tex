@@ -35,10 +35,11 @@ Authors of the ML based algorithm show prototype by modifying the system little 
 The advantage of this system is that it does not depends on the client technology. ABR server can be implemented in any technology it suit best. However, it involves a extra communication with a external server which may be fatal to the viewing experience if the round trip time between the player and the ABR server. To avoid the communication delay between the player and ABR server, the ABR server need to run in local system only. This system is not easy to deploy as it need to a ABR server of each and every player.
 
 \subsection{Split-DASH architecture}
-To solve above problem we propose Split-DASH architecture. In split-DASH architecture, we split the original DASH architecture into two parts, i) a dumb player or client and ii) a smart server side. The proposed architecture depicted in the Fig.~[ref]
+To solve above problem we propose Split-DASH architecture. In split-DASH architecture, we split the original DASH architecture into two parts, i) a dumb player or client and ii) a smart server side. The proposed architecture depicted in the Fig.~\ref{fig:playerDiagram_split}.
 \begin{figure}[ht]
 	\begin{center}
 		\includegraphics[width=0.9\linewidth]{img/playerDiagram_split}
 	\end{center}
 	\caption{\label{fig:playerDiagram_split} Modified DASH based streaming system to support ML based ABR algorithm}
 \end{figure}
+Here we make the player dumb. It controls the play back but it do not take any decision. Instead it depends on the decision provided by the smart part counter part in the server. The server provides the following decision: i) time to download a segment, and ii) quality of the segment. Before we explain functionality of different modules in the server and client, we explain the transaction between dumb-client and the smart server.
