@@ -68,6 +68,11 @@ Recently we have developed a energy aware DASH based ABR algorithm EnDASH for sm
 	\end{center}
 	\caption{\label{fig:playerDiagram_SpEnDASH} Modified DASH based streaming system to support ML based ABR algorithm}
 \end{figure}
-Here we develop a android application.
+
+Here we develop an android application to collect sensor data from the android phone. The application collects three different types of data from the system. These are device speed from GPS, GSM signal information and battery uses information. All these informations are available via standard android API, so the application can run in any off-the-selves android phone. The application collects these information in with a frequency of 1Hz and immediately pushed the information to the dumb video player. We have mentioned in the previous section that the dumb player is written in HTML5. We load this dumb player directly from the proxy server in a webview inside the android application.
+
+Here we have modified the dumb video player to accept information from the android application and forward collected information to the proxy server with the next request. The dumb player does not read the sensor information it receive from the android application. We have also modified the dumb player in a way so that it can inform android app the to start collecting sensor data.
+
+We add the EnDASH ABR module to the smart proxy server. As we have describe in Fig.~\ref{fig:EnDASH_system},  the EnDASH ABR system composed of three different machine learning engine. 
 
 {\bf Advantages:}
