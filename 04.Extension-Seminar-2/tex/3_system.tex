@@ -59,12 +59,13 @@ Here we send server state to client to make server stateless. The client does no
 
 
 \section{SpEnDASH Architecture}
-Recently we have developed a energy aware DASH based ABR algorithm EnDASH for smartphones. The algorithm is described in \noteam{cite/ref algo here}. The EnDASH algorithm heavily dependent on smartphone sensor data and neural-network driven ABR algorithm. We implement the EnDASH by modifying Split-DASH architecture (\ref{sec:Split_DASH_architecture}). We call it SpEnDASH architecture. The SpEnDASH architecture have 3 parts, i) A android application, ii) Modified split-DASH dumb client and iii) EnDASH aware smart proxy server. Fig.~\ref{fig:playerDiagram_SpEnDASH} describe the different components and interactions between those components. In this model, entire video playback system run inside a webview in android application. The application collect several informations regarding the the device and feed to the webview. The dumb player collect those data and send them to the server with the segment request. The server store those use all the informations to find out the next video quality using the EnDASH algorithm and return the response accordingly.
+Recently we have developed a energy aware DASH based ABR algorithm EnDASH for smartphones. The algorithm is described in \noteam{cite/ref algo here}. The EnDASH algorithm heavily dependent on smartphone sensor data and neural-network driven ABR algorithm. We implement the EnDASH by modifying Split-DASH architecture (\ref{sec:Split_DASH_architecture}). We call it SpEnDASH architecture. The SpEnDASH architecture have 3 parts, i) A android application, ii) Modified split-DASH dumb client and iii) EnDASH aware smart proxy server. Fig.~\ref{fig:playerDiagram_SpEnDASH} describe the different components and interactions between those components. In this model, entire video playback system run inside a webview in an android application. The application collect several informations regarding the device and feed to the webview. The dumb player running inside the webview collect those data and send them to the server with the segment request. The server store those use all the informations to find out the next video quality using the EnDASH algorithm and return the response accordingly.
 \begin{figure}[h!]
 	\begin{center}
 		\includegraphics[width=0.9\linewidth]{img/playerDiagram_SpEnDASH}
+%		\includegraphics[width=0.9\linewidth]{img/playerDiagram_split}
 	\end{center}
 	\caption{\label{fig:playerDiagram_SpEnDASH} Modified DASH based streaming system to support ML based ABR algorithm}
 \end{figure}
 
-{\bf Challenges:} 
+{\bf Advantages:}
