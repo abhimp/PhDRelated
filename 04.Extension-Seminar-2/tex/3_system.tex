@@ -73,6 +73,6 @@ Here we develop an android application to collect sensor data from the android p
 
 Here we have modified the dumb video player to accept information from the android application and forward collected information to the proxy server with the next request. The dumb player does not read the sensor information it receive from the android application. We have also modified the dumb player in a way so that it can inform android app the to start collecting sensor data.
 
-We add the EnDASH ABR module to the smart proxy server. As we have describe in Fig.~\ref{fig:EnDASH_system},  the EnDASH ABR system composed of three different machine learning engine. Among these three engine, two engine are based on A3C neural network developed using tensorflow library.
+We add the EnDASH ABR module to the smart proxy server. As we have describe in Fig.~\ref{fig:EnDASH_system},  the EnDASH ABR system composed of three different machine learning engine. Among these three engine, two engine are based on A3C neural network developed using tensorflow library. Due to technical issue in tensorflow library and A3C extension, two neural network can not be run in same process. So, we create different processes for different NN engine and connect them via an Unix Domain Socket. The abr controller looks like following figure.
 
 {\bf Advantages:}
