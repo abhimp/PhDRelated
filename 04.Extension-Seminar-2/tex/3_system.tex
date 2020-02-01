@@ -56,32 +56,3 @@ The Fig.~\ref{fig:splitDASHTransaction} depict the transaction between smart pro
 Here we send the server state to client to make server stateless. The client does not read the server state, however, it store it and send with next request. As the server server state contain all the information regarding the server, client can send same request multiple time, and with server responses with same action for all of them. This very important as a response might get lost and client might need to resend the request to the server.
 
 \noteam{need to add overhead with a table or plot}
-
-
-\section{SpEnDASH Architecture}
-Recently we have developed a energy aware DASH based ABR algorithm EnDASH for smartphones. The algorithm is described in \noteam{cite/ref algo here}. The EnDASH algorithm heavily dependent on smartphone sensor data and neural-network driven ABR algorithm. We implement the EnDASH by modifying Split-DASH architecture (\ref{sec:Split_DASH_architecture}). We call it SpEnDASH architecture. The SpEnDASH architecture have 3 parts, i) A android application, ii) Modified split-DASH dumb client and iii) EnDASH aware smart proxy server. Fig.~\ref{fig:playerDiagram_SpEnDASH} describe the different components and interactions between those components.
-%In this model, entire video playback system run inside a webview in an android application. The application collect several informations regarding the device and feed to the webview. The dumb player running inside the webview collect those data and send them to the server with the segment request. The server store those use all the informations to find out the next video quality using the EnDASH algorithm and return the response accordingly.
-\begin{figure}[h!]
-	\begin{center}
-		\includegraphics[width=0.9\linewidth]{img/playerDiagram_SpEnDASH}
-%		\includegraphics[width=0.9\linewidth]{img/playerDiagram_split}
-	\end{center}
-	\caption{\label{fig:playerDiagram_SpEnDASH} Modified DASH based streaming system to support ML based ABR algorithm}
-\end{figure}
-
-Here we develop an android application to collect sensor data from the android phone. The application collects three different types of data from the system. These are device speed from GPS, GSM signal information and battery uses information. All these informations are available via standard android API, so the application can run in any off-the-selves android phone. The application collects these information in with a frequency of 1Hz and immediately pushed the information to the dumb video player. We have mentioned in the previous section that the dumb player is written in HTML5. We load this dumb player directly from the proxy server in a webview inside the android application.
-
-Here we have modified the dumb video player to accept information from the android application and forward collected information to the proxy server with the next request. The dumb player does not read the sensor information it receive from the android application. We have also modified the dumb player in a way so that it can inform android app the to start collecting sensor data.
-
-We add the EnDASH ABR module to the smart proxy server. As we have describe in Fig.~\ref{fig:EnDASH_system},  the EnDASH ABR system composed of three different machine learning engine. Among these three engine, two engine are based on A3C neural network developed using tensorflow library. Due to technical issue in tensorflow library and A3C extension, two neural network can not be run in same process. So, we create different processes for different NN engine and connect them via an Unix Domain Socket. The ABR controller looks like following Fig.~\ref{fig:AbrServer}. The ABR BOLA does not require any additional process as it is a deterministic algorithm and it does not have any other library dependancy. Similarly it is true for MPC and other deterministic ABRs. However, Pensieve and EnDASH need addition processes to run the ML engine.
-
-\begin{figure}[h!]
-	\begin{center}
-		\includegraphics[width=0.7\linewidth]{img/AbrServer}
-		%		\includegraphics[width=0.9\linewidth]{img/playerDiagram_split}
-	\end{center}
-	\caption{\label{fig:AbrServer}}
-\end{figure}
-
-Although the architecture is sound, we can not make the smart proxy server stateless any more due the communication overhead between smart-proxy and the dumb-client. So, we create a inferior replica of the client in the server which contains important states of the dumb client. Every time a request comes to the server, it update the state of the replica and take decision based on state of the replica. We also assign a key (which is essentially a hash of the replica) every time it get request from the dumb client. The proxy server send the key with the response to dumb client instead of the state. The dumb client sent out next request with the key and the proxy server make a copy of replica and update the copy with the latest update instead of the original. This way, the server will have replicas for all the key's it send out clients. However, the proxy server keep only two replica for each client for better memory utilization. We need two replica two allow client to make a repeat request with same key in the case of network error. Also, the server serialize the replica's to the disc for better memory uses.
-
