@@ -3,21 +3,35 @@ Before we can start playing with Split-DASH
 \begin{figure}[ht]
 	\captionsetup[subfigure]{}
 	\begin{center}
-		\subfloat[\label{fig:avgQl}Average Bit-rate]{
+		\subfloat[\label{fig:avgQl}Average Playback Bitrate]{
 			\includegraphics[width=0.49\linewidth]{img/spdash/avgQl}
 		}
-		\subfloat[\label{fig:avgQlVar}Bit-rate Variation]{
+		\subfloat[\label{fig:avgQlVar}Average Playback Bitrate Variation]{
 			\includegraphics[width=0.49\linewidth]{img/spdash/avgQlVar}
 		}
 	
-		\subfloat[\label{fig:avgStall}Bit-rate Variation]{
+		\subfloat[\label{fig:avgStall}Average Stall]{
 			\includegraphics[width=0.49\linewidth]{img/spdash/avgStall}
 		}
-		\subfloat[\label{fig:qoe}Bit-rate Variation]{
+		\subfloat[\label{fig:qoe}QoE]{
 			\includegraphics[width=0.49\linewidth]{img/spdash/qoe}
 		}
 	\end{center}
-	\caption{\label{fig:avgBitrate} QoE Components: Average Bit-rate and Bit-rate Variation}
+	\caption{\label{fig:avgBitrate} QoE Components}
+\end{figure}
+
+
+\begin{figure}[ht]
+	\captionsetup[subfigure]{}
+	\begin{center}
+		\subfloat[\label{fig:payload8sec}Segment length=8sec]{
+			\includegraphics[width=0.49\linewidth]{img/spdash/reqPayload_bbb}
+		}
+		\subfloat[\label{fig:payload4sec}Segment length=4sec]{
+			\includegraphics[width=0.49\linewidth]{img/spdash/reqPayload_bbb4s}
+		}
+	\end{center}
+	\caption{\label{fig:payload}HTTP request payload variation as video progresses}
 \end{figure}
 
 %\begin{figure*}
@@ -44,3 +58,4 @@ Before we can start playing with Split-DASH
 %	\end{subfigure}
 %	\caption{\label{fig:fairness_bitrate}Average playback bitrate while players share common bottleneck but starts in separate times.}
 %\end{figure*}
+
