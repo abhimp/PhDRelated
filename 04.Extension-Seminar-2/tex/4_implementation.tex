@@ -4,22 +4,22 @@
 
 
 \section{Implementation}
-We have describe the system architecture of Split-DASH architecture int he Section~\ref{sec:Split_DASH_architecture}. The architecture mainly have two parts, i) the dumb client and ii) the smart server. We choose \html and {\tt JavaScript} to implement the dumb client and \python based implementation for the smart server. Here the implementation details:
+We have described the system architecture of Split-DASH architecture int he Section~\ref{sec:Split_DASH_architecture}. The architecture mainly has two parts, i) the dumb client and ii) the smart server. We choose \html and {\tt JavaScript} to implement the dumb client and \python based implementation for the smart server. Here the implementation details:
 
 \subsection{The client}
-We use the MSE of \html to implement the player which is being controlled by \js using Source Buffer API. This API allow us to add media segment and change the quality on the fly. MSE and \js is available in almost all the browser, so the client can in every device with \js and \html support.
+We use the MSE of \html to implement the player which is being controlled by \js using Source Buffer API. This API allows us to add media segments and change the quality on the fly. MSE and \js are available in almost all the browsers so that the client can run in every device with \js and \html supported browser.
 
-In the client, \js contact the the smart server using AJAX call and get instruction. Our module also uses keep the track of ongoing AJAX call and abort the connect if the connection stay unresponsive for a threshold duration and restart the call again. This mechanism makes the client robust and network failure tolerant. The client plays video flawlessly unless the network is down for a long time.
+In the client, \js contact the smart server using AJAX call and get instruction. Our module also uses keep track of ongoing AJAX call and abort the connection if the connection stays unresponsive for a threshold duration and restart the AJAX call again. This mechanism makes the client robust and network failure tolerant. The client plays video flawlessly unless the network is down for a long time.
 
 \subsection{The server}
-The smart server is a HTTP server with few extra capabilities mentioned in the Section~\ref{sec:Split_DASH_architecture}. In our implementation, there are three modules, i) the HTTP server, ii) the dummy client iii) the ABRs.
+The smart server is an HTTP server with few extra capabilities mentioned in the Section~\ref{sec:Split_DASH_architecture}. In our implementation, there are three modules, i) the HTTP server, ii) the dummy client iii) the ABRs.
 
-{\bf The HTTP server} module is the front end of the smart server. We implement it by extending \python {\tt BaseHTTPServer} module. As the \python does not support true multi-threading, we create new process as soon as the server receives a request and process the request in the newly created process.
+{\bf The HTTP server} module is the front end of the smart server. We implement it by extending \python {\tt BaseHTTPServer} module. As the \python does not support true multi-threading, we create a new process as soon as the server receives a request and processes the request in the newly created process. It allows us to utilize multiple cores available in the system and serve multiple requests concurrently.
 
-The server create a new instance of dummy client and load the state from the request if available. The server pass the request to the dummy client to process it and wait to receive an action from it. The actions are mostly for the dumb client only. So it create the response the send the response to the server and end the process. However, if the response needs media segment, this module download those segments and pass those segments one after another in the body of the response.
+The server creates a new instance of a dummy client and loads the state from the request if available in the request. It passes the request to the dummy client to process it and waits to receive actions from it. The actions are mostly for the dumb client only. So it creates and sends the HTTP response to the client (\ie browser) and ends the process. While creating the HTTP response, it downloads the required media segments from the original server and appends those segments in the body of the newly created HTTP response.
 
-{\bf the dummy client} instance represent the client state in the server. Upon receiving a request it update its state and consult the ABR for the quality for next segment. Once ABR decides the quality for next segment, it create the actions which includes the sleeping time and segments and qualities.
+{\bf The dummy client} instance represents the client state in the server. Upon receiving a request, it updates its state and consults the ABR for the quality for the next segment. Once ABR decides the class for the next segment, it creates actions that include the sleeping time and segments and qualities. All the processing done here are based on the request received by the the 
 
-{\bf The ABRs} are the most important part of our module. In our implementation, ABRs are implemented independently from other modules. There is only one single entry point to a ABR from the dummy client module. This architecture provides a greate flexibility in ABR implementation. We implement the BOLA, and MPC as simple \python module and the pensive as different process and connect using a local socket API.
+{\bf The ABRs} are the most important part of our module. In our implementation, ABRs are implemented independently from other modules. To make ABRs independent and lightly coupled with the rest of the part of the server, we a single API between dummy players and the ABR.  Using this single API, We implement the BOLA, and MPC as simple \python module and the pensive as different process and connect using a local socket API. We can plug any number of ABR without changing the code.
 
 
