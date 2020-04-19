@@ -1,11 +1,11 @@
-\documentclass[times,english,12pt,twoside]{article}
+\documentclass[times,english,11pt,twoside]{article}
 
 
 \usepackage{amsmath}
 \usepackage{balance}  % to better equalize the last page
 %%\usepackage{graphics} % for EPS, load graphicx instead
 \usepackage{graphicx}
-%\usepackage{subfigure}
+% \usepackage{subfigure}
 \usepackage[font = small]{caption}
 %\usepackage{subcaption}
 \usepackage{subfig}
@@ -61,14 +61,13 @@
 \newcommand{\snotesc}[1]{\newnote{red}{SC: #1}}
 \newcommand{\snoteam}[1]{\newnote{blue}{AM: #1}}
 
-\newcommand{\notesc}[1]{\snotesc{}\textcolor{red}{SC: #1}}
-\newcommand{\noteam}[1]{\snoteam{}\textcolor{blue}{AM: #1}}
+\newcommand{\notesc}[1]{\newnote{red}{SC}\textcolor{red}{SC: #1}}
+\newcommand{\noteam}[1]{\newnote{blue}{AM}\textcolor{blue}{AM: #1}}
 
-\newcommand{\blue}[1]{{#1}}
-\newcommand{\red}[1]{\textcolor{red}{#1}}
 
-\newcommand{\lastaccessedtoday}{Last accessed: \today}
-\newcommand{\etal}{{\it et. al.} }
+\newcommand{\lastaccessedtoday}{Last accessed \today}
+\newcommand{\etal}{{\it et. al.}}
+\newcommand{\ie}{{\it i. e.}}
 
 \let\oldnl\nl% Store \nl in \oldnl
 \newcommand\nonl{%
@@ -84,21 +83,14 @@
 
 \onehalfspacing
 
-\input{tex/01_introduction.tex}
-\input{tex/02_releted.tex}
-\input{tex/03_method.tex}
-\input{tex/033_results.tex}
-\input{tex/034_underthehood.tex}
-\input{tex/04_conclusion.tex}
+\input{tex/1_introduction}
 
-%\input{tex/1_introduction}
+\input{tex/2_related}
+
+\input{tex/3_system}
 %
-%\input{tex/2_related}
+%\input{tex/4_procedures}
 %
-%\input{tex/3_system}
-%%
-%\input{tex/4_implementation}
-%%
 %\input{tex/5_evaluation}
 %
 %\input{tex/6_conclusion}
@@ -106,7 +98,7 @@
 \singlespacing
 \small
 \bibliographystyle{IEEEtran}
-\bibliography{ref/dash} 
+\bibliography{ref/references} 
 %
 
 \end{document}
