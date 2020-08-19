@@ -1,43 +1,41 @@
-TARGET    = Extension-report
-TEXFILES  = $(wildcard tex/*.tex)
+filename=Extension-report
 
-.PHONY: all view spell clean fresh figx cleanx freshx
+pdf:
+	pdflatex -interaction=nonstopmode ${filename}.tex
+	bibtex ${filename}||true
+	pdflatex -interaction=nonstopmode ${filename}.tex
+	pdflatex -interaction=nonstopmode ${filename}.tex
 
-all: $(TARGET).pdf
 
-$(TARGET).pdf: $(TEXFILES) $(TARGET).bib
-	pdflatex -interaction=nonstopmode -halt-on-error $(TARGET)
-	bibtex $(TARGET)
-	pdflatex -interaction=nonstopmode -halt-on-error $(TARGET)
-	pdflatex -interaction=nonstopmode -halt-on-error $(TARGET)
+read:
+	okular ${filename}.pdf &
 
-view: $(TARGET).pdf
-	open $(TARGET).pdf
+aread:
+	acroread ${filename}.pdf &
 
-spell:
-	ispell *.tex
+view:
+	@xdg-open ${filename}.pdf &
 
 clean:
-	rm -fv *.dvi *.aux *.log *~ *.bbl *.blg *.toc *.ps *.pdf *.ent || true
-	rm *.synctex.gz || true
-	find . -name "*eps-converted-to.pdf" -delete || true
-
-fresh: clean all
-
-# Create the gnuplot generated figures
-
-PLOTFILES = $(wildcard plot/*.plot)
-FIGURESX = $(patsubst plot/%.plot, figx/%.tex, $(PLOTFILES))
-
-figx: $(FIGURESX)
-
-figx/%.tex: plot/%.plot
-	gnuplot $^
-
-allx: figx all
-
-cleanx:
-	rm -fv figx/*.tex figx/*.pdf
-
-freshx: clean cleanx figx all
-
+	rm -f ${filename}.ps
+	rm -f ${filename}.pdf
+	rm -f ${filename}.log
+	rm -f ${filename}.aux
+	rm -f ${filename}.out
+	rm -f ${filename}.dvi
+	rm -f ${filename}.bbl
+	rm -f ${filename}.blg
+	rm -f ${filename}.acn
+	rm -f ${filename}.acr
+	rm -f ${filename}.alg
+	rm -f ${filename}.glg
+	rm -f ${filename}.glo
+	rm -f ${filename}.gls
+	rm -f ${filename}.glsdefs
+	rm -f ${filename}.ist
+	rm -f ${filename}.synctex.gz
+	find . -name *-eps-converted-to.pdf -delete
+	find . -name *.aux -delete
+	rm -f tex/*.backup
+	rm -f tex/*.log
+	rm -f *.backup

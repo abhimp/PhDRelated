@@ -1,0 +1,344 @@
+\documentclass[twoside,phd, openright,titlepage]{iitkgp}
+
+\newcommand{\dotrule}[1]{%
+\parbox[t]{#1}{\dotfill}}
+
+\newtheorem{problem}{Problem}[chapter]
+
+\newcommand{\remove}[1]{}
+\newcommand{\argmax}{\mathop{\mathrm{argmax}}}
+\newcommand{\complain}[1]{\textcolor{red}{#1}}
+
+    \newtheorem{theorem}{Theorem}[section]
+    \newtheorem{lemma}[theorem]{Lemma}
+    \newtheorem{proposition}[theorem]{Proposition}
+    \newtheorem{corollary}[theorem]{Corollary}
+    \newtheorem{definition}[theorem]{Definition}
+    \newtheorem{observation}[theorem]{Observation}
+
+    \newenvironment{proof}[1][Proof]{\begin{trivlist}
+    \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+    %\newenvironment{definition}[1][Definition]{\begin{trivlist}
+    %\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+    \newenvironment{example}[1][Example]{\begin{trivlist}
+    \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+    \newenvironment{remark}[1][Remark]{\begin{trivlist}
+    \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+    \newcommand{\qed}{\nobreak \ifvmode \relax \else
+          \ifdim\lastskip<1.5em \hskip-\lastskip
+          \hskip1.5em plus0em minus0.5em \fi \nobreak
+          \vrule height0.75em width0.5em depth0.25em\fi}
+
+
+\newcommand{\tuple}[1]{\langle #1\rangle}
+
+
+%\usepackage{subfigure}
+\usepackage{latexsym}
+%\usepackage{graphics}
+\usepackage{psfig}
+%\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{xpatch}
+\usepackage[toc]{appendix}
+% \usepackage{eufrak}
+%\usepackage{setspace}
+\usepackage[english]{babel}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\usepackage{verbatim}
+\usepackage{multirow}
+\usepackage{colortbl}
+\definecolor{lgray}{gray}{0.8}
+
+ \usepackage{ifpdf}
+ \ifpdf
+ \usepackage[pdftex]{graphicx}
+ \else
+ \usepackage{graphicx}
+ \fi
+
+\usepackage{epsfig}
+% \usepackage{graphicx}
+%%\usepackage{acronym}
+\usepackage{fancyhdr}
+  \fancyhead{}
+  %\fancyhead[LO]{\slshape \rightmark}
+  \fancyhead[RO]{\textbf{\rightmark}}
+
+%  \fancyhead[RE]{\slshape \leftmark}
+  \fancyhead[LE]{\textbf{\leftmark}}
+  \fancyfoot{}
+  \fancyfoot[CO,CE]{\textbf{\thepage}}
+  \pagestyle{fancy}
+  \renewcommand{\chaptermark}[1]{\markboth{\chaptername \ \thechapter \ \ #1}{}}
+  \renewcommand{\sectionmark}[1]{\markright{\thesection \ \ #1}}
+
+\newcommand{\captionfonts}{\small}
+\usepackage{cite}
+%\usepackage[lined,algonl,algochapter,algoruled]{algorithm2e}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+% \usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{makeidx}
+\makeindex
+%\usepackage{amsmath,amssymb}
+\usepackage[hyphens]{url}
+\urlstyle{rm}
+% \usepackage{subfigure}
+
+%\usepackage[cmex10]{amsmath}
+\usepackage{ulem} \normalem
+\usepackage{amsmath, amssymb}%amsthm, amssymb}
+\usepackage[figuresright]{rotating}
+\usepackage{tikz}
+\usepackage{tikz-dependency}
+\usepackage[bookmarks=true,plainpages=false,pdfpagelabels]{hyperref}
+\hypersetup{linktocpage}
+
+%\usepackage[colorlinks=true,linkcolor=black,urlcolor=blue]{hyperref}
+% \usepackage{dropping}
+\usepackage{paralist}
+\usepackage{sectsty}
+\chapterfont{\LARGE}
+\chaptertitlefont{\Huge}
+\sectionfont{\Large}
+\usepackage{pslatex}
+\usepackage{subfig}
+\usepackage{float}
+% following is for making list of abbreviations
+\usepackage{nomencl}
+% \makenomenclature
+\usepackage{titlesec}
+\usepackage{enumitem}
+\newcommand{\specialcell}[2][l]{%
+  \begin{tabular}[#1]{@{}l@{}}#2\end{tabular}}
+
+
+%========================================================================
+% configure
+%========================================================================
+\Year{2020}
+\Month{May}
+\Author{Abhijit Mondal}
+\degree{Doctor of Philosophy}
+
+\TitleTop{To Be Decided}
+\TitleBottom{}
+
+% Your research advisor
+\AdvisorA{Sandip Chakraborty}
+
+\AuthorDeclaration{
+	\noindent I certify that 
+	\begin{itemize}
+		\item[a.]  The work contained in this thesis is original and has been done by myself under the general supervision of my supervisor.
+		\item[b.]  The work has not been submitted to any other Institute for any degree or diploma.
+		\item[c.]  I have followed the guidelines provided by the Institute in writing the thesis.
+		\item[d.]  I have conformed to the norms and guidelines given in the Ethical Code of Conduct of the Institute.
+		\item[e.]  Whenever I have used materials (data, theoretical analysis, and text) from other sources, 
+		I have given due credit to them by citing them in the text of the thesis and giving their details in 
+		the references. 
+		\item[f.]  Whenever I have quoted written materials from other sources, I have put them under quotation marks and 
+		given due credit to the sources by citing them and giving required details in the references.
+	\end{itemize}
+}
+
+\DedicatedTo{\bf Dedicated to my parents}
+
+\ApprovalSignatures{
+	\begin{table}[ht]
+		\begin{tabular}{p{5.4cm}p{4cm}p{5cm}}
+			
+			&&\\
+			&&\\
+			\noindent\line(100,0){100} 	 & \line(100,0){100}			& \line(100,0){100}\\
+			(Member of DSC) 			 & (Member of DSC)				& (Member of DSC)\\
+			Dr. Animesh Mukherjee		 & Dr. Bivas Mitra    			& Dr. Goutam Das \\
+			Professor   				 & Professor					& Professor\\
+			Department of CSE            & Department of CSE 			& G.S.S School of Telecommunication.  \\
+			IIT Kharagpur, India  		 & IIT Kharagpur, India         & IIT Kharagpur, India\\          
+			
+			
+			&&\\
+			&&\\
+			
+			\noindent\line(100,0){100} 			&& \line(100,0){100}\\
+			(Supervisor) 				        && (Chairman) \\
+			Dr. Sandip Chakraborty				&& Dr. Niloy Ganguly  \\
+			Professor 				        	&& Professor \\
+			Department of CSE 		            && Department of CSE \\
+			IIT Kharagpur, India				&& IIT Kharagpur, India \\    
+			
+			
+			&&\\
+			&&\\
+			
+			
+			\noindent\line(100,0){100} 			&& \line(100,0){100}\\
+			(Head of the Department) 			&& (External Examiner) \\
+			Dr. Dipanwita Roy Chowdhury			&& \\
+			Professor							&& \\
+			Department of CSE					&& \\
+			IIT Kharagpur, India				&& \\    
+		\end{tabular}
+	\end{table}
+}
+
+
+%================================================================
+% ------------------------- Fill in these fields for the preliminary pages ----------------------------
+%
+ \begin{document}
+% \font\Hin=''gargi:script=hin''
+\include{HeadTail/coverpage}
+
+\include{HeadTail/ack_actual}
+
+\include{HeadTail/abstract_actual}
+
+\fussy %\makenomenclature
+%\begin{document}
+
+ % Start page counting in roman numerals
+ \frontmatter
+
+ \makepreliminarypages
+ %\singlespace
+
+%\listoffigures
+ \clearemptydoublepage
+
+% \listoftables
+ \clearemptydoublepage
+%\listofacronyms[acrodefs][u]
+
+%\listofsymbols
+%\clearemptydoublepage
+%\thispagestyle{empty}
+% to print list of nomenclature :
+% open command prompt in winedt and write: makeindex thesis.nlo -s nomencl.ist -o thesis.nls
+\fontsize{12}{13.2}\selectfont
+%
+
+%\printnomenclature[1in]
+%\thispagestyle{empty}
+
+%\thispagestyle{empty}
+%
+ \fancyhead[RO]{\textbf{\rightmark}}
+
+%  \fancyhead[RE]{\slshape \leftmark}
+  \fancyhead[LE]{\textbf{\leftmark}}
+  \fancyfoot{}
+  \fancyfoot[CO,CE]{\textbf{\thepage}}
+  \pagestyle{fancy}
+  \renewcommand{\chaptermark}[1]{\markboth{\chaptername \ \thechapter \ \ #1}{}}
+  \renewcommand{\sectionmark}[1]{\markright{\thesection \ \ #1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Abstract %%%%%%%%%%%%%%%%%%
+% \clearemptydoublepage
+% \addcontentsline{toc}{chapter}{Abstract}
+% \include{HeadTail/abstract}
+% \thispagestyle{empty}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\fontsize{12}{13.5}\selectfont
+
+\tableofcontents
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Abbreviation %%%%%%%%%%%%%%%%%%
+% \fontsize{12}{14.5}
+% 
+% \clearemptydoublepage
+% 
+% \addcontentsline{toc}{chapter}{Symbols and Abbreviations}
+% \include{abbr}
+% \thispagestyle{empty}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearemptydoublepage
+    \listoffigures  
+\thispagestyle{empty}
+\clearemptydoublepage
+
+
+
+% \addcontentsline{toc}{chapter}{List Of Algorithms}
+%  \include{HeadTail/ListOfAlgorithms}
+% \clearemptydoublepage
+
+\fontsize{12}{14.5}\selectfont
+ \mainmatter
+
+\abovedisplayskip=5pt \belowdisplayskip=5pt
+\renewcommand{\baselinestretch}{1.37}\small\normalsize
+\parskip 7pt
+%
+\makeatletter
+\newlength{\mySpaceUnder}
+\newlength{\mySpaceOver}
+\setlength{\mySpaceUnder}{.15cm plus .2ex}  % 4cm as an example ;-)
+\setlength{\mySpaceOver}{.4cm plus -1ex minus-.2ex}   % 3cm as an example
+\renewcommand\section{\@startsection {section}{1}{\z@}%
+                                   {\mySpaceOver}%
+                                   {\mySpaceUnder}%
+                                   {\normalfont\Large\bfseries}}
+%
+\newlength{\mySpaceUndera}
+\newlength{\mySpaceOvera}
+\setlength{\mySpaceUndera}{.1cm plus .1ex}  % 4cm as an example ;-)
+\setlength{\mySpaceOvera}{.3cm plus -1ex minus-.1ex}   % 3cm as an example
+\renewcommand\subsection{%
+ \def\@seccntformat##1{\csname the##1\endcsname\hspace{.25in}}
+ \@startsection{subsection}{1}{\z@}{\mySpaceOvera}%
+                                   {\mySpaceUndera}%
+                                   {\normalfont\large\bfseries}
+}
+%
+%
+\renewcommand\subsubsection{%
+ \def\@seccntformat##1{\csname the##1\endcsname\hspace{.25in}}
+ \@startsection{subsubsection}{1}{\z@}{.2cm}%
+                                   {.01cm}%
+                                   {\normalfont\em\bfseries}
+}
+%
+\makeatother
+%
+\newenvironment{my_item}{
+\begin{enumerate}
+  \setlength{\itemsep}{2pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{enumerate}}
+%
+%
+\fontsize{12}{14.5}\selectfont
+
+\include{Chapters/01.Introduction/introduction}
+\clearemptydoublepage
+%\include{Chapters/02.Chap2/intro.tex}
+%\clearemptydoublepage
+
+\begin{appendix}
+\include{Appendices/talliptransformappendix}
+
+\end{appendix}
+
+\renewcommand{\bibname}{References}
+\bibliographystyle{abbrv}
+%\bibliography{survey}
+
+
+\addcontentsline{toc}{chapter}{Dissemination}
+\include{HeadTail/publication}
+\clearemptydoublepage
+
+\end{document}
