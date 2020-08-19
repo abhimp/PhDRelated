@@ -1,0 +1,150 @@
+\documentclass[times,english,12pt,oneside]{article}
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage[nolist,nohyperlinks]{acronym}
+\usepackage{lipsum}  
+\usepackage{float}
+\usepackage{bm}
+\usepackage{subfigure} 
+\usepackage{flushend}
+\usepackage{cuted}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage{bbm}
+\usepackage{breqn}
+%\usepackage{algorithm}
+\usepackage[utf8x]{inputenc}
+\usepackage{tikz}
+\usepackage{enumerate}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{algorithm}
+\usepackage{verbatim}
+\usepackage{url}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage[shortlabels]{enumitem}
+\geometry{verbose,a4paper,tmargin=2.54cm,bmargin=2.54cm,lmargin=3.00cm,rmargin=2.04cm}
+%\usepackage{hyperref}
+% \usepackage{unicode-math}
+% \setmainfont{Latin Modern Roman}
+% \setmathfont{Latin Modern Math}
+
+% \Umathchardef\xnot="3 \symoperators "0338
+% \AtBeginDocument{\renewcommand\not[1]{#1\xnot}
+% \renewcommand{\notin}{\in\xnot}}
+%\usepackage{epstopdf}
+\definecolor{LightBlue}{rgb}{0.67,0.847,0.9}
+\definecolor{LightOrange}{rgb}{1,0.84,0.60}
+\definecolor{LightGrey}{rgb}{0.9,0.9,0.9}
+
+\newcommand{\secBest}[1]{\cellcolor{LightBlue}{#1}}
+\newcommand{\best}[1]{\cellcolor{LightOrange}{#1}}
+\newcommand{\todo}[1]{\textcolor{red}{TODO: #1}}
+\newcommand{\niloy}[1]{\textcolor{red}{NG: #1}}
+\newcommand{\basabdatta}[1]{\textcolor{blue}{BP: #1}}
+\newcommand{\jay}[1]{\textcolor{green}{Jay: #1}}
+\newcommand{\bs}[1]{\textcolor{purple}{#1}}
+\newcommand{\new}[1]{\textcolor{blue}{#1}}
+\newcommand{\ti}[1]{\textit{#1}}
+\newcommand{\mq}[1]{$`{#1}$'}
+\newcommand{\fig}[1]{Fig.#1}
+\newcommand{\phone}[1]{$\text{P}_{#1}$}
+\newcommand{\network}[1]{$\text{N}_{#1}$}
+\newcommand{\location}[1]{\textit{Location}-{#1}}
+\newcommand{\bin}[1]{{\textit{bin}}-{#1}}
+\newcommand{\prefu}[2]{\mathrm{P_{#1}F_{#2}}}
+\newcommand{\bracket}[1]{\left({#1}\right)}
+\newcommand{\braces}[1]{\left{{#1}\right}}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\newcommand\blankpage{%
+	\null
+	\thispagestyle{empty}%
+	%	\addtocounter{page}{-1}%
+	\newpage}
+
+\begin{document}
+
+%\title{\textit{EnDASH} - 
+%A Mobility Adapted Energy Efficient ABR Video Streaming for Cellular Networks}
+%% {\footnotesize \textsuperscript{*}%Note: Sub-titles are not captured in Xplore and
+%% %should not be used
+%% }
+%
+%\author{\IEEEauthorblockN{Abhijit Mondal$\textbf{}^1$, Basabdatta Palit$\textbf{}^1$, Somesh Khandelia$\textbf{}^1$, Nibir Pal$\textbf{}^1$, \\Jay Jayatheerthan$\textbf{}^2$, Krishna Paul$\textbf{}^2$, Niloy Ganguly$\textbf{}^1$, Sandip Chakraborty$\textbf{}^1$}
+%\IEEEauthorblockA{{$\textbf{}^1$Indian Institute of Technology, Kharagpur, India} \\
+%$\textbf{}^2$Intel Technology Pvt. Ltd. Bengaluru, India}
+%\vspace*{-0.8cm}}
+%\maketitle
+
+	\input{tex/firstpage.tex}
+\blankpage
+\addtocounter{page}{-2}
+%	\input{tex/0_abstract.tex}
+%	\newpage
+%	\blankpage
+
+%\onehalfspacing
+
+%\begin{abstract}
+%User experience of watching videos in smartphones while travelling is often limited by fast battery drainage. Existing client video players use adaptive bitrate (ABR) streaming through Dynamic Adaptive Streaming over HTTP (DASH) to improve user's Quality of Experience (QoE) while ignoring the energy savings aspect, which has been addressed in our work. In this report, we propose EnDASH - an energy aware wrapper over DASH which minimizes energy consumption without compromising on QoE of users, under mobility. First, we undertake an extensive measurement study using two phones and three service providers to understand the dynamics between energy consumption of smartphones and radio related network parameters. Equipped with this study, the proposed system predicts cellular network throughput from the radio parameters within a finite future time window.  The prediction engine captures the effect of associated technology and vertical handovers on throughput, unlike existing works. EnDASH then uses  deep reinforcement learning based neural networks to first tune the playback buffer length to the average predicted cellular network throughput and then to select an optimal video chunk bitrate. It achieves a near 30\% decrease in the maximum energy consumption than  state-of-the-art ABR Pensieve algorithm while performing almost at par in QoE.  %We also show that the prediction engine can be tuned to offset better  %The energy saved from watching a 1000s video using EnDASH provides an additional 850s video playback time than Pensieve.  
+%\end{abstract}
+%\begin{IEEEkeywords}
+% 4G LTE, Energy Efficiency, ABR Video Streaming, Cellular Networks, Mobility
+%\end{IEEEkeywords}
+\input{tex/01.secI_introduction}
+\input{tex/02.secII_related_work}
+\input{tex/03.secIII_pilot_study.tex}
+\input{tex/04.secIV_system.tex}
+\input{tex/05.secV_evaluation}
+\input{tex/06.secVI_conclusion}
+
+
+	\bibliographystyle{IEEEtran}
+	\bibliography{Extension-report}
+	
+	\begin{acronym}
+		\acro{2G}{2$^\text{nd}$ Generation}
+		\acro{3G}{3$^\text{rd}$ Generation}
+		\acro{4G}{4$^\text{th}$ Generation}
+		\acro{A3C}{Actor-Critic}
+		\acro{ABR}{adaptive bitrate}
+		\acro{BS}{Base Station}
+		\acro{CDN}{Content Distribution Network}
+		\acro{DASH}{Dynamic Adaptive Streaming over HTTP}
+		\acro{DRX}{Discontinuous Reception}
+		\acro{EDGE}{Enhanced Data Rates for \ac{GSM} Evolution.}
+		\acro{eNB}{evolved NodeB}
+		\acro{GSM}{Global System for Mobile}
+		\acro{HD}{High Definition}
+		\acro{HSPA}{High Speed Packe Access}
+		\acro{LTE}{Long Term Evolution}	
+		\acro{HVPM}{High voltage Power Monitor}
+		\acro{Node}{}
+		\acro{QoS}{Quality of Service}
+		\acro{QoE}{Quality of Experience}
+		\acro{RFL}{Random Forest Learning}
+		\acro{RL}{Reinforcement Learning}
+		\acro{RRC}{Radio Resource Control}
+		\acro{RSSI}{Received Signal Strength Indicator}
+		\acro{RSRP}{Reference Signal Received Power}
+		\acro{RSRQ}{Reference Signal Received Quality}
+		\acro{SINR}{signal-to-interference-plus-noise-ratio}
+		\acro{SNR}{signal-to-noise-ratio}
+		\acro{UE}{User Equipment}
+		\acro{UHD}{Ultra HD}
+		\acro{VoLTE}{Voice over LTE}
+		\acro{WiFi}{Wireless Fidelity}
+	\end{acronym}
+
+\end{document}
