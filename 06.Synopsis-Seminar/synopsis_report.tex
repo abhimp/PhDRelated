@@ -1,0 +1,72 @@
+%% LyX 1.1 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[12pt,a4paper]{article}
+\usepackage{times}
+\usepackage{geometry}
+\geometry{verbose,a4paper,tmargin=1.2in,bmargin=1.2in,lmargin=1in,rmargin=1in}
+\usepackage{graphics}
+\usepackage{verbatim}
+\usepackage{graphicx}
+%\usepackage{mathptm}
+\usepackage{psfrag}
+\usepackage{subfigure}
+\usepackage{amsfonts}
+\usepackage{longtable}
+\usepackage{comment}
+\usepackage{paralist}
+\usepackage{color}
+\usepackage{microtype}
+\usepackage{cite}
+\usepackage{tikz}
+\usepackage{tikz-dependency}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{multirow}
+
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+\newtheorem{algocounter}{Algorithm}[section]
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+\providecommand{\LyX}{L\kern-.1667em\lower.25em\hbox{Y}\kern-.125emX\@}
+%% Special footnote code from the package 'stblftnt.sty'
+%% Author: Robin Fairbairns -- Last revised Dec 13 1996
+\let\SF@@footnote\footnote
+\def\footnote{\ifx\protect\@typeset@protect
+    \expandafter\SF@@footnote
+  \else
+    \expandafter\SF@gobble@opt
+  \fi
+}
+\expandafter\def\csname SF@gobble@opt \endcsname{\@ifnextchar[%]
+  \SF@gobble@twobracket
+  \@gobble
+}
+\edef\SF@gobble@opt{\noexpand\protect
+  \expandafter\noexpand\csname SF@gobble@opt \endcsname}
+\def\SF@gobble@twobracket[#1]#2{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\newtheorem{Example}{Example}[section]
+\newtheorem{Definition}{Definition }[section]
+\usepackage{graphicx}
+
+\makeatother
+\begin{document}
+
+\input{tex/front_page}
+%===========================================
+%           report
+%===========================================
+%\input{report}
+
+\footnotesize
+\bibliographystyle{ieeetr}
+\addcontentsline{toc}{section}{\numberline{}References}
+%\bibliography{reference}
+\end{document}
