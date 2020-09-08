@@ -37,8 +37,9 @@ clean:
 	rm -f ${filename}.idx || true
 	rm -f ${filename}.lof || true
 	rm -f ${filename}.toc || true
-	find . -name *-eps-converted-to.pdf -delete || true
-	find . -name *.aux -delete || true
+	find . -name "*-eps-converted-to.pdf" -delete || true
+	find . -name "*.aux" -delete || true
+	find . -name "*.log" -delete || true
 	rm -f tex/*.backup || true
 	rm -f tex/*.log || true
 	rm -f *.backup || true
