@@ -1,0 +1,49 @@
+\section{Predictive Model for Data Consumption during Streaming}
+\label{chap03sec:model}
+
+As mentioned in \S\ref{chap03sec:introduction}, we realize that early prediction of data consumption even before a video has actually played, can be extremely useful while streaming videos in a challenging scenario.
+In order to achieve this, we propose an analytical model, with a machine learning based classifier, which we describe next.
+
+Let $i,\ 1 \leq i \leq n$ represent an $itag$ value; where $n$ is the total number of $itag$ values used by YouTube.
+Let $\lambda_i$ represent the frame rate for $itag$ value $i$; from our observations, frame rate per $itag$ is constant. 
+Let us also consider an indicator variable $p(t)$, where $p(t)=1$ denotes that at a particular instance of time ($t$), a key-frame has arrived.
+Let $\alpha_i$ be the size of a key-frame (in bits) for $itag$ value $i$, and $\beta_i$ be the size of an intra-frame (in bits) at $itag$ value $i$.
+Therefore, the amount of data arrived (in bits) in a single frame for $itag$ $i$, say $\mu_{i}$, is given by:
+\begin{equation}
+ \mu_i = \lbrack p(t).\alpha_i + \left\{1-p(t)\right\}.\beta_i \rbrack
+\end{equation}
+Since frame rate is $\lambda_i$, the amount of data (in bits) downloaded per unit time for $itag$ $i$, is given by:
+\begin{equation}
+ \delta_i = \mu_i.\lambda_i
+\end{equation}
+Let us consider an infinitesinally small time instance $dt$, during the YouTube streaming process. The amount of data downloaded per instance of time would be: $\delta_i.dt$, for a single $itag$ $i$.
+However, data may be downloaded for different $itag$ values at the same time instance, which is where the data wastage stems from.
+Let us define another indicator variable $q_{i}(t)$, where $q_{i}(t)=1$ indicates that data corresponding to $itag$ $i$ has been downloaded at time $t$.
+In such a scenario, the total amount of data (in bits) downloaded in playback time duration $\tau$, is given by:
+\begin{equation}
+ \Delta = \int_{0}^{\tau} \left\{\sum_{i=1}^{n} q_{i}(t).\delta_{i}\right\}\ dt %= \int_{0}^{\tau} \lbrack \sum_{i=1}^{n} q_{i}(t)\lbrack p(t).\alpha_i + \left\{1-p(t)\right\}.\beta_i \rbrack.\lambda_i\ dt
+\end{equation}
+$\Delta$ is the measure of {\it data consumption} due to YouTube playback.\\
+Let us also define $f(t)$, which is the maximum $itag$ value at time $t$, for which data is available (since data may be available for multiple $itag$ values simultaneously):
+\begin{equation}
+ f(t) = max\{i\}\ \forall i\ :\ q_{i}(t) = 1
+\end{equation}
+Therefore, the data (in bits) actually played by the YouTube player in time $\tau$, is given by:
+\begin{equation}
+ \rho = \int_{0}^{\tau} q_{f}(t).\delta_{f}\ dt
+\end{equation}
+$\rho$ is therefore the measure of {\it productive data} downloaded during YouTube streaming.
+Consequently, data wastage ratio (say $\omega$), is defined as:
+\begin{equation}
+ \omega = \frac{\Delta - \rho}{\rho}
+\end{equation}
+The key to determining $\Delta$, $\rho$, and thereby $\omega$, is to estimate the values of $q_{i}$ for all $i$, at every time instance $t$.
+
+{\bf Classification Problem:} For every $itag$ value $i$, we consider $\frac{1}{\lambda_i}$ (inverse of frame rate) as the sampling interval, since $1$ frame arrives every such interval.
+We hypothesize that the value of $q_i(\hat{t})$ (where $\hat{t}$ indicates a sampled time instance) depends on the following factors -- (1) $\beta(\hat{t}-1)$ (bandwidth at previous instance), (2) $\beta(\hat{t})$ (bandwidth at current instance), (3) $i(\hat{t}-1)$ ($itag$ at previous instance), and (4) $p(\hat{t})$ (presence of key-frame at current instance).
+We identify that estimating $q_i(\hat{t})$ is a binary classification problem, with every $q_i(\hat{t})$ assuming a value of either $0$ (absence) or $1$ (presence) of data of $itag$ $i$ at time instance $\hat{t}$.
+
+\textbf{Model Accuracy:} A machine learning based classifier is employed for this purpose -- we use Weka~\cite{witten2016data}, a machine learning tool, and select the Random Forest classification~\cite{breiman2001random} technique, with $100$ iterations ($I=100$) and unlimited depth ($K=0$) as hyperparameters.
+In the classification technique, we try to predict the value of $q_i(\hat{t})$ using the four parameters mentioned above as classification features.
+The results (\emph{\textbf{average precision = $0.86$, average recall = $0.85$, and average accuracy = $85.75\%$}}) across all $itag$s indicate high classification prowess, which validates our hypothesis regarding parameters affecting $q_i(\hat{t})$.
+Using this model, a user can predict the amount of data consumption for YouTube video streaming.

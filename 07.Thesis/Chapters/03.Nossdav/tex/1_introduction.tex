@@ -1,0 +1,41 @@
+\section{Introduction}
+\label{chap03sec:introduction}
+
+Mobile traffic has exhibited colossal growth over the past half-decade ($18$-fold over the last $5$ years\footnote{\url{http://www.cisco.com/c/en/us/solutions/service-provider/visual-networking-index-vni/index.html}}), with video contributing to 60\% of the total usage in $2016$. 
+Google's YouTube, already a part of the common Internet parlance, has emerged as the largest player in the mobile video market, accounting for 40--70\% of total video traffic across most mobile networks\footnote{\url{https://www.ericsson.com/assets/local/mobility-report/documents/2016/ericsson-mobility-report-november-2016.pdf}}.
+Not surprisingly, YouTube has garnered significant interest in the research community over the years, furnishing studies which explore various aspects of the service -- a large majority of which focus on its video playback mechanism.
+However, the interest in YouTube's video streaming behavior is far from satiated -- a phenomenon largely propelled by YouTube's practice of incessant technical evolution. %, aimed at elevating the user's viewing experience.
+
+{\bf Existing literature and limitations:} Consequentially, the research community has strived to keep pace with YouTube's technical evolution, churning out studies focused on YouTube's streaming behavior during different time periods.
+Even recently, several works~\cite{sieber2015cost,seufert2015youtube,sieber2016sacrificing} have studied YouTube's DASH behavior to analyze the trade-off between quality of experience and wastage of downloaded data.
+However, such studies have largely looked at YouTube's streaming behavior through the tinted glass of their understanding of the DASH recommendations.
+The studies have, in essence, focused on the impact of variation in input parameters (such as bandwidth via throttling), on the streaming output (video bit-rate adaptation), treating YouTube's implementation of DASH as a black-box.
+{\bf Approach in this work:} In a departure from existing literature, we, in this paper, adopt a focused approach to understand the internals of YouTube's bit-rate and quality adaptation algorithm.
+We endeavor to explore YouTube's implementation of the DASH recommendations by studying the interplay between various parameters of YouTube adaptive video streaming.
+In terms of methodology, we capture a sizeable volume of YouTube traffic traces ($\sim500$ videos) in the form of HTTP archives (HAR), which give us access to the contents of HTTP request and response message headers;
+from these headers, we first identify the parameters used by YouTube in their rate adaptation algorithm, followed by controlled experiments to understand their individual roles.
+
+{\bf Experimental observations:} Our experiments reinforce the earlier reported observation that video quality adaptation is based on buffer size distribution at the YouTube client.
+However, we also observe that when encountered with a drop in network bandwidth, YouTube makes an effort to adaptively change segment lengths of the downloaded video chunks, before downgrading video quality -- this observation, to the best of our knowledge, has not been reported in any prior work.
+In fact, we find that YouTube employs an opportunistic approach of joint video quality and streaming rate adaptation, which is similar to the elastic behavior characteristic  observed in TCP traffic (\S\ref{chap03sec:parameters}).
+
+{\bf Data wastage during YouTube streaming:} Downloaded data can end up being wasted in adaptive bit-rate streaming when, due to a sudden improvement in network conditions, a higher quality video segment is downloaded for viewing, even when a lower quality segment for the same playback duration already exists -- the lower quality segment is rendered unproductive.
+In light of our experimental observations, we ask the following research question: ``How does segment length adaptation affect data wastage in YouTube adaptive streaming?''
+The question is particularly interesting, since many existing works (including~\cite{sieber2016sacrificing} recently) have studied data wastage in DASH implementations, including that of YouTube.
+We experimentally determine the data wastage ratio involved in YouTube adaptive streaming to be around $0.82x10^{-6}$ on an average, which is significantly lesser than values reported by earlier studies.% (\notess{exact value from cited work}).
+We reason that such overestimations in earlier works stemmed from their incorrect assumption that the segment size remains constant, which led to gross approximations in their data wastage computations.
+
+{\bf Model to predict data consumption:} Furthermore, we realize that prediction of data consumption (both productive and wasted) even before a video has actually played, can serve as an important parameter for more intelligent streaming in challenging scenarios.
+Suppose an user is traveling through a zone of irregular connectivity, thereby resulting in fluctuating bandwidth. It can be noted that existing mechanisms, such as~\cite{zou2015can} and the references therein, can predict the bandwidth fluctuation pattern a priori under many mobility patterns such as predicted urban mobility.  
+The user would ideally wish to watch videos for as long as possible, without sacrificing her quality of experience too much (streaming in lowest available resolution is too extreme for her). 
+Assuming the YouTube client has prior information of these challenges, and can predict data consumption, it can decide upon the most balanced quality level to start streaming in, so that the data download is minimized.
+To such ends, we propose an analytical model, augmented with a machine learning based classifier, using which one can estimate data consumption even before actually playing a YouTube video, if channel conditions and the initial video quality level are known.
+
+{\bf Contributions:} In summary, our contributions in this work are:
+\begin{enumerate}
+ \item We illustrate a methodology to study YouTube's adaptive streaming behavior in-depth (\S\ref{chap03sec:experiments}) -- we identify and closely study the interplay among important parameters enabling this streaming algorithm (\S\ref{chap03sec:parameters}).
+ \item Our experiments reveal that YouTube adapts the {\it segment length} parameter before attempting to adapt video resolution -- a phenomenon not reported in the literature (\S\ref{chap03subsec:seglength}).
+ \item We observe that segment length adaptation leads to much lower values of data wastage on average, than reported by prior studies.
+ \item We propose an analytical model, augmented with a machine learning based classifier, which enables prediction of data consumption for an initial playback video quality when it is possible to estimate the network conditions a priori using existing mechanism like~\cite{zou2015can}  (\S\ref{chap03sec:model}).
+\end{enumerate}
+
