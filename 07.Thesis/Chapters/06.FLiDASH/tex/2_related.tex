@@ -1,0 +1,34 @@
+\section{Related Work}
+Various existing researches have focused on improving QoE of the ABR protocols used in DASH. Huang \etal proposed a buffer-based adaptation algorithm~\cite{buffer-based-sigcomm-2014} which has been extended later based on different approaches such as playback buffer monitoring (BOLA~\cite{bola2-acm-mmsys2018}), control theory (MPC~\cite{MPC-SIGCOMM-2015}), reinforcement learning (Pensieve~\cite{Pensieve}), etc. Many existing literature have developed approaches to apply such ABR techniques over a live streaming platform~\cite{TNET-Migration-2016,bruneau2018pms,spiteri2019theory}, although in a pure client-server setting. 
+
+Collaborative live streaming has been studied extensively in the literature during the last decade~\cite{jahed2016scalable,le2016microcast,Roverso:2015,saleh2016performance,khalid2019sdn}, which primarily use three different techniques. First, researchers have explored collective live streaming over a P2P setting~\cite{saleh2016performance,Collaborative-P2P-WCNC-2018}. These group of works have used a P2P network for sharing the live videos among themselves. One of the peers fetches the content from the CDN and distributes it to other peers in the network. Majority of these works use a single P2P overlay across the entire network, where the users can join or leave dynamically.  Among these works, \textit{SmoothCache 2.0}~\cite{Roverso:2015} is the closest to our architecture, where the overlay network is constructed based on a tiered-hierarchy with bandwidth-ordered fashion. The peers having the maximum bandwidth fetches the data directly from the CDN, and then the video is distributed across the lower-tiered peers. For video bit-rate adaptation, \textit{SmoothCache 2.0} keeps the first-tier for every available bit rate. We argue that this architecture places substantial overhead on the peer clients due to the complexity of overlay management. 
+
+In contrast to this peer-to-peer overlay architecture, we consider a federated architecture, where multiple independent coalitions among the streaming clients can evolve in the network depending on the organizational network cluster. Each coalition independently and dynamically decides the video bit-rates based on the available bandwidth. The second group of works on collaborative live streaming uses cloud or SDN-assisted approaches~\cite{payberah2012clive,wang2014migration,khalid2019sdn}. As these works require specialized Internet middleboxes, they are hard to deploy on an existing CDN based streaming application. The third group of works exploit device-to-device capability of cellular networks for sharing live media contents among neighboring devices~\cite{jahed2016scalable,gao2018multi}. These works also require device to device capability. Further, a single peer downloads the entire video and then share with others; therefore, the video bit-rate completely depends on the peer which directly connects to the CDN. In contrast to these existing schemes, we explore the possibility of streaming live videos when players are geographically closer and behind a common a network gateway (say, under the same cellular core network); however, the network quality of the peers can change over time. In \our, all the members of the coalition share the video-download load among themselves, and collectively decide the bitrate for the video segments to improve the overall QoE of the coalition.  
+
+
+%However, these mechanisms are primarily developed for video-on-demand or buffered video streaming to standalone players, where the players' connection quality varies over time. Consequently, for live video streaming, researchers have explored peer-assisted live video streaming to utilize collective download capability of the playback devices. In this direction, Liu \etal have measured the performance bound for peer-assisted streaming over a tree-based network~\cite{Liu-sigmetrics-2008}. 
+%%They have considered a tree-based peer-to-peer network. I
+%Various other works~\cite{EdgeNode-GameTheory-Globecomm-2018, Collaborative-P2P-WCNC-2018} have explored possibilities and strategies of peer-based video streaming. Wang \etal proposed a peer-based solution for live streaming, which reduces the source peer load \cite{Wang:ACMmm-2011}. Stefan \etal proposed a solution for peer-assisted DASH based video streaming~\cite{P2PHttp-2012}, where they cluster players with similar download speed on the Internet to collaborate in the streaming. 
+%%They need to change the DASH MPD files according to the peer network as MPD file itself contain the peer addresses. 
+%Ishakian \etal proposed a peer-assisted cloud-based streaming system called AngelCast~\cite{ISHAKIAN201714}, where they achieved significant scalability with the available clients' upstream capability.
+%%Feng \etal advocated cloud assisted live media streaming in \cite{TNET-Migration-2016}. 
+%%Authors from \cite{PeerAss-RTMFP-2018, EdgeNode-GameTheory-Globecomm-2018, Collaborative-P2P-WCNC-2018} and references therein have discovered the possibility of peer-assisted video streaming. 
+%%Zou \etal argument the possibility of using UDP based RTMFP for PPTV~\cite{PeerAss-RTMFP-2018}. They found that their proposed architecture improves the quality and reduces the server load.
+%Edge assisted video streaming with coalition formation have been explored in~\cite{EdgeNode-GameTheory-Globecomm-2018} where a game theoretic formulation has been used for coalition formation. 
+%All these works explored the possibilities of peer-to-peer or edge assisted media streaming. 
+
+%However, the existing works primarily consider that the peers are directly connected over the Internet, and they have bounded upstream capacity while the individual link bandwidth remains same for all the peers. As a consequence, all the peers agrees on a single bit-rate before downloading the video, and the adaptive bitrate streaming is not supported. 
+%However, the players either have different types of Internet subscription, or they have a shared Internet connection.
+
+
+
+% https://doi.org/10.1145/1375457.1375493
+% https://doi.org/10.1145/2072298.2071982
+% https://doi.org/10.1109/PV.2012.6229730
+% https://doi.org/10.1109/TPDS.2009.167
+% https://doi.org/10.1109/TCSVT.2016.2601962
+% https://doi.org/10.1109/GLOCOMW.2018.8644422
+% https://doi.org/10.1109/WCNC.2018.8377226
+% https://doi.org/10.1016/j.comcom.2017.06.011
+% https://doi.org/10.1109/TNET.2014.2362541
+% https://doi.org/10.1109/TNET.2014.2346077

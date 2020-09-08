@@ -1,0 +1,108 @@
+\section{Evaluation}
+We compare {\our} performance with following baselines -- BOLA~\cite{bola2-acm-mmsys2018}, MPC~\cite{MPC-SIGCOMM-2015}, Pensieve~\cite{Pensieve} which are client-server based ABR streaming mechanism, and a distributed hash table (DHT) based peer-assisted live streaming system~\cite{shen2013dht}. 
+We do not compare the performance of {\our} with the performance of middlebox-based adaptive live streaming platforms, such as~\cite{detti2016tracker,payberah2012clive,wang2014migration,khalid2019sdn}, as the architectures of the two environments are completely different. \cite{shen2013dht} uses a distributed architecture for overlay formation and streaming data scheduling, so it is close to our proposed architecture. 
+The source code of the implementation is available at \url{https://github.com/abhimp/FLiDASH} (accessed: \today).
+
+\subsection{Emulation Environment}
+\label{sec:chap06:simulatorprop}
+We have developed an emulation platform similar to Pensieve emulator~\cite{Pensieve} to analyze the performance of \our, however, extending it for multi-player environment as discussed next. In the emulation platform, all the players in the system have access to the system clock, which is an event-driven clock handled by the emulator core. The emulator uses a reference network to define the connectivity across the networked nodes; where every node of the network runs a streaming player. The reference network provides the network map only. For our experiments, we assume that the inter-node link capacity is $100$mbps, and the latency varies from $4$ms to $64$ms. We maintain a global playback time defined by the live streaming server, and the streaming server generates DASH segments of a live video based on the global playback time, maintaining the video frame recording timestamps. We use Mahimahi~\cite{mahimahi} network traces to emulate the network condition of the links between the streaming server and the players, where we randomly assign different Mahimahi traces to every player in a network. The emulated player can use any existing ABR implementation without any modification as long as it takes the player-state as the input and gives the next segment quality as the output.
+In the emulated environment, we use Eq.~(\ref{eqn:chap06:transmissionTime}) to compute the transmission time $T_{ij}$ between two players $P_i$ and $P_j$ in a coalition. Here $clen$ is the data length of the video segment, $d_{ij}$ is delay between the two nodes, $buf$ is the sender buffer and $z$ is the noise factor which is uniformly distributed between $\theta_1$ to $\theta_2$. In our implementation, we consider the value of $\theta_1$ and $\theta_2$ as $0.95$ and $1.05$, respectively.
+%\notesc{What is $P(x)$?}
+\begin{align}
+T_{ij} = clen\times \frac{buf}{2\times d_{ij}} \times z \mbox{\hspace{1cm}}& \theta_1 <= z <= \theta_2
+\label{eqn:chap06:transmissionTime}
+\end{align}
+
+\subsection{Experimental Setup}
+We run our emulation with a broad set of autonomous system data available from SNAP database~\cite{ASDataSet} as reference networks. We have executed the systems over $710$ reference networks, with $100$ to $1000$ nodes per network. The link-speed for every node is set based on the Mahimahi network traces. As mentioned earlier, every node runs a streaming client. To train the model for learning based adaptive streaming like Pensieve~\cite{Pensieve}, we use $58$ DASH-encoded videos with a total duration of $45$ hours.
+We have created Mahimahi compatible traces from the following publicly available dataset -- a broadband trace from FCC~\cite{dataset-fcc} and the 3G/HSDPA mobile dataset collected in Norway~\cite{dataset-norway}. We modified these datasets as described in \cite{Pensieve} to make it Mahimahi compatible.
+
+For experimentation, we use the QoE definition as given in \cite{Pensieve}. According to this definition, we consider three QoE components -- (i) average quality level, (ii) average jump in the quality level (smoothness of the video playback) and (iii) re-buffering time (stall time). Let $\mathcal{Q}_n$ denote the quality level for video segment $n$ and $\mathcal{T}_n$ be the re-buffering time. Considering that there are $N$ number of segments in a reference video, the average QoE is defined as follows. Here, $\alpha$, $\beta$ and $\gamma$ are weight factors, whose values have been considered as $1$, $1$ and $4.3$, respectively, similar to Pensieve~\cite{Pensieve}.
+\begin{equation}
+\scriptsize
+QoE = \frac{\alpha}{N}\sum_{n=1}^{N} \mathcal{F}(\mathcal{Q}_n) - \frac{\beta}{N-1} \sum_{n=2}^{N}\lvert\mathcal{F}(\mathcal{Q}_n) -\mathcal{F}(\mathcal{Q}_{n-1})\rvert - \frac{\gamma}{N}\sum_{n=1}^{N}\mathcal{T}_n
+\label{eqn:chap06:QoE}
+\end{equation}
+\subsection{QoE Analysis}
+\begin{figure}[ht]
+	\captionsetup[subfigure]{width=0.49\linewidth}
+	\begin{center}
+		\subfloat[\label{fig:chap06:avgBitratebox}Average Bitrate (More is better)]{
+			\includegraphics[width=0.49\linewidth]{img/grpbasic/avgbitrate_box_1}
+		}
+       	\subfloat[\label{fig:chap06:avgBitrateVarbox}Bitrate Variation (Less is better)]{
+       			\includegraphics[width=0.49\linewidth]{img/grpbasic/avgbitrate_var_box_1}
+       		}\\
+		\subfloat[\label{fig:chap06:Stall_Timebox}Rebuffering Time (Less is better)]{
+			\includegraphics[width=0.49\linewidth]{img/grpbasic/stalltime_box_1}
+		}
+       	\subfloat[\label{fig:chap06:QoEbox}Overall QoE (More is better)]{
+       		\includegraphics[width=0.49\linewidth]{img/grpbasic/qoe_box_1}
+       	}
+	\end{center}
+	\caption{\label{fig:chap06:qoe} Performance in terms of Various QoE Components and Overall QoE}
+\end{figure}
+We first observe the individual QoE components for {\our} in comparison with other baselines. Figure~\ref{fig:chap06:avgBitratebox} compares the average playback bitrate for various streaming applications. In Figure~\ref{fig:chap06:avgBitrateVarbox}, we show the variation in average playback bitrates, which indicate the lack of smoothness of the video rendering. We observe that the performance of BOLA in terms of average playback bitrate is very low; BOLA is very conservative about the bitrate, whereas it is much concerned about the re-buffering time. Pensieve and MPC improve the video quality compared to BOLA by utilizing a learning-based approach. DHT uses the knowledge of existing players in the network and forms a peer-to-peer architecture for collectively download the videos. So, it improves the average video quality compared to client-server based ABR. However, {\our} clusters the players based on their network conditions and render the videos keeping the coalition members in sync. In Figure~\ref{fig:chap06:avgBitratebox}, it is clear that there are clusters of players who play a video in almost equal quality levels. Although we observe that the average variation in the video quality is high for {\our} compared to other baselines. {\our}, by default, plays the video in a high bitrate compared to other baselines; therefore, even a single quality-level fluctuation significantly impacts the overall QoE. Further, a forceful self-download contributes to the bitrate variation. Therefore, we observe higher bitrate variation in {\our} compared to other baselines.  
+\begin{figure}[!ht]
+	\begin{center}
+       			\includegraphics[width=0.7\linewidth]{img/grpbasic/qoe_cdf_1}
+	\end{center}
+	\caption{\label{fig:chap06:QoE} Overall QoE distributions: {\our} outperforms other baselines for $80\%$ of the scenarios}
+\end{figure}
+
+
+Next, Figure~\ref{fig:chap06:Stall_Timebox} compares the total rebuffering time among various baselines. We observe that the re-buffering time is very high for DHT because it needs more time to search for a video segment from the network before it can fetch it directly from the streaming server. The re-buffering time for {\our} is moderated, although it includes the skip time during the synchronization among the members of the coalition. BOLA incurs almost no re-buffering time; whereas Pensieve and MPC suffer from noticeable re-buffering time. As the re-buffering time is a significant contributor in the overall QoE measurement (Eq.~(\ref{eqn:chap06:QoE})), the overall QoE for various baselines, as shown in Figure~\ref{fig:chap06:QoEbox}, indicates that {\our} outperforms other baselines in term of maximum achievable QoE.  Among the various scenarios simulated over our developed platform, more than $50\%$ of the cases, {\our} incurs a high QoE (value between $2$--$4$). Figure~\ref{figchap06::QoE} shows the distribution of the overall QoE for {\our} in comparison with other baselines. We observe that {\our} outperforms other baselines for $80\%$ of the time.
+
+
+\subsection{Direct Traffic from the CDN} 
+\begin{figure}[!ht]
+	\captionsetup[subfigure]{width=0.49\linewidth}
+	\begin{center}
+		\subfloat[\label{fig:chap06:cdnuploaded_byte} Data downloaded from server]{
+			\includegraphics[width=0.49\linewidth]{img/grpbasic/cdnupload_1}
+		}
+		\subfloat[\label{fig:chap06:cdnuploaded_cnt} Segment downloads from server]{
+			\includegraphics[width=0.49\linewidth]{img/grpbasic/cdnuploadcnt_1}
+		}
+	\end{center}
+	\caption{\label{fig:chap06:cdnuploaded}Direct traffic from the CDN: The direct download load from the server is more than the DHT-based approach bus less than other baselines}
+\end{figure}
+One of the major objectives of {\our} is to reduce the direct traffic from the CDN server when multiple co-located players play the same live video. In Figure~\ref{fig:chap06:cdnuploaded}, we plot the direct traffic from the content server by different baselines in terms of (a) the total bytes downloaded, and (b) video segments directly downloaded from the content server. We observe that the DHT based system downloads minimum data from the CDN. In \our, players are bounded to receive data from its own coalition only, while in case of DHT, a player can share segments with as many players as possible in the complete network. The standalone players need to download all the segments directly from the server. As a consequence, we observe a performance trade-off here between a complete peer-to-peer based approach and the coalition-based approach -- {\our} significantly improves the QoE performance while having little increase in the CDN traffic overhead. In a nutshell, the proposed approach makes a balance between the QoE and the network traffic overhead during live video streaming.
+
+\begin{figure}[!ht]
+	\captionsetup[subfigure]{width=0.49\linewidth}
+	\begin{center}
+		\subfloat[\label{fig:chap06:grp_download}Amount of Data Upload and Download from Individual Players]{
+			\includegraphics[width=0.49\linewidth]{img/grpbasic/grpsz_upload_download}
+		}
+    	\subfloat[\label{fig:chap06:grp_self_dl} Percentage of forceful self-download due to deadline missess]{
+    		\includegraphics[width=0.49\linewidth]{img/grpbasic/grpsz_forced_dl}
+    	}
+	\end{center}
+\caption{\label{fig:chap06:grpsz}Effect of Coalition Size -- Large coalitions reduce the CDN load but increase intra-network data consumption and the forceful self-download due to deadline misses}
+\end{figure}
+
+
+\subsection{Impact of Coalition Size}
+We next analyze the performance of {\our} in the context of various design choices. First, we check the impact of coalition size on the performance of {\our}\footnote{In all the previous experiments, we have fixed the maximum coalition size to $4$ players}. Figure~\ref{fig:chap06:grp_download} shows the amount of data downloaded at each client from the streaming server (CDN) and the total amount of upload data from each client indicating the local network traffic that has been used to distribute the downloaded segments among the coalition members. We observe that a large coalition size reduces the download data share among the streaming clients, as the total video data gets distributed among the coalition members. However, we further observe an increase in the upload data share, as each client needs to distribute the individually downloaded video segments to all other clients. However, it can be noted that the download data actually contributes to the network (CDN) load, whereas the upload data is over the local network only.
+
+Figure~\ref{fig:chap06:grp_self_dl} indicates \textit{the percentage of forceful self-download} with different coalition sizes. We observe that with increasing coalition size, the percentage of forceful self-download drops till coalition size $5$, and then it increases. Ensuring playback synchronization is difficult when the coalition size is either too small or too large. With a very small coalition size, the data download overheads for individual clients increase, and thus, a small variation in the network bandwidth may result in a deadline miss. On the other hand, with a large coalition size, the variation in the instantaneous network bandwidth among the coalition members is more, and therefore the clients having less instantaneous network bandwidth may experience a deadline miss, resulting in a forceful self-download. Therefore, we see that there exists an optimal coalition size ($5$ in our setup) which indeed reduces the forceful self-download thus improves the overall QoE by reducing the bitrate variation.    
+
+
+\begin{figure}[!ht]
+	\captionsetup[subfigure]{width=0.49\linewidth}
+	\begin{center}
+		\subfloat[\label{fig:chap06:grp_dl_share}Download share of a Coalition Member: The average download share of individual players meet the theoretical fair share bound ($y=\frac{1}{x}$)]{
+			\includegraphics[width=0.49\linewidth]{img/grpbasic/grpsz_contri_cnt}
+		}
+      	\subfloat[\label{fig:chap06:grp_fairness}Jain fairness index on QoE acheived among players: Intra-coalition QoE fairness is always good, inter-coalition fairness depends on coalition size]{
+      		\includegraphics[width=0.49\linewidth]{img/grpbasic/grpsz_fairness}
+      	}
+	\end{center}
+	\caption{\label{fig:chap06:grp_contri_n_force}Effect of Coalition Size -- Large coalitions reduce the individual download share; the intra-coalition QoE fairness index is always good}
+\end{figure}
+
+Next, we analyze how the coalition size impacts the total download share among coalition members, indicating the load-fairness of the system. Figure~\ref{fig:chap06:grp_dl_share} indicates that a large coalition reduces individual download shares among coalition members. In terms of load-fairness, we observe that large coalitions provide better fairness. We also plot the $y=\frac{1}{x}$ curve which shows the theoretical fair share among the coalition members. It is conforming for us to see that the average load-fairness fits the theoretical fair share. 
+
+To quantify the QoE fairness among the coalition members, we measure the Jain fairness index~\cite{jain1999throughput} on the measured QoE of the individual players in two categories -- (i) \textit{intra-coalition QoE fairness} (fairness among the individual members of a coalition) and (ii) \textit{inter-coalition QoE fairness} (fairness among different coalition members). Figure~\ref{fig:chap06:grp_fairness} shows that the intra-coalition QoE fairness index is always close to $1$, which indicates good fairness among the coalition members in terms of the QoE experienced by individual clients of a coalition. However, the inter-coalition QoE fairness initially gets reduced with increasing coalition size up to $5$. As different coalitions can play the video in different average bitrates, which has a major contribution to the overall QoE, we initially see this drop in the inter-coalition QoE fairness. Interestingly, inter-coalition QoE fairness increases with a large coalition size, as large coalitions result in less number of coalitions, hence less bitrate variation among different coalitions.
+

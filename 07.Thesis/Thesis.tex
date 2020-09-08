@@ -1,4 +1,4 @@
-\documentclass[twoside,phd, openright,titlepage]{iitkgp}
+\documentclass[twoside,phd,openright,titlepage]{iitkgp}
 
 \newcommand{\dotrule}[1]{%
 \parbox[t]{#1}{\dotfill}}
@@ -9,26 +9,26 @@
 \newcommand{\argmax}{\mathop{\mathrm{argmax}}}
 \newcommand{\complain}[1]{\textcolor{red}{#1}}
 
-    \newtheorem{theorem}{Theorem}[section]
-    \newtheorem{lemma}[theorem]{Lemma}
-    \newtheorem{proposition}[theorem]{Proposition}
-    \newtheorem{corollary}[theorem]{Corollary}
-    \newtheorem{definition}[theorem]{Definition}
-    \newtheorem{observation}[theorem]{Observation}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{observation}[theorem]{Observation}
 
-    \newenvironment{proof}[1][Proof]{\begin{trivlist}
-    \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
-    %\newenvironment{definition}[1][Definition]{\begin{trivlist}
-    %\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
-    \newenvironment{example}[1][Example]{\begin{trivlist}
-    \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
-    \newenvironment{remark}[1][Remark]{\begin{trivlist}
-    \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{proof}[1][Proof]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+%\newenvironment{definition}[1][Definition]{\begin{trivlist}
+%\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{example}[1][Example]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{remark}[1][Remark]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
 
-    \newcommand{\qed}{\nobreak \ifvmode \relax \else
-          \ifdim\lastskip<1.5em \hskip-\lastskip
-          \hskip1.5em plus0em minus0.5em \fi \nobreak
-          \vrule height0.75em width0.5em depth0.25em\fi}
+\newcommand{\qed}{\nobreak \ifvmode \relax \else
+      \ifdim\lastskip<1.5em \hskip-\lastskip
+      \hskip1.5em plus0em minus0.5em \fi \nobreak
+      \vrule height0.75em width0.5em depth0.25em\fi}
 
 
 \newcommand{\tuple}[1]{\langle #1\rangle}
@@ -47,6 +47,7 @@
 % \usepackage{eufrak}
 %\usepackage{setspace}
 \usepackage[english]{babel}
+\usepackage{csvsimple}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -118,6 +119,7 @@
 \newcommand{\specialcell}[2][l]{%
   \begin{tabular}[#1]{@{}l@{}}#2\end{tabular}}
 
+\newcommand{\relpath}{./}
 
 %========================================================================
 % configure
@@ -201,129 +203,14 @@
 
 \include{HeadTail/abstract_actual}
 
-\fussy %\makenomenclature
-%\begin{document}
+\include{HeadTail/decoration}
 
- % Start page counting in roman numerals
- \frontmatter
+%\fontsize{12}{14.5}\selectfont
 
- \makepreliminarypages
- %\singlespace
+\include{Chapters/chapters}
 
-%\listoffigures
- \clearemptydoublepage
-
-% \listoftables
- \clearemptydoublepage
-%\listofacronyms[acrodefs][u]
-
-%\listofsymbols
+%\include{Chapters/01.Introduction/introduction}
 %\clearemptydoublepage
-%\thispagestyle{empty}
-% to print list of nomenclature :
-% open command prompt in winedt and write: makeindex thesis.nlo -s nomencl.ist -o thesis.nls
-\fontsize{12}{13.2}\selectfont
-%
-
-%\printnomenclature[1in]
-%\thispagestyle{empty}
-
-%\thispagestyle{empty}
-%
- \fancyhead[RO]{\textbf{\rightmark}}
-
-%  \fancyhead[RE]{\slshape \leftmark}
-  \fancyhead[LE]{\textbf{\leftmark}}
-  \fancyfoot{}
-  \fancyfoot[CO,CE]{\textbf{\thepage}}
-  \pagestyle{fancy}
-  \renewcommand{\chaptermark}[1]{\markboth{\chaptername \ \thechapter \ \ #1}{}}
-  \renewcommand{\sectionmark}[1]{\markright{\thesection \ \ #1}}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Abstract %%%%%%%%%%%%%%%%%%
-% \clearemptydoublepage
-% \addcontentsline{toc}{chapter}{Abstract}
-% \include{HeadTail/abstract}
-% \thispagestyle{empty}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\fontsize{12}{13.5}\selectfont
-
-\tableofcontents
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Abbreviation %%%%%%%%%%%%%%%%%%
-% \fontsize{12}{14.5}
-% 
-% \clearemptydoublepage
-% 
-% \addcontentsline{toc}{chapter}{Symbols and Abbreviations}
-% \include{abbr}
-% \thispagestyle{empty}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\clearemptydoublepage
-    \listoffigures  
-\thispagestyle{empty}
-\clearemptydoublepage
-
-
-
-% \addcontentsline{toc}{chapter}{List Of Algorithms}
-%  \include{HeadTail/ListOfAlgorithms}
-% \clearemptydoublepage
-
-\fontsize{12}{14.5}\selectfont
- \mainmatter
-
-\abovedisplayskip=5pt \belowdisplayskip=5pt
-\renewcommand{\baselinestretch}{1.37}\small\normalsize
-\parskip 7pt
-%
-\makeatletter
-\newlength{\mySpaceUnder}
-\newlength{\mySpaceOver}
-\setlength{\mySpaceUnder}{.15cm plus .2ex}  % 4cm as an example ;-)
-\setlength{\mySpaceOver}{.4cm plus -1ex minus-.2ex}   % 3cm as an example
-\renewcommand\section{\@startsection {section}{1}{\z@}%
-                                   {\mySpaceOver}%
-                                   {\mySpaceUnder}%
-                                   {\normalfont\Large\bfseries}}
-%
-\newlength{\mySpaceUndera}
-\newlength{\mySpaceOvera}
-\setlength{\mySpaceUndera}{.1cm plus .1ex}  % 4cm as an example ;-)
-\setlength{\mySpaceOvera}{.3cm plus -1ex minus-.1ex}   % 3cm as an example
-\renewcommand\subsection{%
- \def\@seccntformat##1{\csname the##1\endcsname\hspace{.25in}}
- \@startsection{subsection}{1}{\z@}{\mySpaceOvera}%
-                                   {\mySpaceUndera}%
-                                   {\normalfont\large\bfseries}
-}
-%
-%
-\renewcommand\subsubsection{%
- \def\@seccntformat##1{\csname the##1\endcsname\hspace{.25in}}
- \@startsection{subsubsection}{1}{\z@}{.2cm}%
-                                   {.01cm}%
-                                   {\normalfont\em\bfseries}
-}
-%
-\makeatother
-%
-\newenvironment{my_item}{
-\begin{enumerate}
-  \setlength{\itemsep}{2pt}
-  \setlength{\parskip}{0pt}
-  \setlength{\parsep}{0pt}
-}{\end{enumerate}}
-%
-%
-\fontsize{12}{14.5}\selectfont
-
-\include{Chapters/01.Introduction/introduction}
-\clearemptydoublepage
 %\include{Chapters/02.Chap2/intro.tex}
 %\clearemptydoublepage
 
@@ -334,7 +221,7 @@
 
 \renewcommand{\bibname}{References}
 \bibliographystyle{abbrv}
-%\bibliography{survey}
+\bibliography{ref/thesis}
 
 
 \addcontentsline{toc}{chapter}{Dissemination}
