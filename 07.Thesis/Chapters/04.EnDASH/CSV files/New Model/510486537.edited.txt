@@ -1,0 +1,11 @@
+﻿On account of different kinds of encodings, some of which are proprietary, videos of the same quality and playback time may have different sizes. We have downloaded several YouTube videos and found the average playback data rate to be around 61.45 KBps for a 360p video.
+
+From our experiments, we find that often, due to bad signal strength, handovers, etc., the throughput gets affected drastically in a mobile UE. This leads to greater power consumption by the device as well as the loss of video quality and in extreme cases pausing of the video while it buffers.
+
+(Insert RSSI.bin vs Avg.Active.Throughput table/graph)
+As made obvious by previous graphs, it is more economical to download data when the device has a better signal strength and hence higher throughput. Our model takes into account only the change in throughput with respect to received signal strength. Other factors, such as handovers (Vertical and Horizontal), ENodeB load, etc. are out of the scope of this model.
+
+Let us consider case 1 (referring to the youtube graph).
+We aim to prefetch data when the signal strength, and hence the throughput, is high. The total size of the download is 323.6 MB. The total duration of the transfer is 2937 seconds. Thus, the overall throughput is 110 KBps. 
+On using our prefetch model, the packet transfer will change to this (refers to new rssi_vs_thrpt graph)
+
