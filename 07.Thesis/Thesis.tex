@@ -195,31 +195,7 @@
 % ------------------------- Fill in these fields for the preliminary pages ----------------------------
 %
  \begin{document}
-% \font\Hin=''gargi:script=hin''
-\include{HeadTail/coverpage}
 
-\include{HeadTail/ack_actual}
-
-\include{HeadTail/abstract_actual}
-
-\include{HeadTail/decoration}
-
-\include{Chapters/chapters}
-
-\begin{appendix}
-\include{Appendices/talliptransformappendix}
-
-\end{appendix}
-
-\renewcommand{\bibname}{References}
-%\bibliographystyle{abbrv}
-\bibliographystyle{alpha} 
-\bibliography{ref/thesis}
-
-
-\addcontentsline{toc}{chapter}{Dissemination}
-\include{HeadTail/publication}
-\clearemptydoublepage
 
 \begin{acronym}
 	\acro{2G}{2$^\text{nd}$ Generation}
@@ -253,6 +229,33 @@
 	\acro{UHD}{Ultra HD}
 	\acro{VoLTE}{Voice over LTE}
 	\acro{WiFi}{Wireless Fidelity}
-\end{acronym}
+\end{acronym} 	
+
+% \font\Hin=''gargi:script=hin''
+\include{HeadTail/coverpage}
+
+\include{HeadTail/ack_actual}
+
+\include{HeadTail/abstract_actual}
+
+\include{HeadTail/decoration}
+
+\include{Chapters/chapters}
+
+\begin{appendix}
+\include{Appendices/talliptransformappendix}
+
+\end{appendix}
+
+\renewcommand{\bibname}{References}
+%\bibliographystyle{abbrv}
+\bibliographystyle{alpha} 
+\bibliography{ref/thesis}
+
+
+\addcontentsline{toc}{chapter}{Dissemination}
+\include{HeadTail/publication}
+\clearemptydoublepage
+
 
 \end{document}
