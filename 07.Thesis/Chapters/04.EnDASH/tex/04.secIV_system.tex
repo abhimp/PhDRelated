@@ -34,7 +34,7 @@ $\mathcal{X}$ is the set of possible changes in buffer length. If the current bu
 
 \indent The first term in the reward function gives the energy savings with respect to a baseline ABR algorithm. In this work, we have chosen BOLA \cite{Spiteri2016} as the baseline since its energy consumption is the lowest among existing algorithms (excluding EnDASH, \S{\ref{sec:chap04:evaluation}}).  $E_{\mathrm{old}_t}$ and $E_{\mathrm{EnDASH}_t}$ represent the energy consumption of BOLA and of EnDASH at time \mq{t}, respectively. The energy consumed while using one particular algorithm is obtained as follows:  the RRC states are first identified from the download packet capture of a video trace. Next, the dwell time in each RRC state is multiplied by the corresponding power consumption (obtained from the RRC state machine) to get the energy quantities. We calculate the energy savings in this manner because the ground truth on energy consumption cannot be obtained.
 
-\indent Second term in the reward function is the \textbf{\ac{QoE}} metric  \cite{MPC-SIGCOMM-2015}:
+\indent Second term in the reward function is the \textbf{\ac{QoE}} metric  \cite{yin2015control}:
 \begin{equation}\label{eq:chap04:QoE}
    \text{QoE} = \sum_{i=1}^N q(R_i) - \mu\sum_{i=1}^N \delta_i - \sum_{i=1}^{N-1}\left|q(R_{i+1})-q(R_i)\right|
 \end{equation}
@@ -70,7 +70,7 @@ As in \cite{mao2017neural}, we initiate multiple learning agents to accelerate t
 			\includegraphics[width=0.33\textwidth]{new_results/simres/BuffOccu}
 		}
 	\end{center}
-	\caption{\label{fig:chap04:EnDASH_vs_others}Performance comparison of EnDASH with baseline \ac{ABR} streaming algorithms, BOLA \cite{Spiteri2016}, Pensieve \cite{mao2017neural}, Fast MPC \cite{MPC-SIGCOMM-2015}, Robust MPC \cite{MPC-SIGCOMM-2015}}
+	\caption{\label{fig:chap04:EnDASH_vs_others}Performance comparison of EnDASH with baseline \ac{ABR} streaming algorithms, BOLA \cite{Spiteri2016}, Pensieve \cite{mao2017neural}, Fast MPC \cite{yin2015control}, Robust MPC \cite{yin2015control}}
 \end{figure}
 %  \begin{figure*}[t]%
 %  	\centering
@@ -84,7 +84,7 @@ As in \cite{mao2017neural}, we initiate multiple learning agents to accelerate t
 %  		\label{fig:EnDASH_buff}%
 %  		\includegraphics[width=0.33\textwidth]{new_results/simres/BuffOccu}}
 %  	%\hspace{0.1cm}
-%  	\caption{Performance comparison of EnDASH with baseline \ac{ABR} streaming algorithms, BOLA \cite{Spiteri2016}, Pensieve \cite{mao2017neural}, Fast MPC \cite{Yin2015}, Robust MPC \cite{Yin2015}}
+%  	\caption{Performance comparison of EnDASH with baseline \ac{ABR} streaming algorithms, BOLA \cite{Spiteri2016}, Pensieve \cite{mao2017neural}, Fast MPC \cite{yin2015control}, Robust MPC \cite{yin2015control}}
 %  	\label{fig:EnDASH_vs_others}
 %  \end{figure*}
 \begin{figure}[ht]
@@ -100,7 +100,7 @@ As in \cite{mao2017neural}, we initiate multiple learning agents to accelerate t
 			\includegraphics[width=0.49\linewidth]{new_results/simres/BitrateVar}
 		}
 	\end{center}
-	\caption{\label{fig:chap04:indi_QoE}Comparison of different components of \ac{QoE} score (average bitrate, stall time, smoothness) of EnDASH with baseline \ac{ABR} streaming algorithms, BOLA \cite{Spiteri2016}, Pensieve \cite{mao2017neural}, Fast MPC \cite{MPC-SIGCOMM-2015}, Robust MPC \cite{MPC-SIGCOMM-2015}}
+	\caption{\label{fig:chap04:indi_QoE}Comparison of different components of \ac{QoE} score (average bitrate, stall time, smoothness) of EnDASH with baseline \ac{ABR} streaming algorithms, BOLA \cite{Spiteri2016}, Pensieve \cite{mao2017neural}, Fast MPC \cite{yin2015control}, Robust MPC \cite{yin2015control}}
 \end{figure}
 %  \begin{figure*}[t]%
 %  	\centering
@@ -116,7 +116,7 @@ As in \cite{mao2017neural}, we initiate multiple learning agents to accelerate t
 %  	\subfigure[Bitrate Variation]{%
 %  		\label{fig:smooth}%
 %  		\includegraphics[width=0.31\textwidth]{new_results/simres/BitrateVar}}%
-%  	\caption{Comparison of different components of \ac{QoE} score (average bitrate, stall time, smoothness) of EnDASH with baseline \ac{ABR} streaming algorithms, BOLA \cite{Spiteri2016}, Pensieve \cite{mao2017neural}, Fast MPC \cite{Yin2015}, Robust MPC \cite{Yin2015}}\vspace*{-0.5cm}
+%  	\caption{Comparison of different components of \ac{QoE} score (average bitrate, stall time, smoothness) of EnDASH with baseline \ac{ABR} streaming algorithms, BOLA \cite{Spiteri2016}, Pensieve \cite{mao2017neural}, Fast MPC \cite{yin2015control}, Robust MPC \cite{yin2015control}}\vspace*{-0.5cm}
 %  	\label{fig:indi_QoE}
 %  \end{figure*}
 The \textit{bitrate selection engine} of EnDASH is adopted from the state-of-the-art Pensieve algorithm \cite{mao2017neural}, which also uses A3C to learn optimal bitrates. We have used a pretrained model provided by Pensieve, albeit with different input states.  The \textit{buffer length decision engine} has been implemented in Tensorflow \cite{Abadi2016}. The engine passes five previous values of the buffer length to a 1D convolution layer (CNN) with 128 filters, each of size 4 with stride 1. The remaining inputs, i.e., predicted link throughput and current available buffer length are passed onto another 1D-CNN having the same shape. Results obtained from these layers are subsequently combined in a hidden layer having 128 neurons and uses the softmax function. The same inputs are also used by the critic network, which has the same neural network, but whose final output is a linear neuron. During the training of the algorithm, we set the discount factor to 0.9, i.e., current actions are allowed to be influenced by 100 future steps. The learning rates for the actor and the critic networks are 0.0001 and 0.001, respectively. The entropy factor $\beta$ has been set to gradually decrease from 1 to 0.1 over iterations.
