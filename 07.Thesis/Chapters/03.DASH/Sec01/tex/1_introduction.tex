@@ -27,7 +27,7 @@ We experimentally determine the data wastage ratio involved in YouTube adaptive 
 We reason that such overestimations in earlier works stemmed from their incorrect assumption that the segment size remains constant, which led to gross approximations in their data wastage computations.
 
 {\bf Model to predict data consumption:} Furthermore, we realize that prediction of data consumption (both productive and wasted) even before a video has actually played, can serve as an important parameter for more intelligent streaming in challenging scenarios.
-Suppose an user is traveling through a zone of irregular connectivity, thereby resulting in fluctuating bandwidth. It can be noted that existing mechanisms, such as~\cite{zou2015can} and the references therein, can predict the bandwidth fluctuation pattern a priori under many mobility patterns such as predicted urban mobility.  
+Suppose an user is traveling through a zone of irregular connectivity, thereby resulting in fluctuating bandwidth. It can be noted that existing mechanisms, such as~\cite{Zou2015} and the references therein, can predict the bandwidth fluctuation pattern a priori under many mobility patterns such as predicted urban mobility.  
 The user would ideally wish to watch videos for as long as possible, without sacrificing her quality of experience too much (streaming in lowest available resolution is too extreme for her). 
 Assuming the YouTube client has prior information of these challenges, and can predict data consumption, it can decide upon the most balanced quality level to start streaming in, so that the data download is minimized.
 To such ends, we propose an analytical model, augmented with a machine learning based classifier, using which one can estimate data consumption even before actually playing a YouTube video, if channel conditions and the initial video quality level are known.
@@ -37,6 +37,6 @@ To such ends, we propose an analytical model, augmented with a machine learning 
  \item We illustrate a methodology to study YouTube's adaptive streaming behavior in-depth (\S\ref{chap03sec:experiments}) -- we identify and closely study the interplay among important parameters enabling this streaming algorithm (\S\ref{chap03sec:parameters}).
  \item Our experiments reveal that YouTube adapts the {\it segment length} parameter before attempting to adapt video resolution -- a phenomenon not reported in the literature (\S\ref{chap03subsec:seglength}).
  \item We observe that segment length adaptation leads to much lower values of data wastage on average, than reported by prior studies.
- \item We propose an analytical model, augmented with a machine learning based classifier, which enables prediction of data consumption for an initial playback video quality when it is possible to estimate the network conditions a priori using existing mechanism like~\cite{zou2015can}  (\S\ref{chap03sec:model}).
+ \item We propose an analytical model, augmented with a machine learning based classifier, which enables prediction of data consumption for an initial playback video quality when it is possible to estimate the network conditions a priori using existing mechanism like~\cite{Zou2015}  (\S\ref{chap03sec:model}).
 \end{enumerate}
 
