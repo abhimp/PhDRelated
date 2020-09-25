@@ -1,7 +1,7 @@
-\section{Identifying Parameters Involved in YouTube Adaptive Streaming, and Their Interplay}
-\label{chap03sec:parameters}
+\subsection{Identifying Parameters Involved in YouTube Adaptive Streaming, and Their Interplay}
+\label{chap03s1:sec:parameters}
 
-\subsection{Parameters involved in YouTube adaptive streaming algorithm}
+\subsubsection{Parameters involved in YouTube adaptive streaming algorithm}
 
 Inspection of the HAR traces obtained using our experimental setup indicates that YouTube uses video playback requests to grab media data from the server.
 %
@@ -28,7 +28,7 @@ We observe that $rbuf$, $rn$ and $range$ change even for a single $itag$; wherea
 \begin{table}[!t]
  \small
 \caption{\small{Values of $lmt$ for $itag$ over time and the converted $lmt$ values using epoch converter}}
-\label{table:chap03:itag-lmt-ts}
+\label{table:chap03s1:itag-lmt-ts}
  \centering
  \csvreader[tabular=|c|c|c|,
     table head=\hline \bfseries itag & \bfseries lmt & \bfseries lmt value through \texttt{epoch converter} \\\hline,
@@ -39,7 +39,7 @@ We observe that $rbuf$, $rn$ and $range$ change even for a single $itag$; wherea
 
 
 {\bf {\em lmt}:} Our analysis reveals that the numeric values expressed by this parameter resemble Unix timestamps, although the length is $6$ digits longer.
-The values, converted using {\em epoch converter}\footnote{\url{http://www.epochconverter.com/}}, are shown in Table~\ref{table:chap03:itag-lmt-ts} for our {\it sample video} (defined in \S\ref{chap03sec:experiments}).
+The values, converted using {\em epoch converter}\footnote{\url{http://www.epochconverter.com/}}, are shown in Table~\ref{table:chap03s1:itag-lmt-ts} for our {\it sample video} (defined in \S\ref{chap03s1:sec:experiments}).
 We find that the date matches with the video upload date, while the time changes slightly.
 We repeat this experiment for many other randomly chosen YouTube videos, and conclude that $lmt$ defines the time when the chunk was created at the YouTube server.
 However, it does not participate in video bit-rate adaptation; since YouTube downloads data from multiple servers~\cite{krishnappa2013dashing}, $lmt$ is possibly used to avoid playing outdated video chunks.
@@ -48,26 +48,26 @@ However, it does not participate in video bit-rate adaptation; since YouTube dow
  \centering
   \includegraphics[width=0.7\linewidth]{img/plot_rbuf_analysis.eps}
   \caption{\small{$rbuf$ evolution}}
-  \label{fig:chap03:rbuf_evol}
+  \label{fig:chap03s1:rbuf_evol}
 \end{figure}
 \begin{figure}[!h]
  \centering
   \includegraphics[width=0.7\linewidth]{img/plot_timerange}
   \caption{\small{$itag$ evolution}}
-  \label{fig:chap03:timespent}
+  \label{fig:chap03s1:timespent}
 \end{figure}
 \begin{figure}[!h]
  \centering
   \includegraphics[width=0.7\linewidth]{img/plot_seg_comb}
   \caption{\small{Segment length adaptation}}
-  \label{fig:chap03:segmentLength}
+  \label{fig:chap03s1:segmentLength}
 \end{figure}
 
 {\bf {\em rn}:} Our experiments unveil that $rn$ is non-decreasing for a video session.
 %
 By observing the sequence of HTTP requests sent by the YouTube client to YouTube server, we conclude that $rn$ is the request number to uniquely identify a DASH video playback request.
 
-{\bf {\em rbuf}:} We plot evolution of $rbuf$ for $4$ videos and the corresponding $itag$ values in Fig.~\ref{fig:chap03:rbuf_evol} with varying link bandwidth.
+{\bf {\em rbuf}:} We plot evolution of $rbuf$ for $4$ videos and the corresponding $itag$ values in Fig.~\ref{fig:chap03s1:rbuf_evol} with varying link bandwidth.
 In the figure, the lines denote results for the different videos, while color codes are used to distinguish between $itag$ values.
 Each point in the graph corresponds to a video playback request sent from the YouTube client.
 We observe that $rbuf$ increases as the YouTube client fetches more data from the server, while it depletes if there is no request from the client to the server.
@@ -78,7 +78,7 @@ The observations obviate that $rbuf$ denotes the {\it receive buffer} at the cli
 
 \begin{table}[!t]
  \caption{\small{Evolution of $range$ across $rn$ and the corresponding $itag$, \textbf{payload} is in bytes}}
-\label{table:chap03:itag-rng}
+\label{table:chap03s1:itag-rng}
  \small
  \centering
  \csvreader[tabular=|c|c|c|c||c|c|c|c|,
@@ -89,7 +89,7 @@ The observations obviate that $rbuf$ denotes the {\it receive buffer} at the cli
 % \csvautotabular{csv/itag-rng.csv} 
 \end{table}
 
-{\bf {\em range}:} Table~\ref{table:chap03:itag-rng} presents sample values of $range$ for a particular video.
+{\bf {\em range}:} Table~\ref{table:chap03s1:itag-rng} presents sample values of $range$ for a particular video.
 The $range$ values consist of two integers separated by `-'; the first integer is always smaller than the second one -- therefore, the two integers indicate $start$ and $end$ of a $range$ value.
 We also observe that the sizes of the response payloads are given by ($end - start + 1$).
 We conclude that $range$ is the byte range parameter in HTTP request header.
@@ -113,24 +113,24 @@ The YouTube server stores a video chunk with $clen$ amount of data for a particu
 {\bf Summary:} $range$ and $itag$ are parameters responsible for adaptiveness in YouTube video streaming, while $rbuf$ is the client-side indicator of channel quality. 
 Although the maximum length of a video segment is defined by $clen$ for a particular $itag$, YouTube has the option to download lesser data per request, which is specified by the $range$ parameter.
 
-\subsection{Insights into YouTube's bitrate adaptation algorithm}
-\label{chap03subsec:seglength}
+\subsubsection{Insights into YouTube's bitrate adaptation algorithm}
+\label{chap03s1:subsec:seglength}
 {\bf Opportunistic (quality) upscale vs. conservative downscale:} We concentrate on the nature of YouTube video playback requests whenever it switches from one video quality to another.
 We first convert the $range$ parameter to equivalent video segment length in terms of video playback time -- this can be done by looking into the video file header (using the Python package \texttt{python-ebml}) that provides a mapping between the byte range and playback time.
-Fig.~\ref{fig:chap03:timespent} plots the video segments (in terms of video playback time, as shown in x-axis) and the corresponding $itag$ values for which the client makes a request.
+Fig.~\ref{fig:chap03s1:timespent} plots the video segments (in terms of video playback time, as shown in x-axis) and the corresponding $itag$ values for which the client makes a request.
 We make an interesting observation -- whenever the video quality improves, there is an overlap between the segments of lower quality and higher quality (shown using circles in the figure); however, there is no such overlap when the video quality drops.
 Therefore, we can conclude that the YouTube video adaptation algorithm works in a way where it takes an opportunistic approach for downloading higher quality video segments when the link quality improves, but takes a conservative approach when the link quality drops.
-In the opportunistic approach, it downloads the video chunks of both the video qualities in parallel, whenever it decides to switch from the lower quality to the higher quality -- this often leads to data wastage, as mentioned earlier in \S\ref{chap03sec:introduction}.
+In the opportunistic approach, it downloads the video chunks of both the video qualities in parallel, whenever it decides to switch from the lower quality to the higher quality -- this often leads to data wastage, as mentioned earlier in \S\ref{chap03s1:sec:introduction}.
 However, in the conservative approach, it directly sends the request for lower quality video when the link quality drops.
 
 {\bf Segment length adaptation:} As mentioned earlier, YouTube adapts both the video quality and the streaming data rate whenever network conditions change.
 In order to explore the behavior of streaming data rate adaptation, we analyze how the requested video segment length (specified by the $range$ parameter) per video playback request, changes with change in link bandwidth.
 We convert the byte range mentioned in the video playback request to the equivalent video playback time, and find out the video segment length in terms of playback time.
-The sample results from $4$ videos are shown in Fig.~\ref{fig:chap03:segmentLength} where x-axis denotes the video playback request time, and y-axis denotes the segment length in seconds.
+The sample results from $4$ videos are shown in Fig.~\ref{fig:chap03s1:segmentLength} where x-axis denotes the video playback request time, and y-axis denotes the segment length in seconds.
 We use different color codes to indicate the $itag$ values associated with corresponding playback requests.
 The figures give very interesting insights into YouTube video streaming behavior -- whenever the link bandwidth increases, YouTube first increases the segment length of lower quality video and buffers maximum amount of video data.
 It then switches to the higher quality video but with smaller segment lengths.
-At this point, we observe an overlap between the segments of two different video qualities, as discussed earlier with Fig.~\ref{fig:chap03:timespent}.
+At this point, we observe an overlap between the segments of two different video qualities, as discussed earlier with Fig.~\ref{fig:chap03s1:timespent}.
 Then it progressively increases the segment length and repeats the procedure for the next higher quality level video if the link quality improves further (measured through the increase rate of $rbuf$).
 However, when the link quality drops, in a similar way, YouTube first starts requesting for same quality video chunks of smaller segments, and drops the segment length.
 If it still observes a drop in $rbuf$ after reducing the segment length in the playback requests, then it switches to request for the next lower quality level video chunks of smaller segments.
