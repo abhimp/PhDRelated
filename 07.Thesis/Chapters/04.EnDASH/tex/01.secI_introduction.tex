@@ -3,19 +3,7 @@ With the pervasive roll out of the \ac{4G} cellular networks, online video strea
 \indent Another non-negligible impact of mobility on video streaming in  smartphones is the drainage of battery power.  Video streaming itself is a power hungry application~\cite{Xin2012}. Our experiments show that under mobility, video streaming apps consume even more power (\S\ref{sec:chap03:motivation}). The reason for this can be attributed to the fluctuating connection quality experienced while travelling.  This paper proposes to improve the smartphone battery usage through the design of an energy efficient video streaming algorithm that leverages the fluctuating cellular network throughput to choose optimal bitrates while not compromising on the required \ac{QoE}s. \\
 \indent To establish the cellular connectivity scenario, 
 we have carried out an extensive measurement-based study for eleven months over five different cities in India, including urban areas as well as while travelling on highways (\S\ref{sec:chap04:motivation}). We have recorded the signal received by  medium budget Moto G5 and Micromax phones, while using the cellular data connection of leading service providers in India, like Airtel, Reliance Jio, and Vodafone.
-\begin{figure}[h]
-	\captionsetup[subfigure]{width=0.7\linewidth}
-	\begin{center}
-		\subfloat[\label{fig:chap04:technology_with_traj}Trajectory of a VoLTE-enabled android phone inside an academic campus. Associated network standards (4G, HDPA, UMTS, EDGE) highlighted using different colours)]{
-			\includegraphics[width = 0.7\linewidth,trim={0cm 6cm 2cm 1cm}]{figures/traj.pdf}
-		}\\
-	\vspace{+5mm}
-		\subfloat[\label{fig:chap04:pcap_RSSI}Packet trace of a 360p Youtube video download with the temporal variation in the \ac{RSSI} during the download]{
-			\includegraphics[width=0.7\linewidth,trim={0cm 0cm 0cm 1cm}]{figures/video_rssi_thrpt.eps}
-		}
-	\end{center}
-	\caption{ Experimental Observations}
-\end{figure}
+
 %\begin{figure*}[t]%
 %\centering
 %\subfigure[Trajectory of a VoLTE-enabled android phone inside an academic campus. Associated network standards (4G, HDPA, UMTS, EDGE) highlighted using different colours\vspace*{-0.5cm}]{%
