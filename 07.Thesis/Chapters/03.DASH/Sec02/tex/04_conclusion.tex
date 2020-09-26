@@ -1,6 +1,2 @@
 \subsection{Conclusion}
 This work gives an analysis of the recent advanced ABR techniques over the QUIC as the end-to-end transport protocol. We observed that all the ABR techniques are sensitive to sudden increase or drop in the client-perceived link bandwidth, and therefore are more compatible with TCP rather than QUIC. The QUIC multiplexing of audio and video streams over a single UDP socket results in additional response latency for the audio segments, which are not captured during the calculation of channel throughput. As a consequence, the ABR algorithms take incorrect decisions during selecting the bitrates based on the calculated throughput over a QUIC connection. The analysis discussed in this work opens up a new direction of research on exploring ABR techniques over QUIC which is the de-factor transport protocol for Google services. 
-
-\blue{
-Till now we have analyze YouTube streaming system and the effect of the QUIC transport protocol on the different ABR algorithm.
-}
