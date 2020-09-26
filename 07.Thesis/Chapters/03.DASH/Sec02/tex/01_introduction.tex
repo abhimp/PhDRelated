@@ -3,6 +3,7 @@
 %In last section we performed analysis on the YouTube's video streaming system. Google have developed a new transport protocol 
 %}
 
+
 Quick UDP Internet Connection (QUIC)~\cite{langley2017quic} has been developed and experimentally deployed over the Internet by Google to replace TCP as the transport layer protocol, while addressing the limitations of TCP for end-to-end connection managements over a wide range of applications. While majority of the global Internet traffic originates from various video streaming applications, QUIC claims to reduce the YouTube rebuffering by a margin of 18\% for desktop users and 15.3\% for mobile users~\cite{langley2017quic}. As Dynamic Adaptive Streaming over HTTP (DASH)~\cite{stockhammer2011dynamic} has been a de facto for Adaptive Bitrate Streaming (ABR) over the Internet, it would be interesting to explore how QUIC performs over various ABR techniques proposed in the recent literature in terms of end users' quality of experience (QoE).
 
 
@@ -14,4 +15,4 @@ With the above context, this work evaluates and compares the performance of vari
 With a total of $45$ hours of streaming video data, we have computed three QoE metrics -- (a) average playback bitrate, (b) total rebuffering duration, and (c) playback smoothness, while streaming over both TCP and QUIC. Our thorough experiments and observations indicate that recent ABR techniques provides better QoE over TCP compared to QUIC. We investigate further to understand the protocol-level behavior of QUIC, which impacts the QoE performance.
 Our analysis reported in this work can help the community to tweak the QUIC configurations to obtain the best QoE performance from the modern ABR techniques.
 
-\blue{We choose DASHIF player instead of YouTube itself for this work so that we can control the entire testbed which is not possible in case of YouTube. Also, it is not possible to change the ABR algorithm in YouTube as our requirement.}
+\blue{We choose DASHIF player instead of YouTube itself to control the entire testbed, which is not possible in the case of YouTube. Also, it is not possible to change the ABR algorithm on YouTube as our requirement.}
