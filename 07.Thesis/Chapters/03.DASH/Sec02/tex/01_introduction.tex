@@ -12,6 +12,6 @@ As the ABR techniques depend on the channel throughput estimation at the client,
 
 With the above context, this work evaluates and compares the performance of various ABR techniques over TCP and QUIC. We develop a testbed setup with the help of a standard DASH player from the DASH Industry Forum, where we integrate the DASH player with QUIC and use emulated network environment based on a large pool of pre-collected network traffic traces.
 With a total of $45$ hours of streaming video data, we have computed three QoE metrics -- (a) average playback bitrate, (b) total rebuffering duration, and (c) playback smoothness, while streaming over both TCP and QUIC. Our thorough experiments and observations indicate that recent ABR techniques provides better QoE over TCP compared to QUIC. We investigate further to understand the protocol-level behavior of QUIC, which impacts the QoE performance.
-Our analysis reported in this letter can help the community to tweak the QUIC configurations to obtain the best QoE performance from the modern ABR techniques.
+Our analysis reported in this work can help the community to tweak the QUIC configurations to obtain the best QoE performance from the modern ABR techniques.
 
 \blue{We choose DASHIF player instead of YouTube itself for this work so that we can control the entire testbed which is not possible in case of YouTube. Also, it is not possible to change the ABR algorithm in YouTube as our requirement.}
