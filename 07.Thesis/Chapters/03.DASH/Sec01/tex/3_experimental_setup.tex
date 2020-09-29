@@ -3,12 +3,12 @@
 
 In this study, experiments are conducted with two broad objectives: (1) Observing YouTube's adaptive streaming behavior under different network conditions, and (2) Extracting protocol level parameters from granular video playback data under controlled network conditions, and deducing their individual roles.
 
-{\bf Experimental setup for observing streaming behavior:} In the preliminary experiment, we play a YouTube video with frequent screen changes (video title: {\em ``The Division Walkthrough Gameplay Part 1 -- The Virus (PS4 Xbox One)''}, video ID: {\em b80ShWk\_Aro}, URL: \url{https://www.youtube.com/watch?v=b80ShWk_Aro}, video duration: $34$ min. $22$ sec.) by varying the link bandwidth using a dynamic throttling mechanism.
-We refer to this video as our {\it sample video} throughout the rest of the paper.
+{\bf Experimental setup for observing streaming behavior:} In the preliminary experiment, we play a YouTube video with frequent scene changes (video title: {\em ``The Division Walkthrough Gameplay Part 1 -- The Virus (PS4 Xbox One)''}, video ID: {\em b80ShWk\_Aro}, URL: \url{https://www.youtube.com/watch?v=b80ShWk_Aro}, video duration: $34$ min. $22$ sec.) by varying the link bandwidth using a dynamic throttling mechanism.
+We refer to this video as our {\it sample video} throughout the rest of the this chapter.
 Link throttling is enabled using the Unix library \texttt{NetFilterQueue}\footnote{\url{http://www.netfilter.org/projects/libnetfilter_queue/}}, which is a user-space library with an API to handle packets queued by the kernel packet filter.
 Based on this library, we develop a traffic shaper to control link bandwidth.
 We continuously monitor the bandwidth experienced at the browser, and ensure that the data is collected at intended bandwidth values.
-During the video playback, we capture video data packets using the Unix tool \texttt{tcpdump}; from these packet traces, we extract the amount of video data transferred from the YouTube server to the client, with respect to time.
+During the video playback, we capture video data packets using the Unix tool \texttt{tcpdump}; from these packet traces, we extract the amount of video data transferred from the YouTube server to the browser, with respect to time.
 Additionally, we note the resolution in which the video is rendered, w.r.t. time.
 
 \begin{table}[!t]
