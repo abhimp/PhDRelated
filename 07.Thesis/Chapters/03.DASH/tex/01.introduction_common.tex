@@ -1,16 +1,22 @@
-\section{Introduction}
+%\section{Introduction}
 
-\blue{Online video streaming service is one of the most popular online services on the Internet. As per Sandvine's\footnote{\url{https://www.sandvine.com/hubfs/downloads/phenomena/2018-phenomena-report.pdf}} report, video streaming takes almost 58\% of total downstream traffic of global Internet traffic. Google's YouTube, already a part of the common Internet parlance, has emerged as the largest player in the mobile video market, accounting for 40--70\% of total video traffic across most mobile networks\footnote{\url{https://www.ericsson.com/assets/local/mobility-report/documents/2016/ericsson-mobility-report-november-2016.pdf}}.
-Dynamic Adaptive Streaming over HTTP(S) or DASH is a technology to streaming video over HTTP/HTTPS protocols. All the video streaming services, including YouTube, NetFlix usages technology similar to DASH. The DASH is resilient to firewall and NAT filters as traffic goes through widely accepted HTTP and HTTPS protocol.
-}
+Quality of experience of the online video streaming highly dependent efficacy of the underlying ABR algorithm. Researchers around the globe are trying to develop a perfect ABR algorithm to provide best possible QoE for all the scenarios. However, none of a existing ABR algorithms are perfect and every one of them improve QoE in some scenarios while suffers in some others. Every ABR algorithms directly or indirectly depends on the observed network bandwidth. Due to unpredictability of network condition, current throughput can change arbitrarily from the previous observed throughput. Thus it hard to design a perfect ABR system if not impossible. The video streaming service works at the application layer of the TCP/IP networking stack, so does the ABR algorithms. Thus these services can observed the application layer throughput only. However application layer throughput also depends on underlying transport protocol. For example, a transport layer protocol TCP itself have several congestion control algorithm for different scenarios. Similary, there are two different transport protocols TCP and QUIC exist now a days. All these things can affect the decision of and ABR algorithm.
 
-\blue{
-YouTube is a fast evolving platform for DASH live video streaming. 
-Even though a significant researcher have studied the YouTube video streaming system, there remains scope for further exploration. 
-In this chapter we have focused on evaluating the performance of ABR streaming algorithm with respect to YouTube. 
-Google is developing a new transport protocol QUIC and started serving all the service over the QUIC instead of the traditional TCP. In this we also study the effect of QUIC on DASH based video streaming system. We are interested to know effect of QUIC on the recently developed ABR algorithms.
-Although we have studied the YouTube ABR streaming algorithm and the effect of QUIC transport protocol on ABR video streaming, YouTube has gained major popularity due to widesprade availability of smartphones. Smartphones are energy limited devices and therefore player online video consumes large amount of battery in different stages. So in the next stage we have studied the energy performance of smartphones in mobile condition.
-}
+In this chapter, we are analysis the video streaming system of YouTube, one of the most popular video streaming service. Although we know that YouTube deploy some variation of the DASH guideline, it we are not sure
+
+
+
+%\blue{Online video streaming service is one of the most popular online services on the Internet. As per Sandvine's\footnote{\url{https://www.sandvine.com/hubfs/downloads/phenomena/2018-phenomena-report.pdf}} report, video streaming takes almost 58\% of total downstream traffic of global Internet traffic. Google's YouTube, already a part of the common Internet parlance, has emerged as the largest player in the mobile video market, accounting for 40--70\% of total video traffic across most mobile networks\footnote{\url{https://www.ericsson.com/assets/local/mobility-report/documents/2016/ericsson-mobility-report-november-2016.pdf}}.
+%Dynamic Adaptive Streaming over HTTP(S) or DASH is a technology to streaming video over HTTP/HTTPS protocols. All the video streaming services, including YouTube, NetFlix usages technology similar to DASH. The DASH is resilient to firewall and NAT filters as traffic goes through widely accepted HTTP and HTTPS protocol.
+%}
+%
+%\blue{
+%YouTube is a fast evolving platform for DASH live video streaming. 
+%Even though a significant researcher have studied the YouTube video streaming system, there remains scope for further exploration. 
+%In this chapter we have focused on evaluating the performance of ABR streaming algorithm with respect to YouTube. 
+%Google is developing a new transport protocol QUIC and started serving all the service over the QUIC instead of the traditional TCP. In this we also study the effect of QUIC on DASH based video streaming system. We are interested to know effect of QUIC on the recently developed ABR algorithms.
+%Although we have studied the YouTube ABR streaming algorithm and the effect of QUIC transport protocol on ABR video streaming, YouTube has gained major popularity due to widesprade availability of smartphones. Smartphones are energy limited devices and therefore player online video consumes large amount of battery in different stages. So in the next stage we have studied the energy performance of smartphones in mobile condition.
+%}
 
 %\blue{
 %The DASH and DASH like streaming system are a hot topic for the researcher. Google developed a new transport protocol, QUIC, and other optimization in the YouTube player to improve the user experience. In this chapter, we perform an analysis of YouTube's video streaming system, the effect of QUIC protocol on DASH-based streaming, and YouTube's streaming behavior while the user is mobile.
