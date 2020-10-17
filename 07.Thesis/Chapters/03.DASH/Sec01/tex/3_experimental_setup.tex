@@ -8,7 +8,7 @@ We refer to this video as our {\it sample video} throughout the rest of the this
 Link throttling is enabled using the Unix library \texttt{NetFilterQueue}\footnote{\url{http://www.netfilter.org/projects/libnetfilter_queue/}}, which is a user-space library with an API to handle packets queued by the kernel packet filter.
 Based on this library, we develop a traffic shaper to control link bandwidth.
 We continuously monitor the bandwidth experienced at the browser, and ensure that the data is collected at intended bandwidth values.
-During the video playback, we capture video data packets using the Unix tool \texttt{tcpdump}; from these packet traces, we extract the amount of video data transferred from the YouTube server to the browser, with respect to time.
+During the video playback, we capture video data packets using the packet capture tool \texttt{tcpdump}; from these packet traces, we extract the amount of video data transferred from the YouTube server to the browser, with respect to time.
 Additionally, we note the resolution in which the video is rendered, w.r.t. time.
 
 \begin{table}[!t]
