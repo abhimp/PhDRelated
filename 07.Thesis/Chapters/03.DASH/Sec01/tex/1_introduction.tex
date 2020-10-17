@@ -7,12 +7,13 @@
 %However, the interest in YouTube's video streaming behavior is far from satiated -- a phenomenon largely propelled by YouTube's practice of incessant technical evolution.
 
 %{\bf Existing literature and limitations:} Consequentially, 
-The research community has strived to keep pace with YouTube's technical evolution, churning out studies focused on YouTube's streaming behavior during different time periods.
-Even recently, several works~\cite{sieber2015cost,seufert2015youtube,sieber2016sacrificing} have studied YouTube's DASH behavior to analyze the trade-off between quality of experience and wastage of downloaded data.
-However, such studies have largely looked at YouTube's streaming behavior through the tinted glass of their understanding of the DASH recommendations.
-The studies have, in essence, focused on the impact of variation in input parameters (such as bandwidth via throttling), on the streaming output (video bitrate adaptation), treating YouTube's implementation of DASH as a black-box.	
+%The research community has strived to keep pace with YouTube's technical evolution, churning out studies focused on YouTube's streaming behavior during different time periods.
+%Even recently, several works~\cite{sieber2015cost,seufert2015youtube,sieber2016sacrificing} have studied YouTube's DASH behavior to analyze the trade-off between quality of experience and wastage of downloaded data.
+%However, such studies have largely looked at YouTube's streaming behavior through the tinted glass of their understanding of the DASH recommendations.
+%The studies have, in essence, focused on the impact of variation in input parameters (such as bandwidth via throttling), on the streaming output (video bitrate adaptation), treating YouTube's implementation of DASH as a black-box.	
 
-{\bf Approach in this work:} In a departure from existing literature, we, in this chapter, adopt a focused approach to understand the internals of YouTube's bitrate and quality adaptation algorithm.
+To understand DASH we first perform a study of YouTube video streaming system as it is one of the popular online video streaming system. 
+We adopt a focused approach to understand the internals of YouTube's bitrate and quality adaptation algorithm.
 We endeavor to explore YouTube's implementation of the DASH recommendations by studying the interplay between various parameters of YouTube adaptive video streaming.
 In terms of methodology, we capture a sizeable volume of YouTube traffic traces ($\sim500$ videos) in the form of HTTP archives (HAR), which give us access to the contents of HTTP request and response message headers;
 from these headers, we first identify the parameters used by YouTube in their rate adaptation algorithm, followed by controlled experiments to understand their individual roles.
