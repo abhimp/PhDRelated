@@ -1,22 +1,8 @@
-\section{\textbf{Introduction}}\label{sec:chap03:intro}
+%\section{\textbf{Introduction}}
+\label{sec:chap04:intro}
 With the pervasive roll out of the \ac{4G} cellular networks, online video streaming in smartphones has become one of the most popular modes of entertainment~\cite{CISCO2019}, especially in many developing countries. The availability of ultra cheap data plans, affordable smartphones, and local language based content on YouTube, Netflix, etc., has led to a record increase in the number of mobile video subscribers as well as their engagement time~\cite{Mobstat_2019}.  Subscribers have  shown an inclination towards watching streaming videos even while travelling, irrespective of the distances travelled. Provisioning the expected \ac{QoE} to video users during travelling requires the reception of a stable connection quality at the \acp{UE}, which often eludes users in developing nations. This is because in these countries service providers often compromise on the network infrastructure to provide low cost internet~\cite{Poor_Inf_2019_2}. \\
-\indent Another non-negligible impact of mobility on video streaming in  smartphones is the drainage of battery power.  Video streaming itself is a power hungry application~\cite{Xin2012}. Our experiments show that under mobility, video streaming apps consume even more power (\S\ref{sec:chap03:motivation}). The reason for this can be attributed to the fluctuating connection quality experienced while travelling.  This chapter proposes to improve the smartphone battery usage through the design of an energy efficient video streaming algorithm that leverages the fluctuating cellular network throughput to choose optimal bitrates while not compromising on the required \ac{QoE}s. \\
-\indent To establish the cellular connectivity scenario, 
-we have carried out an extensive measurement-based study for eleven months over five different cities in India, including urban areas as well as while travelling on highways (\S\ref{sec:chap04:motivation}). We have recorded the signal received by  medium budget Moto G5 and Micromax phones, while using the cellular data connection of leading service providers in India, like Airtel, Reliance Jio, and Vodafone.
-
-%\begin{figure*}[t]%
-%\centering
-%\subfigure[Trajectory of a VoLTE-enabled android phone inside an academic campus. Associated network standards (4G, HDPA, UMTS, EDGE) highlighted using different colours\vspace*{-0.5cm}]{%
-%\label{fig:technology_with_traj}%
-%	\includegraphics[width = 0.4\textwidth,trim={1cm 7cm 2cm 1cm}]{figures/traj.pdf}}%
-%\hspace{2cm}
-%\subfigure[Packet trace of a 360p Youtube video download with the temporal variation in the \ac{RSSI} during the download]{%
-%\label{fig:pcap_RSSI}%
-%\includegraphics[width=0.4\textwidth,trim={0cm 0cm 0cm 1cm}]{figures/video_rssi_thrpt.eps}}%
-%\caption{Experimental Observations}\vspace*{-0.5cm}
-%\end{figure*}
-A \textit{key finding} of this experiment is shown in Fig.~\ref{fig:chap04:technology_with_traj}, which displays the trajectory of a Moto G5 phone connected to the Airtel network on a single day over the IIT Kharagpur campus area of $8.5$ sq.km. It is seen that even within the small area covered, the phone connects to different generations of cellular technologies, each highlighted in different colours. Two inferences can readily be drawn from Fig. Fig.~\ref{fig:chap04:technology_with_traj}. (i) A service provider does not guarantee a complete \ac{4G} connectivity across the entire coverage region. A \ac{UE} often has to fallback to legacy \ac{3G} or \ac{2G} networks. (ii) Even when connected to \ac{4G}, the signal strength shows random variations. For example, for the experiments conducted, the \ac{RSSI} of \ac{4G} networks fluctuates between $-87$dBm to $-115$dBm. This portrays the typical connectivity scenario in many regions in India.
-Another important observation from our experiments, shown in Fig.~\ref{fig:chap04:pcap_RSSI}, is that the volume of data downloaded by video players is not always commensurate with the current network signal strength. Several opportunities to download large chunks of data at high signal strength conditions remain unexploited.
+\indent Another non-negligible impact of mobility on video streaming in  smartphones is the drainage of battery power.  Video streaming itself is a power hungry application~\cite{Xin2012}. Our experiments show that under mobility, video streaming apps consume even more power (\S\ref{sec:chap03:DASHinMobility}). The reason for this can be attributed to the fluctuating connection quality experienced while travelling.  This chapter proposes to improve the smartphone battery usage through the design of an energy efficient video streaming algorithm that leverages the fluctuating cellular network throughput to choose optimal bitrates while not compromising on the required \ac{QoE}s. \\
+\indent 
 
 
 \indent Video streaming applications, including live streaming, predominantly use \ac{DASH} \cite{stockhammer2011dynamic}. In this protocol, the target video is broken into chunks of fixed playback time, and multiple copies of each chunk is stored  at different quality levels, i.e., bitrates.  The client side video player uses \ac{ABR} algorithms~\cite{mao2017neural,Spiteri2016,yin2015control,Raca2019,Akhtar2018}
