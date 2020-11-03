@@ -115,6 +115,8 @@
 % \makenomenclature
 \usepackage{titlesec}
 \usepackage[shortlabels]{enumitem}
+%\usepackage[none]{hyphenat}
+\usepackage{hyphenat}
 
 \newcommand{\specialcell}[2][l]{\begin{tabular}[#1]{@{}l@{}}#2\end{tabular}}
 
@@ -193,6 +195,10 @@
 
 %================================================================
 % ------------------------- Fill in these fields for the preliminary pages ----------------------------
+
+\lefthyphenmin6
+\righthyphenmin6
+%\hyphenation{op-tical net-works semi-conduc-tor}
 %
  \begin{document}
 
