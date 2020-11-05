@@ -25,7 +25,8 @@ For each of the features we obtain the $\mathrm{25^{th}}$, $\mathrm{75^{th}}$, a
 \noindent \textbf{(ii) Input state at timeslot \mq{t}} $S_t$ =  ($\hat{\tau}_{{t}}$, $B_{av_t}$, ${\mathcal{X}}$), where
   $\hat{\tau}_{{t}}$ is the  average predicted cellular network throughput,
  $B_{av_t}$ is the current playback buffer capacity available in seconds,
-$\mathcal{X}$ is the set of possible changes in buffer length. If the current buffer length is $B_{t-1}$, the next buffer length can be predicted to be $\hat{B_t}= B_t+x$ where $x\in\mathcal{X}:=\{-2,-1,0,+1,+2\}$. $x=1$ implies an increase in buffer length by a single chunk, each chunk is of eight seconds.\\
+$\mathcal{X}$ is the set of possible changes in buffer length. If the current buffer length is $B_{t-1}$, the next buffer length can be predicted to be $\hat{B_t}= B_t+x$ where $x\in\mathcal{X}:=\{-2,-1,0,+1,+2\}$. $x=1$ implies an increase in buffer length by a single chunk.\\
+%, each chunk is of eight seconds.\\
 \noindent \textbf{(iii) Action} $A_t$ - Decisions on the increase or decrease of buffer length at timeslot $t$. \\
 \noindent \textbf{(iv) Reward} - The reward function is defined as a linear weighted function of energy savings with respect to a baseline ABR algorithm and the QoE score:
     \begin{equation}
@@ -57,66 +58,4 @@ Both the buffer length and bitrate decision engines of EnDASH are trained using 
 \indent Each parameter of the state \ti{S} of both buffer length and bitrate decision engines are passed on to their respective actor and critic network to enable learning of optimal buffer lengths and bitrates by the corresponding \ac{RL} modules~\cite{mao2017neural}.
 As in \cite{mao2017neural}, we initiate multiple learning agents to accelerate the training. By default, there are 16 agents. Each agent is designed to experience a different set of input parameters, e.g., network traces. However, the learning agents continuously report  their individual tuples of (state, action, reward)  to a central model, which aggregates them to generate a single model.
 \subsection{Implementation of the \ac{RL} modules}
-\begin{figure}[ht]
-	\captionsetup[subfigure]{width=0.49\linewidth}
-	\begin{center}
-		\subfloat[\label{fig:chap04:EnDASH_en}Energy Consumption]{
-			\includegraphics[width=0.33\textwidth]{new_results/simres/Energy}
-		}
-		\subfloat[\label{fig:chap04:EnDASH_QoE}QoE score (Eqn.~\ref{eq:chap04:QoE})]{
-			\includegraphics[width=0.33\textwidth]{new_results/simres/QoE}
-		}
-		\subfloat[\label{fig:chap04:EnDASH_buff}CDF of buffer length]{
-			\includegraphics[width=0.33\textwidth]{new_results/simres/BuffOccu}
-		}
-	\end{center}
-	\caption{\label{fig:chap04:EnDASH_vs_others}Performance comparison of EnDASH with baseline \ac{ABR} streaming algorithms, BOLA \cite{Spiteri2016}, Pensieve \cite{mao2017neural}, Fast MPC \cite{yin2015control}, Robust MPC \cite{yin2015control}}
-\end{figure}
-%  \begin{figure*}[t]%
-%  	\centering
-%  	\subfigure[Energy Consumption]{%
-%  		\label{fig:EnDASH_en}%
-%  		\includegraphics[width=0.33\textwidth]{new_results/simres/Energy}}%
-%  	\subfigure[QoE score (\ref{eq:QoE})]{%
-%  		\label{fig:EnDASH_QoE}%
-%  		\includegraphics[width=0.33\textwidth]{new_results/simres/QoE}}%
-%  	\subfigure[CDF of buffer length]{%
-%  		\label{fig:EnDASH_buff}%
-%  		\includegraphics[width=0.33\textwidth]{new_results/simres/BuffOccu}}
-%  	%\hspace{0.1cm}
-%  	\caption{Performance comparison of EnDASH with baseline \ac{ABR} streaming algorithms, BOLA \cite{Spiteri2016}, Pensieve \cite{mao2017neural}, Fast MPC \cite{yin2015control}, Robust MPC \cite{yin2015control}}
-%  	\label{fig:EnDASH_vs_others}
-%  \end{figure*}
-\begin{figure}[ht]
-	\captionsetup[subfigure]{width=0.49\linewidth}
-	\begin{center}
-		\subfloat[\label{fig:chap04:avg_bitrate}Avg. Bitrates in Mbps]{
-			\includegraphics[width=0.49\linewidth]{new_results/simres/AvgBitrate}
-		}
-		\subfloat[\label{fig:chap04:stall}Stall Time per segment (in seconds))]{
-			\includegraphics[width=0.49\linewidth]{new_results/simres/Stall}
-		}\\
-		\subfloat[\label{fig:chap04:smooth}Bitrate Variation]{
-			\includegraphics[width=0.49\linewidth]{new_results/simres/BitrateVar}
-		}
-	\end{center}
-	\caption{\label{fig:chap04:indi_QoE}Comparison of different components of \ac{QoE} score (average bitrate, stall time, smoothness) of EnDASH with baseline \ac{ABR} streaming algorithms, BOLA \cite{Spiteri2016}, Pensieve \cite{mao2017neural}, Fast MPC \cite{yin2015control}, Robust MPC \cite{yin2015control}}
-\end{figure}
-%  \begin{figure*}[t]%
-%  	\centering
-%  	\vspace*{-0.5cm}
-%  	%\hspace{0.1cm}
-%  	\subfigure[Avg. Bitrates in Mbps]{%
-%  		\label{fig:avg_bitrate}%
-%  		\includegraphics[width=0.33\textwidth]{new_results/simres/AvgBitrate}}%
-%  	%\hspace{0.1cm}
-%  	\subfigure[Stall Time per segment (in seconds)]{%
-%  		\label{fig:stall}%
-%  		\includegraphics[width=0.33\textwidth]{new_results/simres/Stall}}%
-%  	\subfigure[Bitrate Variation]{%
-%  		\label{fig:smooth}%
-%  		\includegraphics[width=0.31\textwidth]{new_results/simres/BitrateVar}}%
-%  	\caption{Comparison of different components of \ac{QoE} score (average bitrate, stall time, smoothness) of EnDASH with baseline \ac{ABR} streaming algorithms, BOLA \cite{Spiteri2016}, Pensieve \cite{mao2017neural}, Fast MPC \cite{yin2015control}, Robust MPC \cite{yin2015control}}\vspace*{-0.5cm}
-%  	\label{fig:indi_QoE}
-%  \end{figure*}
 The \textit{bitrate selection engine} of EnDASH is adopted from the state-of-the-art Pensieve algorithm \cite{mao2017neural}, which also uses A3C to learn optimal bitrates. We have used a pretrained model provided by Pensieve, albeit with different input states.  The \textit{buffer length decision engine} has been implemented in Tensorflow \cite{Abadi2016}. The engine passes five previous values of the buffer length to a 1D convolution layer (CNN) with 128 filters, each of size 4 with stride 1. The remaining inputs, i.e., predicted link throughput and current available buffer length are passed onto another 1D-CNN having the same shape. Results obtained from these layers are subsequently combined in a hidden layer having 128 neurons and uses the softmax function. The same inputs are also used by the critic network, which has the same neural network, but whose final output is a linear neuron. During the training of the algorithm, we set the discount factor to 0.9, i.e., current actions are allowed to be influenced by 100 future steps. The learning rates for the actor and the critic networks are 0.0001 and 0.001, respectively. The entropy factor $\beta$ has been set to gradually decrease from 1 to 0.1 over iterations.
