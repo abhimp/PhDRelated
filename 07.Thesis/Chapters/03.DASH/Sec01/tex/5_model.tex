@@ -1,4 +1,56 @@
-\subsection{Predictive Model for Data Consumption during Streaming}
+\section{Video QoE Parameters in YouTube and Open-DASH: A Comparison}
+\label{sec:open-dash}
+%\noteng{This section is weak}
+
+This section gives a baseline comparison technique between YouTube and other DASH based protocols based on our findings on YouTube behavior for joint video quality and streaming rate adaptation. For this comparison, we consider the Open-DASH implementation (\texttt{dash.js}) that uses a naive approach for dashify-ing videos and adaptive video streaming based on channel quality feedback. The reference Open-DASH implementation uses a methodology where the DASH client measures channel quality based on the streaming data rate (number of bits downloaded per second), and uses this as a feedback to the DASH server.
+
+\subsection{Comparison Methodology}
+
+For comparing YouTube performance with Open-DASH, we download a large number of reference videos from YouTube (which have not restricted the download option) at the highest video quality. Then we use the \texttt{mp4box} tool to dashify these videos. The dashify procedure creates video segments of multiple qualities (video resolution and encoding techniques) and stores this information in a \textit{media presentation description} (\texttt{mpd}) file. We use a similar set of resolutions, bit rates and encoding techniques as available in YouTube for a particular video. We use the open-source \texttt{dash.js} player (also called \texttt{dashif} player\footnote{\url{http://dashif.org/reference/players/javascript/1.4.0/samples/dash-if-reference-player/} (last accessed: July 2016)}) to play videos under similar link bandwidth conditions as we do for YouTube. We compare the performance of YouTube and Open-DASH in terms of video quality adaptation procedure and the perceived QoE measured in terms of \textit{peak signal to noise ratio} (PSNR). 
+
+\subsection{Comparison in terms of Video Quality Adaptation Procedure: Resolution Adaptation and Buffer Evolution}
+
+\begin{figure}[!t]
+	\centering
+	\includegraphics[scale=0.7]{img/replay/resolutionchange}
+	\caption{Open-DASH: Video resolution adaptation}
+	\label{fig:reply-reso}
+\end{figure}
+
+\begin{figure}[!t]
+	\centering
+	\includegraphics[scale=0.7]{img/replay/bufferchange}
+	\caption{Open-DASH: Receive buffer evolution}
+	\label{fig:buf_reply}
+\end{figure}
+
+\begin{figure}[!t]
+	\centering
+	\includegraphics[scale=0.7]{img/plot_qoe}
+	\caption{PSNR comparison}
+	\label{fig:qoe_ytds}
+\end{figure}
+
+
+Fig.~\ref{fig:reply-reso} shows the video resolution adaptation for a sample video with respect to time. We see significantly more number of fluctuations in video resolutions, compared to what we observe in YouTube through the evolution of values associated with the $itag$ parameter. Therefore, the $itag$ parameter provides a reference for comparison between YouTube and another DASH based protocol implementation, in terms of the video quality adaptation over multiple available resolutions. Further, the $rbuf$ parameter helps us to compare the performance between YouTube and another DASH based protocol, in terms of receive buffer occupancy. Fig.~\ref{fig:buf_reply} plots the receive buffer evolution of Open-DASH. By comparing this figure with Fig.~\ref{fig:chap03s1:rbuf_evol}, we can see that YouTube buffer evolution is more consistent as compared to Open-DASH buffer evolution, the obvious reason being that Open-DASH does not use a sophisticated buffer management policy as YouTube does, where the segment lengths of the incoming video chunks are adapted based on the status of the receive buffer.
+%\noteng{Not sure whether it is obvious from the result - needs more explanantion}      
+
+% 
+% \begin{figure}[h]
+% \centering
+% \includegraphics[width=2.5in]{img/replay/plot_timerange}
+% \caption{Plot for time range of different quality in open dashjs with same configuration}
+% \label{fig:timespent_replay}
+% \end{figure}
+% 
+\subsection{Comparison in terms of QoE: Use of $itag$ Parameter}
+
+It can be noted that comparing the QoE of YouTube with that of another DASH implementation is not straight-forward. By observing $itag$ values, we can say what particular video quality is requested by YouTube client at a given time, although the actual perception will depend on the resolution at which the user renders the video. For example, a $240p$ video may give good user perception if it is played on a smart-phone screen, although the quality of that video rendering will be bad over a high resolution desktop. Therefore, we use the following methodology for finding out the QoE of a YouTube video. We take a reference resolution, and convert all the video chunks to that resolution from the one specified by the $itag$ parameter. Similarly, we observe at what resolution the video gets rendered in \texttt{dashif} player and convert that resolution to the reference resolution. Now both YouTube rendered video and \texttt{dashif} rendered video are in same resolution, and we can compare them using the standard QoE metric. In Fig.~\ref{fig:qoe_ytds} we show the comparison between YouTube and Open-DASH in terms of PSNR, for six reference videos. The X-axis shows the video IDs as per YouTube. In general the PSNR is low for Open-DASH, although it gets higher for some cases as Open-DASH may download more number of higher resolution frames. 
+
+It is interesting to observe from our study that Open-DASH works in a best-effort manner, whereas YouTube uses a progressive approach which is similar to the elastic behavior of TCP traffic. Just like TCP increases the data rate until it experience congestion, YouTube goes for higher quality video and higher streaming rate till the receive buffer is steady. TCP drops data rate in a conservative approach as it experience congestion, and similarly YouTube drops video quality and segment length when it observes declined buffer size.   
+
+
+\section{A Predictive Model for Data Consumption during ABR Streaming}
 \label{chap03s1:sec:model}
 
 As mentioned in \S\ref{chap03s1:sec:introduction}, we realize that early prediction of data consumption even before a video has actually played, can be extremely useful while streaming videos in a challenging scenario.
@@ -39,11 +91,11 @@ Consequently, data wastage ratio (say $\omega$), is defined as:
 \end{equation}
 The key to determining $\Delta$, $\rho$, and thereby $\omega$, is to estimate the values of $q_{i}$ for all $i$, at every time instance $t$.
 
-{\bf Classification Problem:} For every $itag$ value $i$, we consider $\frac{1}{\lambda_i}$ (inverse of frame rate) as the sampling interval, since $1$ frame arrives every such interval.
+\subsection{Classification Problem} For every $itag$ value $i$, we consider $\frac{1}{\lambda_i}$ (inverse of frame rate) as the sampling interval, since $1$ frame arrives every such interval.
 We hypothesize that the value of $q_i(\hat{t})$ (where $\hat{t}$ indicates a sampled time instance) depends on the following factors -- (1) $\beta(\hat{t}-1)$ (bandwidth at previous instance), (2) $\beta(\hat{t})$ (bandwidth at current instance), (3) $i(\hat{t}-1)$ ($itag$ at previous instance), and (4) $p(\hat{t})$ (presence of key-frame at current instance).
 We identify that estimating $q_i(\hat{t})$ is a binary classification problem, with every $q_i(\hat{t})$ assuming a value of either $0$ (absence) or $1$ (presence) of data of $itag$ $i$ at time instance $\hat{t}$.
 
-\textbf{Model Accuracy:} A machine learning based classifier is employed for this purpose -- we use Weka~\cite{witten2016data}, a machine learning tool, and select the Random Forest classification~\cite{breiman2001random} technique, with $100$ iterations ($I=100$) and unlimited depth ($K=0$) as hyperparameters.
+\subsection{Model Accuracy} A machine learning based classifier is employed for this purpose -- we use Weka~\cite{witten2016data}, a machine learning tool, and select the Random Forest classification~\cite{breiman2001random} technique, with $100$ iterations ($I=100$) and unlimited depth ($K=0$) as hyperparameters.
 In the classification technique, we try to predict the value of $q_i(\hat{t})$ using the four parameters mentioned above as classification features.
 The results (\emph{\textbf{average precision = $0.86$, average recall = $0.85$, and average accuracy = $85.75\%$}}) across all $itag$s indicate high classification prowess, which validates our hypothesis regarding parameters affecting $q_i(\hat{t})$.
 Using this model, a user can predict the amount of data consumption for YouTube video streaming.

@@ -1,25 +1,60 @@
-\subsection{Identifying Parameters Involved in YouTube Adaptive Streaming, and Their Interplay}
+\section{Parameters involved in YouTube adaptive streaming algorithm}
 \label{chap03s1:sec:parameters}
-
-\subsubsection{Parameters involved in YouTube adaptive streaming algorithm}
-
+Here we discuss the reverse engineering approach to explore the parameters which control the adaptive streaming algorithm of YouTube. 
 Inspection of the HAR traces obtained using our experimental setup indicates that YouTube uses video playback requests to grab media data from the server.
 %
-URLs for these video playback requests contain $35$ parameters (and their values): $pl$, $dur$, $expire$, $sver$, $gir$, $pcm2cms$, $mime$, $itag$, $signature$, $ipbits$, $source$, $keepalive$, $mt$, $mv$, $ms$, $mm$, $mn$, $key$, $clen$, $requiressl$, $lmt$, $initcwndbps$, $id$, $upn$, $sparams$, $fexp$, $ip$, $cpn$, $alr$, $ratebypass$, $c$, $cver$, $range$, $rn$, and $rbuf$.
-We observe the behavior of these parameters across all the request/response messages that we collected, under various scenarios, as presented below.
-Note that in the ensuing analysis, a {\it video session} is defined as a complete rendering of the video on YouTube player.
+%URLs for these video playback requests contain $35$ parameters (and their values): $pl$, $dur$, $expire$, $sver$, $gir$, $pcm2cms$, $mime$, $itag$, $signature$, $ipbits$, $source$, $keepalive$, $mt$, $mv$, $ms$, $mm$, $mn$, $key$, $clen$, $requiressl$, $lmt$, $initcwndbps$, $id$, $upn$, $sparams$, $fexp$, $ip$, $cpn$, $alr$, $ratebypass$, $c$, $cver$, $range$, $rn$, and $rbuf$.
+%We observe the behavior of these parameters across all the request/response messages that we collected, under various scenarios, as presented below.
+%Note that in the ensuing analysis, a {\it video session} is defined as a complete rendering of the video on YouTube player.
+\subsection{Classification of the Parameters}
+A detailed classification of the DASH parameters has been shown in Table~\ref{table:parameter_changes}. From the HAR traces, we observe that YouTube uses a video playback request to grab the media data from the server. URLs for these video playback requests contain $35$ parameters and their values: $pl$, $dur$, $expire$, $sver$, $gir$, $pcm2cms$, $mime$, $itag$, $signature$, $ipbits$, $source$, $keepalive$, $mt$, $mv$, $ms$, $mm$, $mn$, $key$, $clen$, $requiressl$, $lmt$, $initcwndbps$, $id$, $upn$, $sparams$, $fexp$, $ip$, $cpn$, $alr$, $ratebypass$, $c$, $cver$, $range$, $rn$, and $rbuf$. By close inspection of these parameters, we observe that the HTTP requests and responses are forwarded separately for the audio channel and the video channel. The value of the parameter $mime$ indicates whether the request is for audio channel or for video channel. Then, we figure out that the parameter $itag$ actually indicates the video quality for which a DASH request is made. YouTube samples every video under different video quality levels based on its resolution, bit rate and encoding techniques used for sampling, and assigns a numeric level to every quality, which is the $itag$ value. The mapping between a particular $itag$ value and the corresponding video resolution, bit-rate and encoding parameters are available at~\cite{itag}. 
+
+We observe the behavior of other parameters across all the request/response messages that we collected, under different scenarios, as summarized in Table~\ref{table:parameter_changes}. We define a video session as a complete rendering of the video on YouTube player. The different scenarios under consideration are as follows:
+%\begin{enumerate}
+
+
+
+\begin{table}[!t]
+	\centering
+	%\scriptsize
+	\scriptsize
+	\caption{Classification of DASH Parameters based on Their Behaviors}
+	\label{table:parameter_changes}
+	\begin{tabular}{ | >{\centering\arraybackslash}m{2.8in} |> {\centering\arraybackslash}m{2.8in} | }
+		\hline
+		\textbf{Changes} & \textbf{Does not change} \\ \hline
+		%\multicolumn{2}{| c |}{}  \\ \hline
+		%\multicolumn{2}{| c |}{}  \\ \hline
+		%\multicolumn{2}{| c |}{}  \\ \hline
+		\multicolumn{2}{| c |}{\textbf{\em Muliple video multiple sessions}}  \\ \hline
+		\multicolumn{2}{| c |}{\textbf{Overall}}  \\ \hline
+		$clen$, $cpn$, $cver$, $dur$, $ei$, $expire$, $fexp$, $id$, $initcwndbps$, $ip$, $itag$, $lmt$, $mime$, $mt$, $rbuf$, $rn$, $signature$, $sparams$, $upn$, $range$ & $alr$, $c$, $gir$, $iptbits$, $keepalive$, $key$, $mm$, $mn$, $ms$, $mv$, $pcm2cms$, $pl$, $playretry$, $ratebypass$, $requiressl$, $source$, $sver$ \\ \hline
+		\multicolumn{2}{| c |}{\textbf{For a single $itag$}}  \\ \hline
+		$clen$, $cpn$, $cver$, $dur$, $ei$, $expire$, $fexp$, $id$, $initcwndbps$, $ip$, $lmt$, $mt$, $rbuf$, $rn$, $signature$, $sparams$, $upn$, $range$ & $alr$, $c$, $gir$, $iptbits$, $itag$, $keepalive$, $key$, $mime$, $mm$, $mn$, $ms$, $mv$, $pcm2cms$, $pl$, $playretry$, $ratebypass$, $requiressl$, $source$, $sver$ \\ \hline
+		\multicolumn{2}{| c |}{\textbf{\em A single video multiple sessions}}  \\ \hline
+		\multicolumn{2}{| c |}{\textbf{Overall}}  \\ \hline
+		$clen$, $cpn$, $cver$, $dur$, $ei$, $expire$, $fexp$, $id$, $initcwndbps$, $ip$, $itag$, $lmt$, $mime$, $mt$, $rbuf$, $rn$, $signature$, $sparams$, $upn$, $range$ & $alr$, $c$, $gir$, $iptbits$, $keepalive$, $key$, $mm$, $mn$, $ms$, $mv$, $pcm2cms$, $pl$, $playretry$, $ratebypass$, $requiressl$, $source$, $sver$ \\ \hline
+		\multicolumn{2}{| c |}{\textbf{For a single $itag$}}  \\ \hline
+		$cpn$, $cver$, $ei$, $expire$, $fexp$, $id$, $initcwndbps$, $ip$, $mt$, $rbuf$, $rn$, $signature$, $sparams$, $upn$, $range$ &  $alr$, $c$, $clen$, $dur$, $gir$, $iptbits$, $itag$, $keepalive$, $key$, $lmt$, $mime$, $mm$, $mn$, $ms$, $mv$, $pcm2cms$, $pl$, $playretry$, $ratebypass$, $requiressl$, $source$, $sver$ \\ \hline
+		\multicolumn{2}{| c |}{\textbf{\em A single video single session}}    \\ \hline
+		\multicolumn{2}{| c |}{\textbf{Overall}}  \\ \hline
+		$clen$, $dur$, $itag$, $lmt$, $mime$, $rbuf$, $rn$, $signature$, $range$ & $alr$, $c$, $cpn$, $cver$, $ei$, $expire$, $fexp$, $gir$, $id$, $initcwndbps$, $ip$, $iptbits$, $keepalive$, $key$, $mm$, $mn$, $ms$, $mt$, $mv$, $pcm2cms$, $pl$, $playretry$, $ratebypass$, $requiressl$, $source$, $sparams$, $sver$, $upn$ \\ \hline
+		\multicolumn{2}{| c |}{\textbf{For a single $itag$}}  \\ \hline
+		$rbuf$, $rn$, $range$ & $alr$, $c$, $clen$, $cpn$, $cver$, $dur$, $ei$, $expire$, $fexp$, $gir$, $id$, $initcwndbps$, $ip$, $iptbits$, $itag$, $keepalive$, $key$, $lmt$, $mime$, $mm$, $mn$, $ms$, $mt$, $mv$, $pcm2cms$, $pl$, $playretry$, $ratebypass$, $requiressl$, $signature$, $source$, $sparams$, $sver$, $upn$ \\ \hline
+	\end{tabular}
+\end{table}
  
-\textbf{Parameters constant across multiple videos over multiple sessions:} Such parameters do not take part in video adaptation procedure, and only forward some static information, such as the device and OS related information.
-The parameters $alr$, $c$, $gir$, $iptbits$, $keepalive$, $key$, $mm$, $mn$, $ms$, $mv$, $pcm2cms$, $pl$, $playretry$, $ratebypass$, $requiressl$, $source$ and $sver$ fall under this category.
- 
-\textbf{Parameters constant for the same video across multiple sessions:} These parameters are essentially video specific parameters.
-The parameters $cpn$, $cver$, $ei$, $expire$, $fexp$, $id$, $initcwndbps$, $ip$, $mt$, $rbuf$, $rn$, $signature$, $sparams$, $upn$ and $range$ fit this description.
- 
-\textbf{Parameters changing within a single video session:} Out of such parameters, the ones which change only in response to variation in the link bandwidth, possibly take part in the video adaptation process.
-We figure out that $clen$, $dur$, $itag$, $lmt$, $mime$, $rbuf$, $rn$, $signature$, and $range$ are such parameters.
-However, on closer inspection, we find the parameters $mime$ and $signature$ relate to audio and video channels.
-Further the parameter $dur$ denotes video duration, and we observe that it changes only in the order of microseconds, which is due to the change in video encoding technique.
-Consequentially, we select the rest of the parameters, i.e. $clen$, $itag$, $lmt$, $range$, $rbuf$, and $rn$, for more detailed analysis.
+\subsubsection{Multiple Videos Multiple Sessions} We check whether a particular parameter value changes over multiple videos under multiple sessions. If the value does not change, then it indicates that the parameter does not take part in video adaptation procedure, and it basically forwards some static information, like the device and the operating system related information. 
+
+\subsubsection{Single Video Multiple Sessions:} If the value of a parameter changes for multiple video multiple sessions, but does not change for single video multiple sessions, then we can say that it is a video specific parameter.
+
+\subsubsection{Single Video Single Session:} If the value of a parameter changes for single video multiple sessions, but does not change for a single video single session even if the network quality changes, then we can say that it is session specific. The parameters that change only in this scenario when we change the link bandwidth, indicate that they possibly take part in the video adaptation process. From here, we figure out that $clen$, $dur$, $itag$, $lmt$, $mime$, $rbuf$, $rn$, $signature$ and $range$ are such parameters. However through close inspection, we find the parameters $mime$ and $signature$ relate to video channels, as we already discussed. Further the parameter $dur$ denotes video duration, and we observe that it changes only at microsecond order which is due to the change in video encoding technique. Consequently, we go for detailed analysis of the other parameters and their inter-relationships -- $clen$, $itag$, $lmt$, $range$, $rbuf$ and $rn$. 
+%\end{enumerate}
+
+As $itag$ indicates the video quality level, we also explore how these parameters are related to the $itag$ value. We try to figure out which parameters change with a change in $itag$ value, as shown in Table~\ref{table:parameter_changes}. We observe that for the single video single session scenario, $rbuf$, $rn$ and $range$ change even for a single $itag$. On the other hand, parameters like $clen$ change overall, but remain constant for a single $itag$ value, indicating that it may have a direct relationship with $itag$. We conclude that these parameters require detailed exploration to figure out the information embedded within them. 
+
+\subsection{Detailed Analysis of the ABR-related Parameters}
+Next, we discuss the detailed analysis of the $6$ parameters which control the YouTube adaptive bitrate streaming algorithm. 
 
 {\bf {\em itag}:} YouTube samples every video under different video quality levels based on its resolution, bit rate and encoding techniques used for sampling, and assigns a numeric level to every quality, which is the $itag$ value~\cite{itag}.
 Since $itag$ indicates the video quality level, we explore how the other 5 parameters respond to changes in the $itag$ values.
@@ -110,12 +145,14 @@ We observe similar behavior across all videos that we randomly chose.
 From these observations, we conclude that $clen$ is the length of the video chunk for a particular $itag$ value.
 The YouTube server stores a video chunk with $clen$ amount of data for a particular $itag$, and therefore the length of received data never shoots beyond $clen$ even if the byte range requested through $range$ is higher.
 
-{\bf Summary:} $range$ and $itag$ are parameters responsible for adaptiveness in YouTube video streaming, while $rbuf$ is the client-side indicator of channel quality. 
+\subsubsection{Summary} $range$ and $itag$ are parameters responsible for adaptiveness in YouTube video streaming, while $rbuf$ is the client-side indicator of channel quality. 
 Although the maximum length of a video segment is defined by $clen$ for a particular $itag$, YouTube has the option to download lesser data per request, which is specified by the $range$ parameter.
 
-\subsubsection{Insights into YouTube's bitrate adaptation algorithm}
+\section{Insights into YouTube's Bitrate Adaptation Algorithm}
 \label{chap03s1:subsec:seglength}
-{\bf Opportunistic (quality) upscale vs. conservative downscale:} We concentrate on the nature of YouTube video playback requests whenever it switches from one video quality to another.
+Based on the above analysis of various parameters, we figure out various important aspects of YouTube's ABR algorithm, as follows. 
+
+\subsection{Opportunistic (Quality) Upscale vs. Conservative Downscale} We concentrate on the nature of YouTube video playback requests whenever it switches from one video quality to another.
 We first convert the $range$ parameter to equivalent video segment length in terms of video playback time -- this can be done by looking into the video file header (using the Python package \texttt{python-ebml}) that provides a mapping between the byte range and playback time.
 Fig.~\ref{fig:chap03s1:timespent} plots the video segments (in terms of video playback time, as shown in x-axis) and the corresponding $itag$ values for which the client makes a request.
 We make an interesting observation -- whenever the video quality improves, there is an overlap between the segments of lower quality and higher quality (shown using circles in the figure); however, there is no such overlap when the video quality drops.
@@ -123,7 +160,8 @@ Therefore, we can conclude that the YouTube video adaptation algorithm works in 
 In the opportunistic approach, it downloads the video chunks of both the video qualities in parallel, whenever it decides to switch from the lower quality to the higher quality -- this often leads to data wastage, as mentioned earlier in \S\ref{chap03s1:sec:introduction}.
 However, in the conservative approach, it directly sends the request for lower quality video when the link quality drops.
 
-{\bf Segment length adaptation:} As mentioned earlier, YouTube adapts both the video quality and the streaming data rate whenever network conditions change.
+\subsection{Segment Length Adaptation} 
+As mentioned earlier, YouTube adapts both the video quality and the streaming data rate whenever network conditions change.
 In order to explore the behavior of streaming data rate adaptation, we analyze how the requested video segment length (specified by the $range$ parameter) per video playback request, changes with change in link bandwidth.
 We convert the byte range mentioned in the video playback request to the equivalent video playback time, and find out the video segment length in terms of playback time.
 The sample results from $4$ videos are shown in Fig.~\ref{fig:chap03s1:segmentLength} where x-axis denotes the video playback request time, and y-axis denotes the segment length in seconds.
@@ -138,7 +176,8 @@ Segment length is increased only if $rbuf$ becomes stable.
 In this manner, YouTube jointly adapts the video quality as well as the segment length (indirectly, the streaming data rate).
 This observation has not been reported in existing literature, to the best of our knowledge.
 
-{\bf Implication on data wastage:} Segment length adaptation may have far-reaching implications in terms of advantages for YouTube streaming, one of which is minimal data wastage.
+\subsection{Implication on Data Wastage} 
+Segment length adaptation may have far-reaching implications in terms of advantages for YouTube streaming, one of which is minimal data wastage.
 Since segment length increases gradually from a low value to higher values when bandwidth improves, overlaps between the segments of a lower quality and the next higher quality are largely diminished.
 This implies that data wastage values come down drastically (as opposed to a scenario with no segment length adaptation) -- in our experiments, we compute the average wastage ratio, defined as $\frac{data\_downloaded - data\_played}{data\_played}$, to be $0.82 x 10^{-6}$.
 This is in sharp contrast with previously reported values. 
