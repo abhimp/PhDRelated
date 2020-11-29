@@ -86,7 +86,7 @@ When DASH uses two separate HTTP streams for video and audio downloads, the stre
 \end{figure}
 
 
-\subsubsection{Summary}
+\subsection{Summary}
 We observe that during parallel downloads of audio and video streams, QUIC multiplexing affects the response latency of the audio streams. This observation also tallies with the observation made in~\cite{kakhki2019taking} which states that multiplexing objects from parallel streams affect the latency of individual objects. This latency is inevitable because of multiplexing multiple objects over a single UDP queue, whereas the final video playback depends on successful download of both the video and the audio segments. Interestingly, the throughput calculation used in DASH does not consider this response latency, resulting in a mismatch between the expected throughput and the actual download time of the segments after a request is sent. There might not be a direct solution to this problem as DASH is unaware about such behaviors of the underlying data transmission protocol, whereas QUIC is unaware about the dependency between the audio and the video streams for successful streaming of the video. A further analysis and protocol enhancement is required in this space for making ABRs work perfectly on top of QUIC.   
 
 

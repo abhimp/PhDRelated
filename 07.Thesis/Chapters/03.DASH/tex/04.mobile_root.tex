@@ -1,13 +1,14 @@
 
 \graphicspath{{Chapters/03.DASH/img/}}
 
-\section{\textbf{Effect of mobility on DASH}}
+\section{\textbf{Effect of Mobility and Energy Consumption over DASH}}
 \label{sec:chap03:DASHinMobility}
 
-\blue{
-Till now we have analyze the YouTube streaming system and the effect of the QUIC transport protocol on the different ABR algorithm. However, there is another factor exist when it come to the smartphone users. A large population watch online video on their smartphone. In general smartphone runs on battery and among its users, a set of users watch online video in their smartphone while they commute to and from the work. During these times, most of the users do not have access to a power source to charge their smartphones.
-So, while traveling, users mostly have to rely on cellular network as WiFi hotspot are not available in the public commute most of the places. Due to the non-optimal placement of cellular base-station and huge crowd, it often lack the desire signal quality which lead to higher battery drainage.
-}
+Till now, we have analyzed the YouTube streaming system and the effect of the QUIC transport protocol on the different ABR algorithm. However, another factor exists when it comes to smartphone users. A large population watches the online video on their smartphones. In general, the smartphone runs on battery power, and among its users, a set of users watch online videos while they commute to and from work. During these times, most users do not have access to a power source to charge their smartphones.
+
+So, while traveling, users mostly have to rely on cellular networks as WiFi hotspots are not available in the public commute most of the places. Due to the non-optimal placement of cellular base-station and massive crowds, it often lacks the desired signal quality, leading to higher battery drainage. To establish the cellular connectivity scenario, we have carried out an extensive measurement-based study for eleven months over five different cities in India, including urban areas as well as while travelling on highways. We have recorded the signal received by medium budget Moto G5 and Micromax phones, while using the cellular data connection of leading service providers in India, like Airtel, Reliance Jio, and Vodafone.
+
+
 \begin{figure}[!h]
 	\captionsetup[subfigure]{width=0.7\linewidth}
 	\begin{center}
@@ -22,16 +23,14 @@ So, while traveling, users mostly have to rely on cellular network as WiFi hotsp
 	\caption{ Experimental Observations}
 \end{figure}
 
-To establish the cellular connectivity scenario, 
-we have carried out an extensive measurement-based study for eleven months over five different cities in India, including urban areas as well as while travelling on highways. We have recorded the signal received by medium budget Moto G5 and Micromax phones, while using the cellular data connection of leading service providers in India, like Airtel, Reliance Jio, and Vodafone.
 
 
 A \textit{key finding} of this experiment is shown in Fig.~\ref{fig:chap03s3:technology_with_traj}, which displays the trajectory of a Moto G5 phone connected to the Airtel network on a single day over the IIT Kharagpur campus area of $8.5$ sq.km. It is seen that even within the small area covered, the phone connects to different generations of cellular technologies, each highlighted in different colours. Two inferences can readily be drawn from Fig. Fig.~\ref{fig:chap03s3:technology_with_traj}. (i) A service provider does not guarantee a complete \ac{4G} connectivity across the entire coverage region. A \ac{UE} often has to fallback to legacy \ac{3G} or \ac{2G} networks. (ii) Even when connected to \ac{4G}, the signal strength shows random variations. For example, for the experiments conducted, the \ac{RSSI} of \ac{4G} networks fluctuates between $-87$dBm to $-115$dBm. This portrays the typical connectivity scenario in many regions in India.
 Another important observation from our experiments, shown in Fig.~\ref{fig:chap03s3:pcap_RSSI}, is that the volume of data downloaded by video players is not always commensurate with the current network signal strength. Several opportunities to download large chunks of data at high signal strength conditions remain unexploited.
 
-\blue{
-In previous experiment we find that the cellular network condition is not consistence over a small region. However, we want to know the relationship between various radio parameters such as signal strength, vertical and horizontal handover, device speed, etc on one hand and throughput and energy consumption on the other hand. To develop this understanding, we have carried out an extensive measurement based study as discussed next.
-}
+
+In the previous experiment, we find that the cellular network condition is not consistent even over a small region. However, we want to know the relationship between various radio parameters such as signal strength, vertical and horizontal handover, device speed, etc., on the one hand, and throughput and energy consumption on the other hand. To develop this understanding, we have carried out an extensive measurement-based study, as discussed next.
+
 
 
 \label{sec:chap03s3:EnDASHPilot}
@@ -76,9 +75,11 @@ For power consumption and energy profiling, we have selected medium budget VoLTE
     \end{tabular}
     \label{tab:chap03s3:handset_details}
 \end{table}
+
 \indent Besides power consumption, we have also collected extensive data on the observed throughput of mobile phones in public buses, cars, and while walking across five cities of India (Kharagpur, Kolkata, Guwahati, Bengaluru, Malda). This dataset also includes data collected while travelling on highways. We have used workloads of 6Mb, 100Mb, 1GB file download, as well as of video streaming using Netflix, Hotstar, SonyLiv and Amazon Prime. This has allowed a detailed energy profiling of the smartphones. The entire corpus of collected data traces amounts to more than 50GB and has been collected over a period of eleven months. 
-\subsubsection{Software Setup and Outcome}
-\indent In this section, we outline the software setup. We have considered two primary workloads- (a) file download, and (b) video streaming. \\
+
+\subsubsection{Observations}
+We next outline the observations from this experiment. We have considered two primary workloads- (a) file download, and (b) video streaming. \\
 \begin{figure}[h]
     \centering
     \fbox{\includegraphics[width=0.7\textwidth]{new_results/pilot/rssi_bin_time}}

@@ -1,4 +1,4 @@
-\subsection{Takeways of the study}
+\section{Takeways of the Study}
 \label{chap03s1:sec:conclusion}
 
 In this work, we studied the internal working of YouTube's bitrate adaptation algorithm, by identifying important parameters and exploring their roles.
@@ -8,27 +8,31 @@ We can summarize the outcomes and contributions of our work as follows.
 %We further provided an analytical model, augmented with a machine learning based classifier, to predict data consumption in adavance for a video playback session.
 %As an immediate future direction, we would like to explore other important implications of segment length adaption for YouTube.
 
-{\bf Experimental observations:} Our experiments reinforce the earlier reported observation that video quality adaptation is based on buffer size distribution at the YouTube client.
+\subsection{Experimental Observations} Our experiments reinforce the earlier reported observation that video quality adaptation is based on buffer size distribution at the YouTube client.
 However, we also observe that when encountered with a drop in network bandwidth, YouTube makes an effort to adaptively change segment lengths of the downloaded video chunks, before downgrading video quality -- this observation, to the best of our knowledge, has not been reported in any prior work.
 In fact, we find that YouTube employs an opportunistic approach of joint video quality and streaming rate adaptation, which is similar to the elastic behavior characteristic  observed in TCP traffic (\S\ref{chap03s1:sec:parameters}).
 
-{\bf Data wastage during YouTube streaming:} Downloaded data can end up being wasted in adaptive bit-rate streaming when, due to a sudden improvement in network conditions, a higher quality video segment is downloaded for viewing, even when a lower quality segment for the same playback duration already exists -- the lower quality segment is rendered unproductive.
+\subsection{Data Wastage during YouTube Streaming} Downloaded data can end up being wasted in adaptive bit-rate streaming when, due to a sudden improvement in network conditions, a higher quality video segment is downloaded for viewing, even when a lower quality segment for the same playback duration already exists -- the lower quality segment is rendered unproductive.
 In light of our experimental observations, we ask the following research question: ``How does segment length adaptation affect data wastage in YouTube adaptive streaming?''
 The question is particularly interesting, since many existing works (including~\cite{sieber2016sacrificing} recently) have studied data wastage in DASH implementations, including that of YouTube.
 We experimentally determine the data wastage ratio involved in YouTube adaptive streaming to be around $0.82x10^{-6}$ on an average, which is significantly lesser than values reported by earlier studies.% (\notess{exact value from cited work}).
 We reason that such overestimations in earlier works stemmed from their incorrect assumption that the segment size remains constant, which led to gross approximations in their data wastage computations.
 
-{\bf Model to predict data consumption:} Furthermore, we realize that prediction of data consumption (both productive and wasted) even before a video has actually played, can serve as an important parameter for more intelligent streaming in challenging scenarios.
+\subsection{Model to Predict Data Consumption} Furthermore, we realize that prediction of data consumption (both productive and wasted) even before a video has actually played, can serve as an important parameter for more intelligent streaming in challenging scenarios.
 Suppose an user is traveling through a zone of irregular connectivity, thereby resulting in fluctuating bandwidth. It can be noted that existing mechanisms, such as~\cite{Zou2015} and the references therein, can predict the bandwidth fluctuation pattern a priori under many mobility patterns such as predicted urban mobility.  
 The user would ideally wish to watch videos for as long as possible, without sacrificing her quality of experience too much (streaming in lowest available resolution is too extreme for her). 
 Assuming the YouTube client has prior information of these challenges, and can predict data consumption, it can decide upon the most balanced quality level to start streaming in, so that the data download is minimized.
 To such ends, we propose an analytical model, augmented with a machine learning based classifier, using which one can estimate data consumption even before actually playing a YouTube video, if channel conditions and the initial video quality level are known.
 
-{\bf Contributions:} In summary, our contributions in this work are:
-\begin{enumerate}
-	\item We illustrate a methodology to study YouTube's adaptive streaming behavior in-depth (\S\ref{chap03s1:sec:experiments}) -- we identify and closely study the interplay among important parameters enabling this streaming algorithm (\S\ref{chap03s1:sec:parameters}).
-	\item Our experiments reveal that YouTube adapts the {\it segment length} parameter before attempting to adapt video resolution -- a phenomenon not reported in the literature (\S\ref{chap03s1:subsec:seglength}).
-	\item We observe that segment length adaptation leads to much lower values of data wastage on average, than reported by prior studies.
-	\item We propose an analytical model, augmented with a machine learning based classifier, which enables prediction of data consumption for an initial playback video quality when it is possible to estimate the network conditions a priori using existing mechanism like~\cite{Zou2015}  (\S\ref{chap03s1:sec:model}).
-\end{enumerate}
+\section{Summary}
+In this chapter, we studied the internal working of YouTube’s bitrate
+adaptation algorithm, by identifying important parameters and
+exploring their roles. We observed that YouTube adapts segment
+length in addition to quality level, a behavior not been reported
+earlier. As an implication, we observed that data wastage for a playback session is significantly lower than estimated previously. We
+further provided an analytical model, augmented with a machine
+learning based classifier, to predict data consumption in advance
+for a video playback session. 
+
+However, the network bandwidth is not the only parameter that impacts adaptive streaming performance. Various other indirect or latent parameters, like the mobility environment, the protocol choice in the networking stack, the energy consumption budget, etc. also impact the QoE during video streaming. In the next chapter, we analyze how these latent parameters impact the video streaming performance. 
 
