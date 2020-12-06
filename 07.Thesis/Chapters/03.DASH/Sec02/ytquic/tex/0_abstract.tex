@@ -1,0 +1,12 @@
+\begin{abstract}
+
+Adaptive bitrate video streaming over the Internet typically uses HTTP over TCP. Lately Quick UDP Internet Connection (QUIC) protocol, introduced by Google, has been shown to improve web browsing performance over TCP. Engineered to have better connection establishment, congestion control, and stream multiplexing capabilities, QUIC seems to be an obvious candidate for replacing TCP for video streaming over the web. In this work, we focus on comparing adaptive bitrate streaming performance over QUIC and TCP. Our experimental analysis is based on $175$ YouTube video streams that are accessed from a browser, and over a controlled network setup such that impact of different parameters can be studied. We observe that QUIC is better in maintaining a higher bitrate during playback, as well as, reduces bitrate switching, relative to TCP. However, QUIC uses more bandwidth to download higher data volume for buffering, especially at low bandwidth, and even suffers from more rebuffering events during playback compared to the use of TCP.
+
+%Quick UDP Internet Connection (QUIC) is an experimental protocol developed by Google, which claims to solve the connection setup and congestion control overhead of popular Transmission Control Protocol (TCP) for large number of parallel data flows over the Internet, while providing an end-to-end secure connection. 
+%The existing studies of QUIC performance show that it is good for web access as it is a light-weight protocol and can significantly reduce page download time compared to TCP. 
+%However, a large number of todays' Internet traffic is based on multimedia streaming applications, such as NetFlix, YouTube and so on, and it is not known whether or how QUIC can improve the adaptive streaming performance over the web, compared to TCP. 
+%In this work, we have downloaded around $175$ video clips of different types (video length, content encoding, content type) under controlled and monitored network conditions using both QUIC and TCP, and analyzed the adaptive streaming performance for both the scenarios. 
+%We have observed that QUIC aggressively download high quality video segments even at low bandwidth, however it suffers from large number of re-buffering compared to TCP. 
+%Further, due to quality switching during adaptive streaming, QUIC also wastes a large amount of data compared to TCP.
+
+\end{abstract}

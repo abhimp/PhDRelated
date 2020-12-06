@@ -1,0 +1,9 @@
+Max Quality; Number of Video; Total Duration; Total Duration; Number of Quality Levels; Quality Levels
+1080p, 60fps; 17; 11h 9m; 40173; 8; 1080p60, 1080p, 720p60, 720p, 480p, 360p, 240p, 144p
+1080p, 50fps; 5; 2h 23m; 8615; 8; 1080p50, 1080p, 720p50, 720p, 480p, 360p, 240p, 144p
+1080p, 30fps; 75; 55h 56m; 201412; 6; 1080p, 720p, 480p, 360p, 240p, 144p
+720p, 60fps; 3; 2h 20m; 8424; 6; 720p60, 720p, 480p, 360p, 240p, 144p
+720p, 30fps; 51; 38h 27m; 138447; 5; 720p, 480p, 360p, 240p, 144p,
+480p, 30fps; 12; 9h 47m; 35268; 4; 480p, 360p, 240p, 144p,
+360p, 30fps; 11; 8h 49m; 31787; 3; 360p, 240p, 144p,
+240p, 30fps; 1; 56m; 3406; 2; 240p, 144p
