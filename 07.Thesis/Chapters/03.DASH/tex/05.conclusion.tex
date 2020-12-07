@@ -1,12 +1,3 @@
 \section{Summary}
 \label{sec:chap03:summary}
-In this chapter, we have performed three different experimental studies to understand the performance of existing ABR algorithms over today's Internet. First, we have explored the YouTube 
-
-
-\blue{
-In this chapter we analyze YouTube video streaming system along with the effect of new transport protocol QUIC. We found that YouTube adapt quality as well as the segment length according to the network quality. In our analysis with QUIC and DASH, we found that current ABRs may not perform well enough if the underlying transport protocol is QUIC. We have performed a thorough analysis of the problem and present in this chapter. We also performed a pilot study on the effect of mobility to the smart devices and find out the relationship between different parameters.
-}
-
-\blue{
-With the above context, we design a new ABRs technology call EnDASH. We will discuss about it in depth in the next chapter.
-}
+In this chapter, we have performed two different experimental studies to analyze the performance of existing ABR algorithms from two different fronts. First, we have analyzed the dependency of ABR algorithms on the underlying transport protocols. For this purpose, we experimented through the YouTube streaming system as well as based on an in-house lab-scale setup. Second, from an in-the-wild study, we analyzed the power consumption behavior of ABR streaming over smartphones. From the first analysis, we observe that although there is a performance dependency on the underlying protocol stack, we actually need to tune the transport layer protocol setups to complement them with the state-of-the-art streaming mechanisms. However, from the second analysis, we observe that we need to tune the existing ABR techniques to make them more energy-efficient. From this front, we move forward in developing an energy-efficient streaming mechanism, as discussed in the next chapter.
