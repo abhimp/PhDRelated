@@ -1,4 +1,6 @@
 \section{Performance Analysis of State-of-the-Art ABR Algorithms over QUIC}
+In this section, we evaluate and compare the performance of various ABR
+techniques over TCP and QUIC. We develop a testbed setup with the help of a standard DASH player from the DASH Industry Forum, where we integrate the DASH player with QUIC and use emulated network environment based on a large pool of pre-collected network traffic traces. With a total of $45$ hours of streaming video data, we have computed three QoE metrics -- (a) average playback bitrate, (b) total rebuffering duration, and (c) playback smoothness, while streaming over both TCP and QUIC. The detailed experimental setup follows. 
 
 \subsection{Experimental Setup}
 \label{chap03s2:sec:experimentalSetup}
