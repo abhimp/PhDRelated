@@ -12,6 +12,6 @@ Even though the cloud can be used to transcode live streaming effectively, it no
 \subsection{SmoothCache 2.0}
 To reduce the distribution overhead, server load and to improve the quality of experience during the live streaming, SmoothCache 2.0\cite{10.1145/2713168.2713182} provide a solution involving peer to peer networking with DASH. Roverso \etal\ exploit the fact that all the live streaming players need to be in sync with very little tolerance $\delta$. The $\delta$ is the time when a player searches for the required segment in other peers and, if failed, fetch it from the CDN. The authors use optimizations like pro-active prefetching to reduce the overhead. Pro-active prefetching allow few players to fetch segment before as soon as they are available at the server.
 
-\subsection{LiveNAS}
+\subsection{Neural-Enhanced Live Streaming (LiveNAS)}
 QoE of a live stream is dependent on the network quality and computation capability, especially when random individual users start streaming using commodity devices like a smartphone with a cellular data connection. Due to the lack of dedicated Internet connection and lack of infrastructure, these users can not ensure a steady streaming quality. Kim \etal\ design LiveNAS\cite{10.1145/3387514.3405856} to improve video quality in such cases. LiveNAS runs super-resolution to upgrade video quality at the ingest server.
 

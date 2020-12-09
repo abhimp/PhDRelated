@@ -7,14 +7,14 @@ Petrangeli \etal\ proposes Multi-agent Q-Learning\cite{6838245}, a reinforcement
 \subsection{RL based Online Learning Adaptation}
 Chiariotti \etal\ formulate the Adaptation problem as Markov Decision Process (MDP)\cite{P-1066} optimization problem\cite{10.1145/2910017.2910603}. Authors have found out that the future state of the process solely depends on the present state. Here, the system's state is defined as quality level, available throughput, size of the segment, and the playback buffer. The state transition happened based on the action taken in the current state based on the action, which is essentially the bitrate. The reward was calculated based on the previous state, action taken in the previous state, and current state. Then they use online reinforcement learning to solving the problem to make the best possible decision.
 
-\subsection{D-DASH}
+\subsection{Deep Q-Learning based DASH (D-DASH)}
 D-DASH\cite{8048013} is a deep-neural network-based ABR solution. Like \cite{10.1145/2910017.2910603}, Gadaleta \etal\ formulate the problem as MDP optimization. However, the authors suggested a Q-Learning-based deep-neural network solution instead of an RL-based solution as it is compact and fast.
 
 \subsection{Pensieve}
 Mao \etal\ designed Pensieve\cite{mao2017neural} to solve the bitrate selection problem using Recurrent Neural Network. The Pensieve treats multiple parameters, including buffer occupancy, download history, playback time as the current state, and bitrate selection as the action to move to the next state. Pensieve uses the QoE as the reward for state transition. The aim here is to increase the reward, i.e., QoE, by taking accurate action. Pensieve selection action based on the policy, which a probability distribution of state and action pair. As there are intractably many such pair exists, Pensieve uses a neural network to represent the policy with manageable parameters. It uses the actor-critic neural-network to train the policy with the policy gradient method\cite{sutton1999policy}. It also uses the A3C\cite{10.5555/3045390.3045594} algorithm, an actor-critic method involving two networks, to train its model.\\
 Pensieve proposes a simulation-based method to train the network fast, and then the trained model is then used in the real playback system. To make the training process even faster, they propose asynchronous parallel training involving primary and secondary networks.
 
-\subsection{Oboe}
+\subsection{Auto-tuning Video ABR Algorithm (Oboe)}
 Oboe\cite{Akhtar2018} is another learning-based ABR technology devised by Akhtar \etal. While Oboe does not directly provide any algorithm to select bitrate for each segment, it tunes the configuration of other ABR algorithms including MPC\cite{yin2015control,10.1145/2670518.2673877}, BOLA\cite{Spiteri2016} and Penseive\cite{mao2017neural} based on the network state. Oboe precomputes the appropriate configuration settings for any algorithm based on the different network states using reinforcement learning. It applies the learned model online to tune the configuration to provide the best possible outcome by an ABR algorithm.
 
 
@@ -27,5 +27,26 @@ Zhang \etal\ presented a novel approach to increase video streaming quality in t
 \subsection{LiveClip}
 When we talk about DASH based videos, we generally think of long videos. So, most of the ABR algorithm might not work for short videos. However, some services use short videos. LiveClip\cite{10.1145/3386290.3396937} solves the problem by designing a deep reinforcement learning-based ABR algorithm for short videos.
 
-\subsection{Grad}
+\subsection{Overhead-aware Adaptive Video Streaming (Grad)}
 Grad\cite{10.1145/3394171.3413512} is overhead-award ABR for SVC based video streaming. By default, DASH is not designed for SVC based video streaming, so most of the ABR algorithm does not support DASH. Also, SVC involves a lot of extra overhead in decoding. Liu \etal\ design grad to mitigate those problems. To reduce decoding overhead, they propose {\tt jump enabled hybrid coding} where only one enhancement layer can be used to jump multiple SVC layers. On top of this optimization, they use actor-critic network-based reinforce-learning to adapt the quality.
+
+\begin{table}[h!]
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{|l|cccc|c|c|l|l}
+			\hline
+			\multicolumn{1}{|c|}{\multirow{3}{*}{Algorithm}} & \multicolumn{4}{c|}{Goal involved} & \multirow{3}{*}{\begin{turn}{90}No Extra Module\end{turn}} & \multirow{3}{*}{\begin{turn}{90}Continuous Traffic\end{turn}} & \multicolumn{1}{c|}{\multirow{3}{*}{Remark}} \\
+			\cline{2-5}
+			& \begin{turn}{90}Rebuffering\end{turn} & \begin{turn}{90}Quality\end{turn} & \begin{turn}{90}Smoothness\end{turn} & \begin{turn}{90}Fairness\end{turn} & & & \\
+			& & & & & & & \\
+			\hline
+			Multi-agent Q-Learning & \green{\cmark} & \green{\cmark} & \green{\cmark} & \green{\cmark} & \red{\xmark} & \red{\xmark} & \begin{tabular}[c]{@{}l@{}}Reinforcement Learning\\ Coordination proxy required\end{tabular} \\
+			RL-based Online Learning & \green{\cmark} & \green{\cmark} & \green{\cmark} & \red{\xmark} & \green{\cmark} & \red{\xmark} & \begin{tabular}[c]{@{}l@{}}Markov decision process\\ Reinforcement learning to solve MDP\end{tabular} \\
+			D-DASH & \green{\cmark} & \green{\cmark} & \green{\cmark} & \red{\xmark} & \green{\cmark} & \red{\xmark} & \begin{tabular}[c]{@{}l@{}}Markov decision process\\ Deep neural network solve MDP\end{tabular} \\
+			Pensieve & \green{\cmark} & \green{\cmark} & \green{\cmark} & \red{\xmark} & \green{\cmark} & \red{\xmark} & \begin{tabular}[c]{@{}l@{}}Policy gradient training\\ A3C based actor-critic network\\ Simulation based training\end{tabular} \\
+			Oboe & \green{\cmark} & \green{\cmark} & \green{\cmark} & \red{\xmark} & \green{\cmark} & \red{\xmark} & Configuration tuning \\
+			PERM & \green{\cmark} & \green{\cmark} & \green{\cmark} & \red{\xmark} & \green{\cmark} & \red{\xmark} & \begin{tabular}[c]{@{}l@{}}Path selection problem\\ Actor-critic network with two actor network\end{tabular} \\
+			Super-resolution & \green{\cmark} & \green{\cmark} & \green{\cmark} & \red{\xmark} & \red{\xmark} & \red{\xmark} & \begin{tabular}[c]{@{}l@{}}Post download quality enhancement\\ Neural network based solution\end{tabular} \\
+			\hline
+		\end{tabular}
+	}
+\end{table}
