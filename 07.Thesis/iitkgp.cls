@@ -12,6 +12,10 @@
 % The full name of the degree
 \newcommand{\degree}[1]{\gdef\@degree{#1}}
 
+\newcommand{\Dept}[1]{\gdef\@Dept{#1}}
+
+\newcommand{\Insti}[1]{\gdef\@Insti{#1}}
+
 % The name of this document (thesis/dissertation)
 \newcommand{\docname}[1]{\gdef\@docname{#1}}
 
@@ -75,11 +79,14 @@
 
 \newcommand{\DedicatedTo}[1]{\gdef\@DedicatedTo{#1}}
 \newcommand{\ApprovalSignatures}[1]{\gdef\@ApprovalSignatures{#1}}
+\newcommand{\CertificateSignature}[1]{\gdef\@CertificateSignature{#1}}
 
 % Set default values for fields
   \Year{1905}
   \Month{January}
   \Author{Author}
+  \Dept{Department of CSE}
+  \Insti{IIT Kharagpur}
   \TitleTop{First line of title}
   \TitleBottom{ } % default is empty
   \Abstract{}
@@ -102,6 +109,7 @@
   
   \AuthorDeclaration{Your Declaration}
   \DedicatedTo{Your dedication}
+  \CertificateSignature{}
   
 % ---------------------------- options ------------------------------
 
@@ -428,7 +436,7 @@ This is to certify that the thesis entitled \textbf{\TitleFull}, submitted by \t
 
 \vspace{-.5in}        
       \begin{flushright}
-      \signaturebox{\begin{flushright} \line(150,0){150}\\Dr. \@AdvisorA\\Professor\\Department of CSE\\IIT Kharagpur, India\end{flushright}}\\%[\baselineskip]
+      \signaturebox{\begin{flushright}\@CertificateSignature\end{flushright}}\\%[\baselineskip]
       \vspace{-.5in}         
       \end{flushright}
       
@@ -470,7 +478,7 @@ This is to certify that the thesis entitled \textbf{\TitleFull}, submitted by \t
      {\@AuthorDeclaration}
       \vspace{-.5in}
       \begin{flushright}
-      \signaturebox{\begin{flushright} \line(150,0){150}\\\@Author\\ Department of CSE\\ IIT Kharagpur, India\end{flushright}}\\%[\baselineskip]
+      \signaturebox{\begin{flushright} \line(150,0){150}\\\@Author\\ \@Dept \\ \@Insti\end{flushright}}\\%[\baselineskip]
       \vspace{-.5in}         
       \end{flushright}
       \datebox
