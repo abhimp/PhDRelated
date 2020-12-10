@@ -38,6 +38,7 @@ clean:
 	rm -f ${filename}.lof || true
 	rm -f ${filename}.toc || true
 	rm -f ${filename}.bcf || true
+	rm -f ${filename}.lot || true
 	rm -f ${filename}.run.xml || true
 	find . -name "*-eps-converted-to.pdf" -delete || true
 	find . -name "*.aux" -delete || true
