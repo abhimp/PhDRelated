@@ -1,0 +1,25 @@
+\section{Objective}
+In this section, we discuss the objective of this thesis.
+
+\subsection{Adaptive Bitrate Streaming over Today's Internet: A Case Study of YouTube}
+The primary objective of this work is to understand the adaptive streaming mechanism of YouTube. Although the adaptation mechanism is based on DASH, we want to find the difference between DASH and YouTube, whether YouTube sends feedback to the server, whether the server takes any decision, and how it adapts the quality? We primarily focused on the triggering point of the quality switch. As YouTube is a closed source and proprietary service, the only way to understand it by reverse engineering it. To achieve the primary objective, we have to find a way to reverse engineer YouTube. Many works in the recent literature talk about the data wastage by YouTube video player. The data wastage is another parameter of interest. We want to find out the correlation between the adaptation strategies and the data wastage on YouTube.
+
+\subsection{Transport Protocols and Mobility Choices for ABR Streaming: Performance vs. Energy Efficiency}
+The performance of the ABR algorithm depends on the observed network quality. However, it highly depends on the underlying transport layer, TCP, until Google developed the QUIC. In this chapter, we like to understand if there is any difference in YouTube's streaming system behavior on both of these protocols. Similarly, we perform a similar study for DASH with DASH.JS implementation. As ABR streaming is very popular with a smartphone, a power constraint device, we want to know the energy efficiency of YouTube. 
+
+\subsection{EnDASH - A Mobility Adapted Energy
+	Efficient ABR Video Streaming for
+	Cellular Networks}
+Power management in a smartphone is very crucial that includes video streaming, especially when users are moving. So, we aim to develop an ABR algorithm, especially for smartphone base video streaming, to reduce battery consumption while maintaining reasonable QoE. We utilize the radio-related information available in a smartphone. Also, other information might be useful, such as GPS location, device speed, battery information. We want to find a correlation between these parameters in network condition and schedule the segment downloading in such a way so that it download most of the segments with the least energy consumption. The primary objectives can be summarized as follows:\\
+a) Find the correlation between radio, battery, and other physical parameters of a device with the network quality.\\
+b) Utilize these parameters to develop an ABR algorithm to reduce energy consumption while video streaming.\\
+c) The ABR should provide reasonable QoE, although it might sacrifice the finest QoE to preserve energy.
+
+\subsection{Federated Adaptive Bitrate Live
+	Streaming over Locality Sensitive
+	Playback Coalitions}
+This work aims to reduce Internet and server load while maintaining high QoE during live streaming by exploiting the feature of synchronous playback and locality information. We want a player to find and share segments with other players in the locality during live streaming. We do not want any players to upload segments through the Internet as most users have very poor uplink and uploaded data count towards their data usage. Also, upload through the Internet means other users have to download segments from the Internet, which is equivalent if not worse than download from the CDN as per the players' perspective. It is also important that all the players contribute toward the segment downloading from CDN. It ensures fairness among players, even if they have different data plans. The primary objectives are as follows: \\
+a) Exploit synchronous playback mechanism of live streaming and share segments among the player.\\
+b) No data should be uploaded to the Internet during sharing.\\
+c) Every player which are getting segments from other players should also share segment by downloading it directly from the CDN. \\
+d) Every player should work towards improving QoE for every other player.
