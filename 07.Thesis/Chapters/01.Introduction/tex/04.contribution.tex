@@ -1,0 +1,29 @@
+\section{Contribution}
+\subsection{Adaptive Bitrate Streaming over Today's Internet: A Case Study of YouTube}
+\begin{enumerate}
+	\item We illustrate a methodology to study YouTube's adaptive streaming behavior in-depth (\S\ref{chap03s1:sec:experiments}) -- we identify and closely study the interplay among important parameters enabling this streaming algorithm (\S\ref{chap03s1:sec:parameters}).
+	\item Our experiments reveal that YouTube adapts the {\it segment length} parameter before attempting to adapt video resolution -- a phenomenon not reported in the literature (\S\ref{chap03s1:subsec:seglength}).
+	\item We observe that segment length adaptation leads to much lower values of data wastage on average, than reported by prior studies.
+	\item We propose an analytical model, augmented with a machine learning based classifier, which enables prediction of data consumption for an initial playback video quality when it is possible to estimate the network conditions a priori using existing mechanism like~\cite{Zou2015}  (\S\ref{chap03s1:sec:model}).
+\end{enumerate}
+
+\subsection{Transport Protocols and Mobility Choices for ABR Streaming: Performance vs Energy Efficiency}
+\begin{enumerate}
+	\item Similarly to the previous chapter, we first conduct a study over YouTube to analyze YouTube ABR performance over TCP and QUIC. 
+	\item We then perform a study over a controlled environment, to explore how different modern ABR algorithms like BOLA, MPC, Pensieve, etc. work over QUIC in comparison to TCP. 
+	\item Finally, to understand the impact of ABR streaming over the energy consumption of a mobile device, we conduct a through experiment using commodity smartphones and commercial cellular network connections. 
+\end{enumerate}
+
+\subsection{EnDASH - A Mobility Adapted EnergyEfficient ABR Video Streaming forCellular Networks}
+\begin{enumerate}
+	\item With the observation from previous chapters, we developed a throughput prediction engine to predict average throughput for a short future.
+	\item We design a ABR algorithm based on the throughput prediction algorithms and instantaneous parameters to reduce the power consumption by optimally adjust the playback buffer lengths.
+\end{enumerate}
+
+\subsection{Federated Adaptive Bitrate LiveStreaming over Locality SensitivePlayback Coalitions}
+\begin{enumerate}
+	\item We identified possibility of exploiting local network to reduce server load during live streaming.
+	\item The work proposes a novel way to share segments among users fairly and efficiently by form coaliation among nearby and similar type of players.
+	\item It also proposes a novel algorithm to select bitrate to increase QoE of entire coalition simulatenously instead of itself only.
+	\item The proposed system, improved QoE for all the player while reducing the network usages with compared to existing system.
+\end{enumerate}
