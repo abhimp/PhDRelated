@@ -1,0 +1,105 @@
+\section{Introduction}
+The Internet, which connects systems all over the globe, has become part of the modern lifestyle. The basic service like telephony to complicated procedure telesurgery nowadays require the Internet. While it provides various services, video streaming is the most prominent one. According to Cisco VNI predictions\footnote{\url{https://www.cisco.com/c/dam/m/en_us/network-intelligence/service-provider/digital-transformation/knowledge-network-webinars/pdfs/1213-business-services-ckn.pdf}}, by 2022, almost half of the Internet connected device going be video capable, which will contribute 84\% of all Internet traffic. Also, the high definition of video demand will increase by many folds as more connected devices will be 4K capable. To satisfy this massive growth in video streaming demand, every part of the network stack needs to be optimized, and the online video streaming system is no exception. There is 3 type of online video streaming system. These are a) interactive video streaming, b) live video streaming, and c) static or video-on-demand (VoD). Among these three categories, live, and VoD streaming contributes to significant traffic on the Internet. While services like YouTube, twitch support both these types of video streaming, NetFlix, PrimeVideos are primarily concentrated in the VoD service.
+
+In earlier days, online video streaming used to use more dedicated protocols like RTP, SRTP. These protocols are push-based, which means servers push the video content towards the clients, and a client almost has no control over it. Due to being pushed based protocol, most of the proxies and NAT boxes usually block them (intentionally and unintentionally). To overcome these issues, YouTube started delivering video over HTTP protocol in 2005. As the HTTP is used to serve the world-wide-web (WWW), it was widely accepted by NAT boxes and proxies, and video data can go pass through without any problem. Soon, video stream over HTTP become a defacto standard for the web-based video player. Initially, the HTML did not support any video playback mechanism, so Adobe flash player was used as it supported the progressive video file download and playback of partially downloaded video files\cite{gill2007youtube}. HTML embedded audio-video playback capabilities were introduced in HTML5, and all the web-based online video streaming services moved towards the HTML5 video playback.
+
+In 2009, Apple released HTTP Live Streaming service for their QuickTime video player. It includes a feature, adaptive bitrate, where video quality can be adapted based on the observed network quality to avoid rebuffering. Soon almost all the services started service adaptive video streaming. The different organizations have developed different techniques for adaptive video streaming over HTTP. Among them, MPEG-DASH\cite{ISO/IEC23009-1:2019} is notable as it has an open-source implementation by DASH-IF. HTML5 has added an experiment extension called Media Source Extension (MSE)\footnote{\url{https://www.w3.org/TR/media-source/}}, supporting the adaptive video.
+
+While video streaming is very popular over the web, it is also popular with smartphone users. Most smartphone operating systems, including Android, IOS, and Windows, support adaptive video streaming in both HTML5 based video players through the browser and native video player for the application. Furthermore, most of the online video services started providing an application to run on such smartphones as well as the support for their website in the mobile version.
+
+Currently, most the the streaming providers support adaptive video streaming. Any adaptive streaming system runs an adaptive bitrate (ABR) algorithm to adapt video quality based on the network quality. ABR algorithms are the most critical part of a video streaming system as the quality of experience (QoE) depends on them. QoE is a combination of three parameters\cite{yin2015control} i) overall quality, ii) quality fluctuations or lack of smoothness, and iii) rebuffering. Any ABR is supposed to improve QoE by maximizing overall quality and minimizing quality fluctuations and rebuffering. At the inception of adaptive video streaming, the ABR algorithm was simple; it matched the video bitrate to the observed throughput\cite{5677508,10.1145/1943552.1943575,10.1145/1943552.1943574}. However, this technique causes frequent fluctuation in bitrate, which can cause irritation to the users. So, the researcher started improving the ABR algorithm with various techniques. Over the decade, throughput based algorithm improved by buffer-based\cite{Spiteri2016,10.1145/2910017.2910596,7393865} and later on the hybrid of both throughput and buffer based\cite{7247436,140405,yin2015control,10.1145/2670518.2673877}. Finally, to improve it even more, machine learning-based\cite{mao2017neural,Akhtar2018,9155492} algorithms are developed.
+
+The online video streaming system is very popular, and adaptive video streaming over HTTP is its core. The adaptive video streaming is network friendly as it can reduce its bandwidth requirement by choosing a lower bitrate allowing other applications to go through a shared bottleneck. When multiple players share a common bottleneck link, they automatically adjust their video quality to allow other players to stream with reasonable quality. Over time, all the player gets an almost fair share of the bottleneck link.
+
+%======================
+\subsection{Motivation}
+\subsubsection{ABR algorithms and interplay with computer networks}
+ABR algorithms are an essential part of any adaptive video streaming system, as discussed in the last section. It is assumed that ABR algorithms are fair among themselves and the other type of traffic in most cases. However, during the COVID-19 pandemic, various video streaming services started dropping the highest quality of video from their service to preserve bandwidth available to the ISP as many people started working from home. At that time, the research community started questioning whether it was a fault of the video streaming system? Whether or not the existing ABR algorithms adjust themselves to lower bitrate when the load is high, or there is something wrong with the deployment of those streaming services. While we do not really know the answer, it is clear that the ABR algorithms are very important. The video streaming system needs to adapt to various network conditions. Questions like this motivate us to research the video streaming system.
+
+Google's YouTube is one of the pioneers of video streaming over HTTP(S) and a major online video streaming player. It serves a billion videos to 30 million users daily\footnote{\url{https://blog.youtube/press/}}. To scale the service to support these huge user bases, YouTube has developed several improvements that involve content delivery networks, transport protocol and the adaptation algorithm. No doubt, YouTube gained the attention of the research community to understand the system. In the past, there were several researchers studied YouTube for better understanding. However, most of the work either explore the traffic pattern and QoE properties of YouTube\cite{gill2007youtube,krishnappa2013dashing,wamser2016modeling,wamser2015poster,6757893ieeeexp,7129790ieeeexp} or explore the trade-off between video quality and data wastage\cite{sieber2015cost,seufert2015youtube,sieber2016sacrificing}. Although these studies give an important aspect of YouTube, they failed to explore the internal parameter and streaming strategies. It is crucial to know the adaptation strategies and internal parameters of YouTube to improve the DASH-based system.
+
+Web being Google's primary busyness, it started a project called `Make the Web Faster`\footnote{\url{https://developers.google.com/speed}}. It developed several tools and optimization to load a web page faster. Quick UDP Internet Protocol (QUIC)\cite{langley2017quic} is a product of this project where Google ditched the underlying TCP protocol and provide a new transport protocol based on the UDP. From the release of QUIC, researchers have studied the performance of it in various scenarios, including DASH based video streaming. As the QUIC work differently than TCP, and most of the ABR algorithms used in various video streaming platform are designed for TCP as the transport protocol, those ABR algorithms might not work well with QUIC. Research works like \cite{bhat2018improving,van2018empirical}, studied QUIC performance on ABR algorithm, found that buffer-based ABR algorithms are not well suited for QUIC. However, those works are performed using very old ABR algorithms, and studies are mostly simulation-based. Also, these works do not provide any insight into the root cause of the differences.
+
+\subsubsection{Energy efficiency in online video streaming}
+As per YouTube's report, users love to play online videos on a smartphone. It is also true for other streaming platforms. While most of the smartphone one-a-days have a huge battery capacity, it is still not enough to play videos for a long duration as video streaming is inherently energy-consuming. The uneven distribution of LTE networks, clustered crowds, and non-optimized video app can make these things even worse. Research in \cite{10.1145/2910018.2910656} shows that there is plenty of places to save energy by optimally configuring the streaming parameters like segment length, maximum buffer length, and segment download scheduling. These researches indicate that the interplay between the cellular network and the device's radio controller plays are a significant role in the energy efficiency of online adaptive video. It is important to learn various cellular network parameters and make informed adaptive decisions based on the learned parameters to make the adaptation more energy efficient.
+
+\subsubsection{Live Streaming}
+Live streaming is becoming an alternative to TV as the live broadcasts of most mega-events are broadcasted over the Internet using online live streaming. As more users are shifting towards online live streaming, it is becoming difficult to scale the mega-events' live streaming system. The existing literature proposes solutions by using Peer-to-Peer (P2P) networks to scale the live video streaming as players are in sync. However, P2P based live streaming suffers as most of the ISP allocate very less uplink bandwidth than downlink bandwidth to their subscriber.
+When a P2P network span over the Internet, traffic needs to go through the Internet, and this traffic will count towards the user's data connection. So, users may not take it lightly. However, in the case of mega-events, many users stay in clusters and share a common Internet backbone. One service can try to exploit the internal network to extend the service and provide better quality with lower overhead to the server and the ISP.
+
+
+%======================
+\subsection{Objective}
+In this section, we discuss the objective of this thesis.
+
+\subsubsection{Adaptive Bitrate Streaming over Today's Internet: A Case Study of YouTube}
+The primary objective of this work is to understand the adaptive streaming mechanism of YouTube. Although the adaptation mechanism is based on DASH, we want to find the difference between DASH and YouTube, whether YouTube sends feedback to the server, whether the server takes any decision, and how it adapts the quality? We primarily focused on the triggering point of the quality switch. As YouTube is a closed source and proprietary service, the only way to understand it by reverse engineering it. To achieve the primary objective, we have to find a way to reverse engineer YouTube. Many works in the recent literature talk about the data wastage by YouTube video player. The data wastage is another parameter of interest. We want to find out the correlation between the adaptation strategies and the data wastage on YouTube.
+
+\subsubsection{Transport Protocols and Mobility Choices for ABR Streaming: Performance vs. Energy Efficiency}
+The performance of the ABR algorithm depends on the observed network quality. However, it highly depends on the underlying transport layer, TCP, until Google developed the QUIC. In this chapter, we like to understand if there is any difference in YouTube's streaming system behavior on both of these protocols. Similarly, we perform a similar study for DASH with DASH.JS implementation. As ABR streaming is very popular with a smartphone, a power constraint device, we want to know the energy efficiency of YouTube.
+
+\subsubsection{EnDASH - A Mobility Adapted Energy
+	Efficient ABR Video Streaming for
+	Cellular Networks}
+Power management in a smartphone is very crucial that includes video streaming, especially when users are moving. So, we aim to develop an ABR algorithm, especially for smartphone base video streaming, to reduce battery consumption while maintaining reasonable QoE. We utilize the radio-related information available in a smartphone. Also, other information might be useful, such as GPS location, device speed, battery information. We want to find a correlation between these parameters in network condition and schedule the segment downloading in such a way so that it download most of the segments with the least energy consumption. The primary objectives can be summarized as follows:\\
+a) Find the correlation between radio, battery, and other physical parameters of a device with the network quality.\\
+b) Utilize these parameters to develop an ABR algorithm to reduce energy consumption while video streaming.\\
+c) The ABR should provide reasonable QoE, although it might sacrifice the finest QoE to preserve energy.
+
+\subsubsection{Federated Adaptive Bitrate Live
+	Streaming over Locality Sensitive
+	Playback Coalitions}
+This work aims to reduce Internet and server load while maintaining high QoE during live streaming by exploiting the feature of synchronous playback and locality information. We want a player to find and share segments with other players in the locality during live streaming. We do not want any players to upload segments through the Internet as most users have very poor uplink and uploaded data count towards their data usage. Also, upload through the Internet means other users have to download segments from the Internet, which is equivalent if not worse than download from the CDN as per the players' perspective. It is also important that all the players contribute toward the segment downloading from CDN. It ensures fairness among players, even if they have different data plans. The primary objectives are as follows: \\
+a) Exploit synchronous playback mechanism of live streaming and share segments among the player.\\
+b) No data should be uploaded to the Internet during sharing.\\
+c) Every player which are getting segments from other players should also share segment by downloading it directly from the CDN. \\
+d) Every player should work towards improving QoE for every other player.
+
+%======================
+\subsection{Contribution}
+\subsubsection{Adaptive Bitrate Streaming over Today's Internet: A Case Study of YouTube}
+\begin{enumerate}
+	\item We illustrate a methodology to study YouTube's adaptive streaming behavior in-depth (\S\ref{chap03s1:sec:experiments}) -- we identify and closely study the interplay among important parameters enabling this streaming algorithm (\S\ref{chap03s1:sec:parameters}).
+	\item Our experiments reveal that YouTube adapts the {\it segment length} parameter before attempting to adapt video resolution -- a phenomenon not reported in the literature (\S\ref{chap03s1:subsec:seglength}).
+	\item We observe that segment length adaptation leads to much lower values of data wastage on average, than reported by prior studies.
+	\item We propose an analytical model, augmented with a machine learning based classifier, which enables prediction of data consumption for an initial playback video quality when it is possible to estimate the network conditions a priori using existing mechanism like~\cite{Zou2015}  (\S\ref{chap03s1:sec:model}).
+\end{enumerate}
+
+\subsubsection{Transport Protocols and Mobility Choices for ABR Streaming: Performance vs Energy Efficiency}
+\begin{enumerate}
+	\item Similarly to the previous chapter, we first conduct a study over YouTube to analyze YouTube ABR performance over TCP and QUIC.
+	\item We then perform a study over a controlled environment, to explore how different modern ABR algorithms like BOLA, MPC, Pensieve, etc. work over QUIC in comparison to TCP.
+	\item Finally, to understand the impact of ABR streaming over the energy consumption of a mobile device, we conduct a through experiment using commodity smartphones and commercial cellular network connections.
+\end{enumerate}
+
+\subsubsection{EnDASH - A Mobility Adapted Energy
+Efficient ABR Video Streaming for
+Cellular Networks}
+\begin{enumerate}
+	\item With the observation from previous chapters, we developed a throughput prediction engine to predict average throughput for a short future.
+	\item We design a ABR algorithm based on the throughput prediction algorithms and instantaneous parameters to reduce the power consumption by optimally adjust the playback buffer lengths.
+\end{enumerate}
+
+\subsubsection{Federated Adaptive Bitrate Live
+Streaming over Locality Sensitive
+Playback Coalitions}
+\begin{enumerate}
+	\item We identified possibility of exploiting local network to reduce server load during live streaming.
+	\item The work proposes a novel way to share segments among users fairly and efficiently by form coaliation among nearby and similar type of players.
+	\item It also proposes a novel algorithm to select bitrate to increase QoE of entire coalition simulatenously instead of itself only.
+	\item The proposed system, improved QoE for all the player while reducing the network usages with compared to existing system.
+\end{enumerate}
+
+
+%======================
+\subsection{Organization of the Thesis}
+
+In this section, we provide a brief description of the organization of the thesis.
+\begin{itemize}
+	\item {\bf Chapter 2} provide details of online video streaming system and different ABR algorithm developed in the past. Moreover, it iterates over the merits and demerits of the proposed solution to the problem broadly linked with this thesis.
+	\item {\bf Chapter 3} present the study on YouTube video streaming service and analyses the adaptation technique taken by YouTube.
+	\item {\bf Chapter 3} performs a study to analyze the performance difference between two transport protocols, TCP and QUIC, on the video streaming system, both YouTube and DASH. We further analyze the energy consumption by a smartphone during online video streaming in various scenarios.
+	\item {\bf Chapter 4} present a novel ABR algorithm EnDASH to reduce energy consumption during the online streaming by optimizing the segmented schedule in buffer length.
+	\item {\bf Chapter 5} proposes a DASH based video streaming system which exploits the locality information to improve the video QoE and decrease the network usage by sharing segment among local players. It also describes a novel approach to form a coalition among local players and decide bitrate for the entire coalition.
+	\item {\bf Chapter 7} concludes the thesis by summarizing our contributions and listing down the possible future directions.
+\end{itemize}
