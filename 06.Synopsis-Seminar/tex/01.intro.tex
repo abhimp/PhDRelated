@@ -38,17 +38,13 @@ The primary objective of this work is to understand the adaptive streaming mecha
 \subsubsection{Transport Protocols and Mobility Choices for ABR Streaming: Performance vs. Energy Efficiency}
 The performance of the ABR algorithm depends on the observed network quality. However, it highly depends on the underlying transport layer, TCP, until Google developed the QUIC. In this chapter, we like to understand if there is any difference in YouTube's streaming system behavior on both of these protocols. Similarly, we perform a similar study for DASH with DASH.JS implementation. As ABR streaming is very popular with a smartphone, a power constraint device, we want to know the energy efficiency of YouTube.
 
-\subsubsection{EnDASH - A Mobility Adapted Energy
-	Efficient ABR Video Streaming for
-	Cellular Networks}
+\subsubsection{EnDASH - A Mobility Adapted Energy Efficient ABR Video Streaming for Cellular Networks}
 Power management in a smartphone is very crucial that includes video streaming, especially when users are moving. So, we aim to develop an ABR algorithm, especially for smartphone base video streaming, to reduce battery consumption while maintaining reasonable QoE. We utilize the radio-related information available in a smartphone. Also, other information might be useful, such as GPS location, device speed, battery information. We want to find a correlation between these parameters in network condition and schedule the segment downloading in such a way so that it download most of the segments with the least energy consumption. The primary objectives can be summarized as follows:\\
 a) Find the correlation between radio, battery, and other physical parameters of a device with the network quality.\\
 b) Utilize these parameters to develop an ABR algorithm to reduce energy consumption while video streaming.\\
 c) The ABR should provide reasonable QoE, although it might sacrifice the finest QoE to preserve energy.
 
-\subsubsection{Federated Adaptive Bitrate Live
-	Streaming over Locality Sensitive
-	Playback Coalitions}
+\subsubsection{Federated Adaptive Bitrate Live Streaming over Locality Sensitive Playback Coalitions}
 This work aims to reduce Internet and server load while maintaining high QoE during live streaming by exploiting the feature of synchronous playback and locality information. We want a player to find and share segments with other players in the locality during live streaming. We do not want any players to upload segments through the Internet as most users have very poor uplink and uploaded data count towards their data usage. Also, upload through the Internet means other users have to download segments from the Internet, which is equivalent if not worse than download from the CDN as per the players' perspective. It is also important that all the players contribute toward the segment downloading from CDN. It ensures fairness among players, even if they have different data plans. The primary objectives are as follows: \\
 a) Exploit synchronous playback mechanism of live streaming and share segments among the player.\\
 b) No data should be uploaded to the Internet during sharing.\\
