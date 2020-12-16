@@ -31,4 +31,7 @@ Our initial observations showed that the QUIC is performing poorly for all most 
 	\end{minipage}
 \end{figure*}
 
-\subsection{Energy Consumption due to ABR Streaming: An Ex- perimental Analysis}
+\subsection{Energy Consumption due to ABR Streaming: An Experimental Analysis}
+We wanted to profile the energy consumption by ABR streaming. So, we perform experiment with comodity smartphone in our campus. To perform the experiments we move around our campus with a slow moving vehicle and collect GPS, radio parameters from the smartphone and energy profile using monsoon power monitor tool. In this setup, two mainly performed two experiments, a) downloaded file from a server and b) played YouTube videos.
+\subsubsection{Observations}
+From these experiment we find two takeaways a) the wireless network condition is best quantified by throughput which depends significantly on phenomena such as handovers and not on received signal quality alone and b) the current protocol of video download attributes a higher weightage to the playback-buffer length than the user’s instantaneous received signal strength or throughput, ensuing a significantly high energy consumption.
