@@ -3,7 +3,7 @@ set output "time_duration_percent_rebuffering.eps"
 set size 2.5,1.3
 #set yrange [-140:60]
 #set ytics autofreq 40
-set multiplot 
+set multiplot
 set lmargin 2
 
 
@@ -15,9 +15,9 @@ set style data histogram
 set style fill solid border
 set style histogram clustered
 set ytics autofreq 20
-set key left top 
+set key left top
 set title "(a)" font ",50"
-plot  'QUIC_timeduration.dat' using 5:xtic(1) ti "QUIC" lc "red",  'TCP_timeduration.dat' using 5:xtic(1) ti "TCP" lc "blue" 
+plot  'QUIC_timeduration.dat' using 5:xtic(1) ti "QUIC" lc "red",  'TCP_timeduration.dat' using 5:xtic(1) ti "TCP" lc "blue"
 
 set size 1.1, 1.3
 set origin 1.4, 0.0
@@ -29,4 +29,4 @@ set style fill solid border
 set style histogram clustered
 set title "(b)" font ",50"
 set key right top
-plot  'QUIC_rebuffering.dat' using 1:xtic(3) ti "QUIC" lc "blue",  'TCP_rebuffering.dat' using 1:xtic(3) ti "TCP" lc "red" 
+plot  'QUIC_rebuffering.dat' using 1:xtic(3) ti "QUIC" lc "red",  'TCP_rebuffering.dat' using 1:xtic(3) ti "TCP" lc "blue"
