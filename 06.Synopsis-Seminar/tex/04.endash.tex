@@ -1,26 +1,27 @@
 \section{EnDASH - A Mobility Adapted Energy Efficient ABR Video Streaming for Cellular Networks}
-From the observations in previous sections, we design an ABR algorithm, EnDASH, which aims to reduce the radio's energy consumption during the video streaming. EnDASH reads the environment by means of different parameters and try to predict the future. Based on the prediction, it schedules segment downloading in a way so that it reduces energy consumption. It does not directly schedule it. Instead, it changes the available buffer (which is a parameter) in the player, and DASH it self schedule the segment downloading according to the buffer.
+From the observations in previous sections, we design an ABR algorithm, EnDASH, which aims to reduce the radio's energy consumption during the video streaming. EnDASH reads the environment using different parameters and try to predict the future. Based on the prediction, it schedules segment downloading in a way so that it reduces the overall energy consumption. EnDASH does not directly schedule the video segments; instead, it changes the available buffer (which is a parameter) in the player, and the DASH controller schedules the segment downloading according to the buffer length.
 \subsection{EnDASH System}
-The EnDASH first predicts an expected throughput for the short future ($t$) from the past, and based on predicted throughput, it decides the buffer length for $t$ duration. Later on, it also decides the bitrate based on the past information and current buffer length, and predicted throughput. EnDASH use three machine learning engine for each step.
+EnDASH first predicts the expected throughput for the short future ($t$) from the past and based on predicted throughput, and it decides the buffer length for $t$ duration. Later on, it also decides the bitrate based on the past information and current buffer length, and predicted throughput. EnDASH use three machine learning engine for each step.
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.7\linewidth]{img/EnDASH/EnDASH_system}
-	\caption{Composite Representation of the EnDASH model; a cascaded model where the predicted throughput acts as an input network state to the Actor Critic RL based decisionengine}
+	\caption{Composite Representation of the EnDASH model; a cascaded model where the predicted throughput acts as an input network state to the Actor Critic RL based decision
+		engine}
 	\label{fig:endash:system}
 \end{figure}
 
 \subsubsection{The throughput prediction engine}
-EnDASH uses random forest learning to predict expected throughput for the next 30sec from past information. It uses features like device's speed, cellular RSSI, current technology, handovers. As the features sets are huge, we feed only the $\mathrm{25^{th}}$, $\mathrm{75^{th}}$, and $\mathrm{90^{th}}$ percentile points, median and mean from its historical data of each feature.
+EnDASH uses random forest learning to predict the expected throughput for the next 30sec from past information. It uses features like the device's speed, cellular RSSI, current technology, handovers. As the features sets are enormous, we feed only the $\mathrm{25^{th}}$, $\mathrm{75^{th}}$, and $\mathrm{90^{th}}$ percentile points, median and mean from its historical data of each feature.
 \subsubsection{The Buffer Length Decision Engine}
-The buffer length decision engine uses an A3C RL based deep neural network to determine the optimal buffer length. It takes the predicted throughput, last buffer length, and possible steps to change buffer length. It returns the decision whether buffer length needs to increase or decrease or keep the same. We use a linear weighted function of energy savings during the training phase with respect to a baseline ABR algorithm and the QoE score as the reward.
+The buffer length decision engine uses an A3C RL-based deep neural network to determine the optimal buffer length. It takes the predicted throughput, last buffer length, and possible steps to change buffer length. It returns the decision whether buffer length needs to increase or decrease or keep the same. We use a linear weighted function of energy savings during the training phase concerning a baseline ABR algorithm and the QoE score as the reward.
 
-The throughput prediction engine and buffer length prediction engine runs only once every $t$ time and in these order only.
+The throughput prediction engine and the buffer length prediction engine run only once every $t$ time and in this order only.
 
 \subsubsection{The Bitrate Decision Engine}
-EnDASH use another A3C RL based deep neural network on estimating the quality of the next chunk based on several playbacks related players and the buffer length similar to the parameters used in the Pensieve\cite{mao2017neural}. It runs before fetching the next segment and uses QoE as the reward during the training phase.
+EnDASH uses another A3C RL based deep neural network to estimate the quality of the next chunk based on several playbacks related parameters and the buffer length, similar to the parameters used in Pensieve~\cite{mao2017neural}. It runs before fetching the next segment and uses QoE as the reward during the training phase.
 
-The complete architecture of the EnDASH decision engines is presented in the Fig.~\ref{fig:endash:system}.
+The complete architecture of the EnDASH decision engine is presented in Fig.~\ref{fig:endash:system}.
 
 \begin{figure}[!h]
 	\begin{minipage}[t]{0.48\linewidth}
@@ -33,4 +34,4 @@ The complete architecture of the EnDASH decision engines is presented in the Fig
 	\end{minipage}
 \end{figure}
 \subsection{Evaluation}
-We trained and tested all these three engines in an emulation platform with the data we collected from commodity smartphones like Moto G5, Micromax canvas over Airtel, Reliance Jio, and Vodaphone. Once training and testing are completed for each individual module, we run experiments in our emulation based testbed, comparing QoE performance and energy saving of EnDASH. In Fig.~\ref{fig:endash:qoe} we compare the performance in terms of QoE with modern ABR algorithms. EnDASH slightly compromises the QoE; however, it saves a lot of energy. In Fig.~\ref{fig:endash:energy}, we plot the energy uses and possible run time with respect to Fast-MPC, and it turns out that video can be played for another 20-25 minutes with EnDASH compared to Fast-MPC.
+We train and test all these three engines in an emulation platform with the data we collected from various commodity smartphones like Moto G5, Micromax canvas over Airtel, Reliance Jio, and Vodaphone. Once training and testing are completed for each individual module, we run experiments in our emulation based testbed, comparing QoE performance and energy saving of EnDASH. In Fig.~\ref{fig:endash:qoe} we compare the performance in terms of QoE with modern ABR algorithms. EnDASH slightly compromises the QoE; however, it saves a lot of energy. In Fig.~\ref{fig:endash:energy}, we plot the energy uses and possible run time with respect to Fast-MPC, and it turns out that video can be played for another 20-25 minutes with EnDASH compared to Fast-MPC.
