@@ -1,7 +1,7 @@
 \section{\textbf{EnDASH System}}\label{sec:chap04:sys_overview}
 The proposed EnDASH system is an energy efficient client video player, working as a wrapper over \ac{DASH}. It predicts the cellular network throughput over a finite future time window to take decisions on the opportune fetching of  video chunks.  EnDASH operates in a time-slotted fashion. So, the entire timeline is divided into discrete time-slots of length \mq{T}.
 EnDASH executes the following functions to achieve energy efficient video download: (i) At the beginning of each time slot it uses historical data on radio parameters to predict the cellular network link throughput of the current time slot using a Random Forest Learning (RFL) engine. (ii) It then uses the predicted throughput to predict the optimal playback-buffer length for the current slot that minimizes energy consumption. For this, EnDASH employs the state-of-the-art \ac{A3C} deep \ac{RL} algorithm.  (iii) Before downloading each video chunk within a time slot, EnDASH runs another A3C based deep \ac{RL} engine to predict the optimal download chunk  bitrate. 
-EnDASH is, thus, a cascaded system of three engines: (i) throughput prediction, (ii) buffer length decision,  and (iii) bitrate selection as shown in Fig.~\ref{fig:chap04:EnDASH system}. We next describe these modules.
+EnDASH is, thus, a cascaded system of three engines: (i) throughput prediction, (ii) buffer length decision,  and (iii) bitrate selection as shown in \fig\ref{fig:chap04:EnDASH system}. We next describe these modules.
  \begin{figure}[t]
 	\centering
 	\includegraphics[width = 0.7\textwidth,trim = {1cm 1cm 1cm 1cm}]{figures/EnDASH_system.pdf}
@@ -48,7 +48,7 @@ The predicted playback buffer length is next used for selecting optimal chunk bi
 \noindent\textbf{(i) Environment}  \ti{E} - video player.\\
 \noindent\textbf{(ii) Input state before downloading the chunk \mq{n}}, \\$S_{n}$ = ($\hat{\mathcal{B}_t}, \tau_c(n-1)$, $d_{n-1}$, $l_{n-1}$, $B_{n}$, $\zeta_{n}$, $r_{n}$), where $\hat{\mathcal{B}_t}$- predicted playback buffer length for current slot \mq{t}, $\tau_c(n-1)$= throughput of last chunk, $d_{n-1}$ = time taken to download last chunk, $l_{n-1}$ = bitrate of last chunk, $B_{n}$ = available playback buffer length, $\zeta_{n}\in\bracket{s_1,s_2,\cdots s_m}$ = Possible size of next video chunk  ($m$ available sizes), $r_{n+1}\in \bracket{R_1, R_2,\cdots, R_6}$ = Possible bitrate levels for next video chunk.\\
 \noindent\textbf{(iii) Action} $A_n$ - Optimal bitrate decision for the next chunk.\\ 
-\noindent\textbf{(iv) Reward}- QoE score obtained from Eqn.~(\ref{eq:chap04:QoE}).\\
+\noindent\textbf{(iv) Reward}- QoE score obtained from \eqn\ref{eq:chap04:QoE}.\\
 \indent The buffer length and bitrate decision engines run at two different time scales. So, time slot indices for the variables related to the buffer length decision engine and the bitrate decision engine are denoted by  \mq{t} and \mq{n}, respectively.
 
 \section{Emulation environment for \ac{RL} training}

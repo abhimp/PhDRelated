@@ -39,5 +39,5 @@ We develop an automated tool called {\em AutoHARExporter} using \texttt{Selenium
 This tool automatically opens a Firefox browser, loads a YouTube video (in the format {\tt \url{https://youtube.com/watch?v=<video id>}}), waits for the video to finish, and finally saves the HAR and other information to the disk.
 During video playback, we also control network bandwidth (using the throttling mechanism described earlier) by progressively increasing and then dropping it from a given set of bandwidth levels ranging from $200$ Kbps to $2400$ Kbps, in a step of $200$ Kbps.
 Each level of bandwidth is kept fixed for $200$ seconds. 
-We repeat the experiment for $\sim500$ videos (detailed statistics shown in Table~\ref{table:chap03s1:statvid}), the list of which is collected in advance by crawling the YouTube website.
+We repeat the experiment for $\sim500$ videos (detailed statistics shown in \tbl{\ref{table:chap03s1:statvid}}), the list of which is collected in advance by crawling the YouTube website.
 

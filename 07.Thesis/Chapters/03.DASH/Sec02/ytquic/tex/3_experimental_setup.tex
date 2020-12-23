@@ -9,7 +9,7 @@ Similar to the previous chapter, we have designed our testbed to observe streami
 The monitoring is performed at the client end, where the video is played out in a browser.
 Since we want to study the adaptation behavior when bandwidth changes, it is important that we can control the bandwidth available.
 We do not have control over the available bandwidth to the YouTube server over the Internet, but we could place a bandwidth throttler that can restrict the bandwidth available to the client below what is actually available.
-The complete testbed architecture is shown in Figure~\ref{fig:experimentalSetup}.
+The complete testbed architecture is shown in \fig\ref{fig:experimentalSetup}.
 
 \begin{figure}[!t]
 	\centering
@@ -38,7 +38,7 @@ The additional wait also accounts for any rebuffering events when the video woul
 
  
 \begin{comment}
-We want to test how YouTube performs with various network condition from the edge of the Internet. To do this, we set up our testbed as shown in Fig.~\ref{fig:experimentalSetup}. There are four components in our testbed. They are YouTube server, the Internet, bandwidth throttler and a QUIC supported browser. Although we do not have any control over the YouTube server, it is an essential part of the testbed as we are performing experiments on YouTube only.
+We want to test how YouTube performs with various network condition from the edge of the Internet. To do this, we set up our testbed as shown in \fig\ref{fig:experimentalSetup}. There are four components in our testbed. They are YouTube server, the Internet, bandwidth throttler and a QUIC supported browser. Although we do not have any control over the YouTube server, it is an essential part of the testbed as we are performing experiments on YouTube only.
 
 To perform various experiment efficiently, we need a high-quality Internet connection. We do not want an Internet connection to be a bottleneck. It should support the speed we needed to perform the experiments. To ensure high-speed and high-quality Internet connection, we perform our experiments on the Institute's Internet backbone. Then again, we monitor the connection quality throughout the experiments.
 
@@ -83,7 +83,7 @@ After automating all this, it becomes easier to run experiments for multiple vid
 \begin{comment}
 \subsection{Extract Useful Information from the HTTP Headers}
 
-From the HAR traces, we observe that YouTube uses a video playback request to grab the media data from the server. URLs for these video playback requests contain 35 parameters and their values:  \textit{pl, dur, expire, sver, gir, pcm2cms, mime, itag, signature, ipbits, source, keepalive, mt, mv, ms, mm, mn, key, clen, requiressl, lmt, initcwndbps, id, upn, sparams, fexp, ip, cpn, alr, ratebypass, c, cver, range, rn, and rbuf.} By close inspection of these parameters, we observe that the HTTP requests and responses are forwarded separately for the audio channel and the video channel. The value of the parameter \textit{mime} indicates whether the request is for audio channel or for video channel. Then, we figure out that the parameter \textit{itag} actually indicates the video quality for which a DASH request is made. YouTube samples every video under different video quality levels based on its resolution, bit rate and encoding techniques used for sampling, and assigns a numeric level to every quality, which is the itag value. The mapping between a particular \textit{itag} value and the corresponding video resolution, bit-rate and encoding parameters are given in Table~\ref{table:2}.
+From the HAR traces, we observe that YouTube uses a video playback request to grab the media data from the server. URLs for these video playback requests contain 35 parameters and their values:  \textit{pl, dur, expire, sver, gir, pcm2cms, mime, itag, signature, ipbits, source, keepalive, mt, mv, ms, mm, mn, key, clen, requiressl, lmt, initcwndbps, id, upn, sparams, fexp, ip, cpn, alr, ratebypass, c, cver, range, rn, and rbuf.} By close inspection of these parameters, we observe that the HTTP requests and responses are forwarded separately for the audio channel and the video channel. The value of the parameter \textit{mime} indicates whether the request is for audio channel or for video channel. Then, we figure out that the parameter \textit{itag} actually indicates the video quality for which a DASH request is made. YouTube samples every video under different video quality levels based on its resolution, bit rate and encoding techniques used for sampling, and assigns a numeric level to every quality, which is the itag value. The mapping between a particular \textit{itag} value and the corresponding video resolution, bit-rate and encoding parameters are given in \tbl\ref{table:2}.
 
 \begin{table}[ht!]
 	\centering
