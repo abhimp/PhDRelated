@@ -23,6 +23,25 @@ For experimentation, we use the QoE definition as given in \cite{mao2017neural}.
 QoE = \frac{\alpha}{N}\sum_{n=1}^{N} \mathcal{F}(\mathcal{Q}_n) - \frac{\beta}{N-1} \sum_{n=2}^{N}\lvert\mathcal{F}(\mathcal{Q}_n) -\mathcal{F}(\mathcal{Q}_{n-1})\rvert - \frac{\gamma}{N}\sum_{n=1}^{N}\mathcal{T}_n
 \label{eqn:chap06:QoE}
 \end{equation}
+
+\begin{figure}[ht]
+	\captionsetup[subfigure]{width=0.45\linewidth}
+	\begin{center}
+		\subfloat[\label{fig:chap06:topologyIndependent} Computers having independent Internet connection]{
+			\includegraphics[width=0.4\linewidth]{img/topologies_independent_internet}
+		}
+		\hfill
+		\subfloat[\label{fig:chap06:topologyShared} Computers having shared Internet connection]{
+			\includegraphics[width=0.4\linewidth]{img/topologies_shared_internet}
+		}
+	\end{center}
+	\caption{\label{fig:chap06:topologies} Two topologies uses in the experiments.}
+\end{figure}
+
+For the evaluation, we have used two different topology structures as shown in Fig~\ref{fig:chap06:topologies}. The first structure emulates a multi-homing environment, where the devices in an interconnected network also have independent Internet connections from the Internet Service Providers (ISP). This is a typical architecture where the devices are simultaneously interconnected through a local area network to share peer-to-peer data among themselves, as well as are connected to the Internet to download data from a content service provider. We call this type of network as an independent Internet connection. The second topology structure resembles a local area network (LAN) where the devices are connected to the ISP through the LAN gateway. In this case, the devices have a common shared link that interconnects the ISP gateway and the LAN gateway. We call this type of network as the shared Internet connection.
+
+In our result, we first evaluate the impact of individual connection and analyze the results. Later, we discuss the impact of the shared connection.
+
 \subsection{QoE Analysis}
 \begin{figure}[ht]
 	\captionsetup[subfigure]{width=0.49\linewidth}
@@ -106,3 +125,31 @@ Next, we analyze how the coalition size impacts the total download share among c
 
 To quantify the QoE fairness among the coalition members, we measure the Jain fairness index~\cite{jain1999throughput} on the measured QoE of the individual players in two categories -- (i) \textit{intra-coalition QoE fairness} (fairness among the individual members of a coalition) and (ii) \textit{inter-coalition QoE fairness} (fairness among different coalition members). Figure~\ref{fig:chap06:grp_fairness} shows that the intra-coalition QoE fairness index is always close to $1$, which indicates good fairness among the coalition members in terms of the QoE experienced by individual clients of a coalition. However, the inter-coalition QoE fairness initially gets reduced with increasing coalition size up to $5$. As different coalitions can play the video in different average bitrates, which has a major contribution to the overall QoE, we initially see this drop in the inter-coalition QoE fairness. Interestingly, inter-coalition QoE fairness increases with a large coalition size, as large coalitions result in less number of coalitions, hence less bitrate variation among different coalitions.
 
+\subsection{Impact on Shared Network Link}
+Next we show the results for the topology where the devices are interconnected with the ISP gateway through the LAN gateway, indicating that they have a common or shared network link. In this case, the shared link becomes the performance bottleneck as all the devices use the same link to download the video segments. In this experiment, we use similar setup as earlier, except that the devices do not have a direct connection to the ISP. We perform thorough experimentation to compare the shared link utilization and the video QoE of various ABR algorithms and \our. In this experiment we use more than $100$ video players that are connected via an internal network or LAN, and the players have a high-speed shared Internet connection. We capped the Internet connection speed to $350$Mbps so that all players can not download the maximum quality (bitrate 4.5Mbpse) video simultaneously. They have to reduce the quality to avoid buffering. In Figure~\ref{fig:chap06:shrd_qoe}, we compare the performance of {\our} and other baselines in terms of the overall QoE. We observe that the overall QoE for {\our} is better for around $80\%$ of the cases.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.75\linewidth]{img/sharedlink/qoe_cdf_1}
+	\caption{QoE for shared Internet connection}
+	\label{fig:chap06:shrd_qoe}
+\end{figure}
+
+We observe another insight that is shown in Fig~\ref{fig:chap06:shrd_qoe_flsd} which shows the distribution of the overall QoE only for \our. Interestingly, we observe that the QoE values jump suddenly after the CDF of $0.2$. By close inspection we see that those cases correspond to the scenario when the coalition is not formed. The moment {\our} forms the coalition, the average QoE value jumps significantly, and {\our} outperforms other baselines.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.75\linewidth]{img/sharedlink/qoe_cdf_flsd}
+	\caption{QoE jump between independent players and the players in coalition}
+	\label{fig:chap06:shrd_qoe_flsd}
+\end{figure}
+
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.75\linewidth]{img/sharedlink/corenetwork_1}
+	\caption{Shared Link Utilization}
+	\label{fig:chap06:shrd_link_util}
+\end{figure}
+
+Next, we check the shared link utilization as shown in Fig~\ref{fig:chap06:shrd_link_util}. Interestingly, we observe that the utilization of the shared link by {\our} is less compared to other baselines. Therefore, this experiment shows that {\our} provides better QoE compared to other baselines while utilizing less link bandwidth. Once the coalition is formed, all the players in the coalition gets the best video streaming experience while using far less network bandwidth compared to other baselines. This is a significant improvement in terms of both the cost as well as the performance; the coalition formation can save a significant amount of network bandwidth while providing the best streaming performance to the end users.
