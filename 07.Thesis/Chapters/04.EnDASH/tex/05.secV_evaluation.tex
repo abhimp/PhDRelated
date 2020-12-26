@@ -1,4 +1,4 @@
-\section{\textbf{Evaluation}}\label{sec:chap04:evaluation}
+\section{Evaluation}\label{sec:chap04:evaluation}
 
 In this section we evaluate EnDASH and compare its performance with other popular \ac{ABR} algorithms, in terms of \ac{QoE} and energy consumption. We first discuss the methodology that we have adopted.
 \subsection{Methodology}
@@ -36,7 +36,7 @@ The baseline \ac{ABR} streaming algorithms that we have used are \ti{BOLA} \cite
 	\caption{\label{fig:chap04:indi_QoE}Comparison of different components of \ac{QoE} score (average bitrate, stall time, smoothness) of EnDASH with baseline \ac{ABR} streaming algorithms, BOLA \cite{Spiteri2016}, Pensieve \cite{mao2017neural}, Fast MPC \cite{yin2015control}, Robust MPC \cite{yin2015control}}
 \end{figure}
 
-\subsection{EnDASH versus Baseline ABR algorithms}
+\subsection{EnDASH Versus Baseline ABR Algorithms}
 \fig\ref{fig:chap04:EnDASH_vs_others} shows the energy consumption, \ac{QoE} score, and buffer length variation of EnDASH and other baseline \ac{ABR} algorithms. For evaluating these algorithms, the length of each time slot is set to $T=30$ seconds, and the length of the historical window is also set to $x=30$ seconds, i.e., $\prefu{30}{30}$. %So, the average throughput for a prediction window of 30 seconds is predicted using the historical data of 30 seconds. 
 In existing literature, the Pensieve \cite{mao2017neural} algorithm has been reported to generate optimal chunk bitrates and video quality. \fig\ref{fig:chap04:EnDASH_en} shows that EnDASH outperforms Pensieve in terms of energy consumption. However, this energy savings comes at the cost of sacrificing the \ac{QoE} with respect to Pensieve as seen in \fig\ref{fig:chap04:EnDASH_QoE}. Moreover, while the average QoE of EnDASH is comparable with the other algorithms, the inter-quartile range of \ac{QoE} is significantly high, implying that the corresponding variability is high.  
  \subsection{QoE Performance Analysis}
@@ -53,7 +53,7 @@ EnDASH consumes much less energy because the video chunk download, and hence the
 \subsection{Gain from Energy Savings}
 \indent In this section, we discuss the gain in video playback time achieved by using EnDASH. FastMPC has the highest energy consumption among all algorithms. \fig{\ref{fig:chap04:vid_time_save}} shows the gain in video playback time achieved by the algorithms with respect to FastMPC while streaming a 2200 second video. It shows that using the energy saved by streaming the video using EnDASH, one can gain an additional 1403 seconds and 1440 seconds of video playback time in comparison with BOLA and Pensieve, respectively. Thus, one may infer that EnDASH can be used as a potential ABR streaming algorithm for increasing battery backup in smartphones.
 
-\subsection{Feature importance study on throughput prediction engine} The primary objective of the throughput prediction engine is to account for the impact of cellular network technology change, i.e., the switching between 2G, 3G, 4G, etc., on network throughput.
+\subsection{Feature Importance Study on Throughput Prediction Engine} The primary objective of the throughput prediction engine is to account for the impact of cellular network technology change, i.e., the switching between 2G, 3G, 4G, etc., on network throughput.
 \fig{\ref{fig:chap04:feature_imp}} shows the feature importance of different input parameters when predicting throughput. We observe that vertical handovers and associated technology (Network Type) have the highest weightage among all parameters, 0.32 and 0.21, respectively. The importance of such features in throughput prediction points out to
 the absolute necessity of considering the existence of legacy systems when designing algorithms for 4G networks. 
 \begin{figure}[!ht]

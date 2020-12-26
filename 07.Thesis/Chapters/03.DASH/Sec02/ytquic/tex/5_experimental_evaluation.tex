@@ -48,7 +48,7 @@ We observe that QUIC incurs less quality switches than that of TCP for almost al
 %To quantify the improvement in quality switching with QUIC, we define a metric called \textit{Percentage Quality Switch Reduction with QUIC} (PQSRQ) which is defined as follows. For two quality levels $\mathcal{Q}_1$ and $\mathcal{Q}_2$, let $QSQ(\mathcal{Q}_1,\mathcal{Q}_2)$ and and $QST(\mathcal{Q}_1,\mathcal{Q}_2)$ denote the number of quality switch from $\mathcal{Q}_1$ to $\mathcal{Q}_2$ with QUIC and TCP, respectively.  Then, $PQSRQ(\mathcal{Q}_1,\mathcal{Q}_2) = \frac{QSQ(\mathcal{Q}_1,\mathcal{Q}_2)}{QST(\mathcal{Q}_1,\mathcal{Q}_2)} \times 100\%$. \fig\ref{fig:reschange_percent} plots the value of PQSRQ for various quality levels, both during quality improvements and quality drops. We observe that 
 It is evident from the figure that for some quality levels, the percentage reduction in quality switches is more than $20\%$ during quality upgrades, and more than $40\%$ during quality drops. For the few cases when QUIC performs worse than TCP, we actually note that the number of data points for those quality levels is less in our collected dataset. Interestingly, in terms of percentage quality switch reduction, QUIC outperforms TCP  more during quality drops compared to quality upgrades, which is an indication of good QoE.  Nevertheless, it is expected that the overall playback quality should be biased towards the high quality video segments for supporting better viewing experiences to the end users, which we explore next. 
 
-\subsubsection{Video Quality during Playback}
+\subsubsection{Video Quality During Playback}
 %\begin{figure}[!t]
 %    \centering
 %    \includegraphics[width=\linewidth]{img/metric/time_duration_percent}
@@ -156,7 +156,7 @@ However, as we mentioned earlier, there is a possibility of data wastage during 
 
 %\notesc{Total data downloaded at various bandwidth buckets --  (a) $\leq 64$ Kbps, (b) $65-512$ Kbps, (c) $513-1024$ Kbps, (d) $> 1024$ Kbps}
 
-\subsubsection{Why There is a Possibility of Data Waste during Adaptive Streaming?}
+\subsubsection{Why There is a Possibility of Data Waste During Adaptive Streaming?}
 
 
 %\begin{figure}[!t]
@@ -185,7 +185,7 @@ Here we can see that there is a slight overlap between the downloaded segments o
 However, this results in data waste when the request for high quality video segment is indeed successful. 
 %Next we analyze the impact of QUIC and TCP over this data wastage during adaptive streaming over the web.   
 
-\subsubsection{Data Waste due to Adaptive Streaming: QUIC vs TCP}
+\subsubsection{Data Waste Due to Adaptive Streaming: QUIC vs TCP}
 %\clearpage
 %\begin{figure}[ht!]
 %    \centering
@@ -275,7 +275,7 @@ However, this results in data waste when the request for high quality video segm
 
 \fig\ref{fig:data_wasted} compares QUIC enabled streaming and TCP enabled streaming in terms of percentage of data waste during quality upgrades. 
 %Here we show the percentage data waste (percentage of total downloaded data that has not been played during the video rendering) for different quality levels, when the YouTube client switches the quality from this level to a higher level. 
-We observe that data waste with QUIC is more compared to TCP. Further, data waste is comparatively high when the available bandwidth is less that $512$ Kbps (\fig\ref{data_wasted}(b)). 
+We observe that data waste with QUIC is more compared to TCP. Further, data waste is comparatively high when the available bandwidth is less that $512$ Kbps (\fig\ref{fig:data_wasted}(b)). 
 %It can be noted that frequent quality switching increases the amount of data wastage. 
 By observing data logs, we have found that for QUIC enabled streaming, the YouTube client tries to make more number of quality upgrade attempts at the low bandwidth, which are not successful. 
 %In the next subsection, we give a detailed analysis of this behavior. 
