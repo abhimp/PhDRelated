@@ -17,7 +17,7 @@ c) estimate the available bandwidth as the harmonic mean of the last 20 throughp
 \subsubsection{FEedback Linearization Adaptive STreamIng Controller (ELASTIC)}
 All the client-side adaptive algorithms generate an ON-OFF traffic pattern, which led to unfairness among the players. Cicco \etal\ designed ELASTIC~\cite{6691442}, a client-side controller that does not generate ON-OFF traffic patterns. ELASTIC selects video bitrate for a segment in such a way so that it finishes downloading the segment at the time when the next segment needs to be downloaded. So, there is no requirement for the ON-OFF traffic generation, and traffic can be fair as the underlying TCP is fair for the long-running flows.
 
-\subsubsection{Presto: fair and efficient streaming using multiple servers}
+\subsubsection{Presto: Fair and Efficient Streaming using Multiple Servers}
 Zhang \etal\ designed Presto~\cite{7249417}, which provides fairness among the players that stream video from multiple servers. They argue that a player might consume more bandwidth of the bottleneck by running more parallel flows. So, they provide a mechanism to restrict a player's bitrate with more flows and improve the quality. Presto exploits that a user gets annoyed with drastic bitrate drop; however, not with drastic bitrate increase~\cite{10.1145/2018602.2018611}. It also suspends some flows to stabilize the bandwidth utilization for the time and resumes those flows later.
 
 \subsubsection{Spectrum-based QUality ADaptation (SQUAD)}
@@ -68,7 +68,7 @@ The optimization step is computationally heavy, and it has to perform before dow
 \subsubsection{Fine-Grained Video Rate Adaptation (Favor)}
 Fine-grained Video Rate Adaptation or Favor~\cite{10.1145/3204949.3204957} has been proposed by He \etal\ to optimize the non-conventional parameters like frame-dropping rate and playback speed along with convention parameter bitrate to optimize DASH-based players beyond the optimization horizon. The author suggested that the viewer cannot notice up to 35\% frames drops and up to 25\% reduction in the playback speed. Although these changes are non-conventional, it can allow the player to cope with the throughput reduction as frame reduction causes a decrease in segment size, and playback rate reduction gives more time to download a segment. Favor also suggest a framework for 360$^{\circ}$ video by tiling and optimizing individual tiles.
 
-\subsubsection{DASH with Peer-to-Peer (P2P)}
+\subsubsection{DASH with Peer-to-Peer}
 Yousef \etal\ designed a technique in their paper~\cite{10.1145/3339825.3391859} to allow any ABR algorithm to work in a hybrid CDN+P2P DASH based video streaming system. They suggested keeping the video player, and the P2P modules separate so that any DASH-based ABR algorithm can be applied to the player. The authors have shown that the main problem with P2P DASH-based streaming is the estimation of the throughput or the buffer filling rate, as the throughput and delay vary drastically depending on whether the video is being downloaded from a CDN or a nearby peer. It maintains the player's observed throughput steady by adding extra delay in their P2P module while downloading segments from a nearby peer. This way, any DASH-based ABR algorithm can work in the player.
 
 \subsection{Summary}
