@@ -212,7 +212,7 @@
 }
 \newenvironment{abstractenv}{
    \def\skip@bstr@ctp@ges{\@@skip@bstr@ctp@ges}
-   \afterpage{\skip@bstr@ctp@ges \thispagestyle{empty}}
+%   \afterpage{\skip@bstr@ctp@ges \thispagestyle{empty}}
    \pagestyle{empty}
 }
 
