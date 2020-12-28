@@ -492,21 +492,18 @@ This is to certify that the thesis entitled \textbf{\TitleFull}, submitted by \t
      \begin{center}
      \providecommand\pdfbookmark[3][]{} \pdfbookmark[0]{Approval Page}{bm:Approve}    
     \vspace*{0.4in}
-    % \begin{flushleft}
-     {\large \bf APPROVAL OF THE VIVA-VOCE BOARD}\\[2\baselineskip]
-     %\end{flushleft}
-    %
+%    % \begin{flushleft}
+     {\large \bf APPROVAL OF THE VIVA-VOCE BOARD}\\[\baselineskip]
+%     %\end{flushleft}
+%    %
      \end{center}%
        \renewcommand{\baselinestretch}{1.1} \small\normalsize\large%
        \begin{flushright}
-       {
-       $/\ \ \ \ /\ \ \ \ $\\        
-       }
+       {$/\ \ \ \ /\ \ \ \ $\\ }
        \end{flushright}
-     %
+%   
      \fontsize{12}{14.5}\selectfont
-     {\noindent Certified that the thesis entitled \textbf{\TitleFull}, submitted by \textbf{\@Author} to the Indian Institute of Technology Kharagpur, for the award of the degree of Doctor of Philosophy has been accepted by the external examiners and that the student has successfully defended the thesis in the viva-voce examination held today.
-      }
+     {\noindent Certified that the thesis entitled \textbf{\TitleFull}, submitted by \textbf{\@Author} to the Indian Institute of Technology Kharagpur, for the award of the degree of Doctor of Philosophy has been accepted by the external examiners and that the student has successfully defended the thesis in the viva-voce examination held today.}
       %\vspace{-.5in}
      % \begin{flushright}
       %\signaturebox
@@ -514,7 +511,7 @@ This is to certify that the thesis entitled \textbf{\TitleFull}, submitted by \t
       {   %
 		\@ApprovalSignatures
       }   %[\baselineskip]
-      \vspace{-.5in}
+      \vspace{-1in}
      
 \clearemptydoublepage
   }
