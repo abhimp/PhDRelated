@@ -395,7 +395,7 @@ Here, we particularly look the evolution of three parameters at different availa
 
 
 
-We compute the probability density function (PDF) for various \textit{itag} values during the video bit-rate adaption procedure, as shown in \fig\ref{fig:quality_change}. 
+We compute the probability density function (PDF) for various \textit{itag} values during the video bitrate adaption procedure, as shown in \fig\ref{fig:quality_change}. 
 %\begin{addmargin}[2.1cm]{2.1cm}
 We observe that at poor bandwidth, QUIC has higher tendency than TCP towards high quality videos, but as the bandwidth increases, both QUIC and TCP show similar tendencies towards video quality adaptation. So, QUIC may improve the viewing performance with a better video quality than TCP  at poor channel connection. However, as we observed, many of these quality upgrades are not very stable, and this frequent quality upgrades result in more data waste, as we observed earlier. 
 %At lower speeds QUIC does not make as many requests to the server as TCP makes but at higher speeds both the protocols makes the same number of requests. This implies that QUIC is more aware of the network conditions than TCP. In the above plots when the bandwidth is at 64Kbps TCP has made almost twice the number of requests as QUIC made. This is because at 64Kbps when almost all the packets are dropped, TCP unable to quickly recognize the change in bandwidth makes the request for the same higher itag value and when they fail it makes requests for lower itags. For the total set of 175 videos the number of requests made by QUIC are lesser in number when compared to TCP which implies that QUIC requires less number of requests to serve the same or higher quality data.
@@ -426,7 +426,7 @@ We observe that at poor bandwidth, QUIC has higher tendency than TCP towards hig
 %has higher tendency towards higher \textit{rbuf} values when compared to TCP, indicating that QUIC tries to fill the client buffer fast even when the bandwidth is low. 
 YouTube uses playback buffer occupancy as a feedback for video quality adaptation~\cite{mondal2017youtube,krishnappa2013dashing}
 % -- if the buffer fills fast, the adaptive streaming client assumes the channel quality to be good, and switches to a high quality level for next video segment requests. However, as we have observed earlier, 
-This sometime triggers a unsuccessful quality upgrade request for QUIC enabled streaming, as the actual channel quality may not be suitable for high bit-rate video streaming. This results in large number of rebuffering (\fig\ref{fig:bitrate_rebuffering}(b)) and comparatively high data waste (\fig\ref{fig:data_wasted}).
+This sometime triggers a unsuccessful quality upgrade request for QUIC enabled streaming, as the actual channel quality may not be suitable for high bitrate video streaming. This results in large number of rebuffering (\fig\ref{fig:bitrate_rebuffering}(b)) and comparatively high data waste (\fig\ref{fig:data_wasted}).
 
 %This majorly implies that the chance for buffering is lower for QUIC when compared to TCP as buffering mainly occurs at poor Internet speeds supporting the statement made by Google that there were fewer rebuffers when QUIC is used instead of TCP.
 
