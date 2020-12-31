@@ -66,7 +66,7 @@
 \usepackage{epsfig}
 % \usepackage{graphicx}
 %\usepackage{acronym}
-\usepackage[nolist,nohyperlinks]{acronym}
+\usepackage[nolist,nohyperlinks]{acronyms}
 \usepackage{fancyhdr}
 \fancyhead{}
 %\fancyhead[LO]{\slshape \rightmark}
@@ -212,6 +212,7 @@
 %
  \begin{document}
 
+\include{Chapters/commands}
 \include{Chapters/acronym}
 
 % \font\Hin=''gargi:script=hin''
@@ -231,8 +232,8 @@
 %\end{appendix}
 
 \renewcommand{\bibname}{References}
-%\bibliographystyle{abbrv}
-\bibliographystyle{unsrt}
+\bibliographystyle{abbrv}
+%\bibliographystyle{unsrt}
 %\bibliographystyle{alpha}
 %\bibliography{ref/thesis,ref/collection,ref/others}
 \bibliography{ref/ieee,ref/acm,ref/springer,ref/sciencedirect,ref/usenix,ref/mix,ref/rfc}

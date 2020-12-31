@@ -1,5 +1,5 @@
 \subsection{Dataset and Parameters}
-In this subsection, we give the details of the data collected to analyze YouTube adaptive streaming performance over QUIC. The complete dataset is available at \url{http://imdc.datcat.org/location/1-FWJR-3}. 
+In this subsection, we give the details of the data collected to analyze YouTube adaptive streaming performance over \ac{QUIC}. The complete dataset is available at \url{http://imdc.datcat.org/location/1-FWJR-3}. 
 %\noteam{test2}
 
 \subsubsection{Dataset}
@@ -40,7 +40,7 @@ In this subsection, we give the details of the data collected to analyze YouTube
 \end{table}
 
 
-With the setup described earlier, we have collected the HAR data for a total of $175$ videos for both QUIC and TCP. We have ensured that similar throttling behavior is applied during streaming over QUIC and streaming over TCP. The details of the video HAR data downloaded using this procedure have been summarized in \tbl\ref{table:1}. These videos can be further categorized using the best (maximum) quality and the number of quality levels available on YouTube, as shown in \tbl\ref{table:quality}. However, we do not observe all these different quality levels during the video playback, as it depends on the YouTube streaming quality adaptation algorithm based on available channel condition during the playback as well as on the playback screen resolution. We have performed these experiments with standard definition display without full screen mode. Therefore we observe maximum playback quality of 480p even if the video supports 1080p high definition (HD) rendering. 
+With the setup described earlier, we have collected the \ac{HAR} data for a total of $175$ videos for both \ac{QUIC} and \ac{TCP}. We have ensured that similar throttling behavior is applied during streaming over \ac{QUIC} and streaming over \ac{TCP}. The details of the video \ac{HAR} data downloaded using this procedure have been summarized in \tbl\ref{table:1}. These videos can be further categorized using the best (maximum) quality and the number of quality levels available on YouTube, as shown in \tbl\ref{table:quality}. However, we do not observe all these different quality levels during the video playback, as it depends on the YouTube streaming quality adaptation algorithm based on available channel condition during the playback as well as on the playback screen resolution. We have performed these experiments with standard definition display without full screen mode. Therefore we observe maximum playback quality of 480p even if the video supports 1080p \ac{HD} rendering. 
 %HD streaming requires very hing bandwidth at the network backbone, and it was difficult to get that bandwidth continuously during the experiment phase. However, the observed behaviors are sufficiently generalized, because we can get video bit-rate adaptation with at least $4$ different quality levels for most of the videos.     
 
 %We can categorize the videos we played in our experiments in eight different categories based on the best quality of a video available on YouTube. In \tbl\ref{table:quality} give a detailed view of different categories.
@@ -50,7 +50,7 @@ With the setup described earlier, we have collected the HAR data for a total of 
 %Although most of the videos we played in our experiments have higher quality options, actual playback quality depends on the playback screen resolution. As we performed these experiments with standard HD (720p) display without full-screen mode, playback quality never goes beyond 480p. It is a way; YouTube saves viewers' bandwidth. It downloads the quality it can render on the viewing screen.
 
 \subsubsection{Parameters Considered}
-Similar to the previous chapter, From the HAR traces, we observe that YouTube uses a video playback request to grab the media data from the server. URLs for these video requests contain several parameters and their values~\cite{mondal2017youtube}. From these parameters, we found that three parameters \textit{itag}, \textit{range} and  \textit{rbuf} provide adaptive streaming performance related information which are useful for our analysis. %The details of these parameters are as follows. 
+Similar to the previous chapter, From the \ac{HAR} traces, we observe that YouTube uses a video playback request to grab the media data from the server. \acp{URL} for these video requests contain several parameters and their values~\cite{mondal2017youtube}. From these parameters, we found that three parameters \textit{itag}, \textit{range} and  \textit{rbuf} provide adaptive streaming performance related information which are useful for our analysis. %The details of these parameters are as follows. 
 %We will not discuss how we conclude these parameters are related to DASH for space contraint. \noteam{We can refer our NOSSDAV paper here} We are going to describe each of these parameter here.
 
 %\begin{table}[t!]
