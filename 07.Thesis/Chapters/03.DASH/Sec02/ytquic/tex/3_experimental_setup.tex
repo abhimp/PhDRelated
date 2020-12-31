@@ -21,18 +21,18 @@ The complete testbed architecture is shown in \fig\ref{fig:experimentalSetup}.
 The bandwidth throttler component is implemented using the {\tt NetFilterQueue} Linux library.
 The {\tt iptables} tool, which uses {\tt NetFilterQueue}, is used to manipulate the network bandwidth available for the web browser.
 %To simulate a given bandwidth, we delay the network packets before it reaches the application (browser).
-Since we are comparing the performance of QUIC and TCP+TLS, we need to play the videos at a browser which has support for both QUIC and TCP+TLS. Google's Chrome browser supports both the protocol stacks that can be configured using {\tt chrome://flags}. We also use the command line tool \texttt{speedtest-cli} to periodically monitor the available network bandwidth at the backbone. If the backbone bandwidth drops more than $10$ Kbps from the current throttler bandwidth, we discard that data and initiate streaming of the corresponding video from the scratch.
+Since we are comparing the performance of \ac{QUIC} and \ac{TCP}+\ac{TLS}, we need to play the videos at a browser which has support for both \ac{QUIC} and \ac{TCP}+\ac{TLS}. Google's Chrome browser supports both the protocol stacks that can be configured using {\tt chrome://flags}. We also use the command line tool \texttt{speedtest-cli} to periodically monitor the available network bandwidth at the backbone. If the backbone bandwidth drops more than $10$ Kbps from the current throttler bandwidth, we discard that data and initiate streaming of the corresponding video from the scratch.
 %. Under this scenario, the streaming procedure for that video has been initiated again from the scratch.  
 
 \subsubsection{Data Collection Process}
 We use the {\tt NetMonitor} tool available as part of the browser developer tools to collect the traffic related information.
-We focus on the HTTP request-response messages, which are stored as {\em HTTP Archive} (HAR) file that contain information in JSON format. In our data collection process, we start the bandwidth throttler before accessing a video for playback in a browser. We play the video till the end, while collecting the HAR file containing the relevant traffic information.
+We focus on the \ac{HTTP} request-response messages, which are stored as \ac{HAR} file that contain information in \ac{JSON} format. In our data collection process, we start the bandwidth throttler before accessing a video for playback in a browser. We play the video till the end, while collecting the \ac{HAR} file containing the relevant traffic information.
 The throttler is designed to switch bandwidth levels from $64$ Kbps to $1424$ Kbps in steps of $340$ Kbps at every $220$ seconds. Once the bandwidth reaches to $1424$ Kbps, the throttler starts decrementing the bandwidth at the same rate. 
 %This is indeed a circular procedure that keeps on running at the background during the streaming of every video file. 
 %The entire process is automated through a script. 
 We use Google Chrome Remote Interface\footnote{\url{https://github.com/cyrus-and/chrome-remote-interface}} plugin to automatically open the browser and load a video.
-To capture the HAR files, we use \texttt{chrome-har-capturer}\footnote{\url{https://github.com/cyrus-and/chrome-har-capturer}} plugin.
-Since \texttt{chrome-har-capturer} is not event driven, and must be configured to store a data for a fixed time window, we specify the video length with few additional minutes as the time to capture data. The length of the video can be found using YouTube vide info API\footnote{\url{http://www.youtube.com/get_video_info}}.
+To capture the \ac{HAR} files, we use \texttt{chrome-har-capturer}\footnote{\url{https://github.com/cyrus-and/chrome-har-capturer}} plugin.
+Since \texttt{chrome-har-capturer} is not event driven, and must be configured to store a data for a fixed time window, we specify the video length with few additional minutes as the time to capture data. The length of the video can be found using YouTube video info \ac{API}\footnote{\url{http://www.youtube.com/get_video_info}}.
 The additional wait also accounts for any rebuffering events when the video would stall.
 %All these features allow in automatically playing large number of videos and capturing the data.
 

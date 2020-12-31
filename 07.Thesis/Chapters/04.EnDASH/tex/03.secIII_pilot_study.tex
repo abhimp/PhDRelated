@@ -41,7 +41,7 @@ For power consumption and energy profiling, we have selected medium budget VoLTE
     \begin{tabular}{|p{0.6cm}||p{3.4cm}|p{3.4cm}|}
     \hline
          \textbf{}  & \textbf{Moto G5 (Price: US\$ ~149)} & \textbf{Micromax Canvas Infinity (Price US\$ ~87)}\\
-          \hline \hline 
+          \hline \hline
          N/W Tech. & GSM/ HSPA/ LTE &  GSM/ HSPA/ LTE\\ \hline
          N/W Speed & HSPA 42.2/5.76 Mbps, LTE Cat4 150/50 Mbps & HSPA 42.2/5.76 Mbps, LTE Cat4 150/50 Mbps\\ \hline
          OS & Android 7.0 (Nougat) & Android 7.1.2 (Nougat) \\ \hline
@@ -51,19 +51,19 @@ For power consumption and energy profiling, we have selected medium budget VoLTE
     \end{tabular}
     \label{tab:chap04:handset_details}
 \end{table}
-\indent Besides power consumption, we have also collected extensive data on the received throughput of mobile phones in public buses, cars, and while walking across five cities of India (Kharagpur, Kolkata, Guwahati, Bengaluru, Malda). This dataset also includes data collected while travelling on highways. We have used workloads of 6Mb, 100Mb, 1GB file download, as well as of video streaming using Netflix, Hotstar, SonyLiv and Amazon Prime. This has allowed a detailed energy profiling of the smartphones. The entire corpus of collected data traces amounts to more than 50GB and has been collected over a period of eleven months. 
+\indent Besides power consumption, we have also collected extensive data on the received throughput of mobile phones in public buses, cars, and while walking across five cities of India (Kharagpur, Kolkata, Guwahati, Bengaluru, Malda). This dataset also includes data collected while travelling on highways. We have used workloads of 6Mb, 100Mb, 1GB file download, as well as of video streaming using Netflix, Hotstar, SonyLiv and Amazon Prime. This has allowed a detailed energy profiling of the smartphones. The entire corpus of collected data traces amounts to more than 50GB and has been collected over a period of eleven months.
 \subsubsection{Software Setup and Outcome}
 \indent In this section, we outline the software setup. We have considered two primary workloads- (a) file download, and (b) video streaming. \\
 \begin{figure}[h]
     \centering
     \fbox{\includegraphics[width=0.7\textwidth]{new_results/pilot/rssi_bin_time}}
-    \caption{Total time spent in each \ac{RSSI} bin and the active time in each bin}
+    \caption{Total time spent in each \acs{RSSI} bin and the active time in each bin}
     \label{fig:chap04:vid_time}
 \end{figure}
 \begin{figure}[h]
     \centering
     \fbox{\includegraphics[width=0.7\textwidth]{new_results/pilot/rssi_bin_energy}}
-    \caption{Amount of data downloaded \& Energy Consumption in \ac{RSSI} Bins}
+    \caption{Amount of data downloaded \& Energy Consumption in \acs{RSSI} Bins}
     \label{fig:chap04:vid_thpt}
 \end{figure}
 % \begin{figure*}[t]%
@@ -89,7 +89,7 @@ For power consumption and energy profiling, we have selected medium budget VoLTE
 
 $\mathrm{\mathbf{\underline{Takeaway:1}}}:$ \textit{The wireless network condition is best quantified by throughput which depends  significantly on phenomena such as handovers and not  on received signal quality alone.}\\
 {\textbf{(b)Video Streaming}}\label{sec:chap04:vstreaming}
-To understand how throughput fluctuation affects video streaming, 
+To understand how throughput fluctuation affects video streaming,
 we show the packet trace of a YouTube video of length 20 minutes captured when moving along the trajectory of \fig{\ref{fig:chap04:technology_with_traj}}.  Although we learn from the previous section that it is best to quantify the network condition using throughput, in this section we analyze the video download using \ac{RSSI} only. This is because it is difficult to capture the actual network throughput of a phone while any other application (in this case YouTube) is running.\\
 \indent The  captured trace and the \ac{RSSI}  is shown in \fig{\ref{fig:chap04:pcap_RSSI}}. It is seen that the application downloads video chunks even at low \acp{RSSI}. To understand this, we have divided the \acp{RSSI} on the secondary $y$-axis of \fig{\ref{fig:chap04:pcap_RSSI}} into nine bins each of width five, starting from -81 dBm to -126 dBm. The time the \ac{UE} spends in each of these bins, and the time it remains active is given in \fig{\ref{fig:chap04:vid_time}}. It is seen that the percentage of time the \ac{UE} spends in the best \ac{RSSI} bin, i.e. \bin{1} (-85 to -81 dBm) is less than 1\%. In comparison, the highest dwell time   as well as the highest active time is recorded in \bin{5} where the \ac{RSSI} varies between -115 to -111 dBm. If we focus on the energy consumption in these \ac{RSSI} bins, as given in \fig{\ref{fig:chap04:vid_thpt}}, it is seen that the highest energy is also consumed by the phone in \ac{RSSI} \bin{5}. Another obvious effect of downloading at low signal strength is the low amount of data downloaded for a longer amount time; with reference to \ac{RSSI} \bin{5} in \fig{\ref{fig:chap04:vid_thpt}}.
 
@@ -98,4 +98,4 @@ we show the packet trace of a YouTube video of length 20 minutes captured when m
 
 
 $\mathrm{\mathbf{\underline{Takeaway:2}}}:$ \textit{The current protocol of  video download attributes a higher weightage to the playback-buffer length than the user's instantaneous received signal strength or throughput, ensuing a significantly high energy consumption.}\\
-\indent The takeaways of the pilot study provide the design criteria for designing the EnDASH system, discussed next. 
+\indent The takeaways of the pilot study provide the design criteria for designing the EnDASH system, discussed next.

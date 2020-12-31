@@ -1,53 +1,53 @@
-\section{Video QoE Parameters in YouTube and Open-DASH: A Comparison}
+\section{Video QoE Parameters in YouTube and DASH-IF: A Comparison}
 \label{sec:open-dash}
 %\noteng{This section is weak}
 
-This section gives a baseline comparison technique between YouTube and other DASH based protocols based on our findings on YouTube behavior for joint video quality and streaming rate adaptation. For this comparison, we consider the Open-DASH implementation (\texttt{dash.js}) that uses a naive approach for dashify-ing videos and adaptive video streaming based on channel quality feedback. The reference Open-DASH implementation uses a methodology where the DASH client measures channel quality based on the streaming data rate (number of bits downloaded per second), and uses this as a feedback to the DASH server.
+This section gives a baseline comparison technique between YouTube and other DASH based protocols based on our findings on YouTube behavior for joint video quality and streaming rate adaptation. For this comparison, we consider the \ac{DASH-IF} implementation (\texttt{dash.js}) that uses a naive approach for DASHify-ing videos and adaptive video streaming based on channel quality feedback. The reference \ac{DASH-IF} implementation uses a methodology where the \ac{DASH} client measures channel quality based on the streaming data rate (number of bits downloaded per second), and uses this as a feedback to the \ac{DASH} server.
 
 \subsection{Comparison Methodology}
 
-For comparing YouTube performance with Open-DASH, we download a large number of reference videos from YouTube (which have not restricted the download option) at the highest video quality. Then we use the \texttt{mp4box} tool to dashify these videos. The dashify procedure creates video segments of multiple qualities (video resolution and encoding techniques) and stores this information in a \textit{media presentation description} (\texttt{mpd}) file. We use a similar set of resolutions, bit rates and encoding techniques as available in YouTube for a particular video. We use the open-source \texttt{dash.js} player (also called \texttt{dashif} player\footnote{\url{http://dashif.org/reference/players/javascript/1.4.0/samples/dash-if-reference-player/} (last accessed: July 2016)}) to play videos under similar link bandwidth conditions as we do for YouTube. We compare the performance of YouTube and Open-DASH in terms of video quality adaptation procedure and the perceived QoE measured in terms of \textit{peak signal to noise ratio} (PSNR). 
+For comparing YouTube performance with \ac{DASH-IF}, we download a large number of reference videos from YouTube (which have not restricted the download option) at the highest video quality. Then we use the \texttt{mp4box} tool to DASHify these videos. The DASHify procedure creates video segments of multiple qualities (video resolution and encoding techniques) and stores this information in a \ac{MPD} file. We use a similar set of resolutions, bit rates and encoding techniques as available in YouTube for a particular video. We use the open-source \ac{DASH-IF} \texttt{dash.js} player \footnote{\url{https://reference.dashif.org/dash.js/1.4.0/samples/dash-if-reference-player/index.html} (last accessed: December 2020)} to play videos under similar link bandwidth conditions as we do for YouTube. We compare the performance of YouTube and \ac{DASH} in terms of video quality adaptation procedure and the perceived \ac{QoE} measured in terms of \ac{PSNR}.
 
 \subsection{Comparison in terms of Video Quality Adaptation Procedure: Resolution Adaptation and Buffer Evolution}
 
 \begin{figure}[!t]
 	\centering
 	\includegraphics[scale=0.7]{img/replay/resolutionchange}
-	\caption{Open-DASH: Video resolution adaptation}
+	\caption{\acs{DASH-IF}: Video resolution adaptation}
 	\label{fig:reply-reso}
 \end{figure}
 
 \begin{figure}[!t]
 	\centering
 	\includegraphics[scale=0.7]{img/replay/bufferchange}
-	\caption{Open-DASH: Receive buffer evolution}
+	\caption{\acs{DASH-IF}: Receive buffer evolution}
 	\label{fig:buf_reply}
 \end{figure}
 
 \begin{figure}[!t]
 	\centering
 	\includegraphics[scale=0.7]{img/plot_qoe}
-	\caption{PSNR comparison}
+	\caption{\acs{PSNR} comparison}
 	\label{fig:qoe_ytds}
 \end{figure}
 
 
-\fig\ref{fig:reply-reso} shows the video resolution adaptation for a sample video with respect to time. We see significantly more number of fluctuations in video resolutions, compared to what we observe in YouTube through the evolution of values associated with the $itag$ parameter. Therefore, the $itag$ parameter provides a reference for comparison between YouTube and another DASH based protocol implementation, in terms of the video quality adaptation over multiple available resolutions. Further, the $rbuf$ parameter helps us to compare the performance between YouTube and another DASH based protocol, in terms of receive buffer occupancy. \fig\ref{fig:buf_reply} plots the receive buffer evolution of Open-DASH. By comparing this figure with \fig\ref{fig:chap03s1:rbuf_evol}, we can see that YouTube buffer evolution is more consistent as compared to Open-DASH buffer evolution, the obvious reason being that Open-DASH does not use a sophisticated buffer management policy as YouTube does, where the segment lengths of the incoming video chunks are adapted based on the status of the receive buffer.
-%\noteng{Not sure whether it is obvious from the result - needs more explanantion}      
+\fig\ref{fig:reply-reso} shows the video resolution adaptation for a sample video with respect to time. We see significantly more number of fluctuations in video resolutions, compared to what we observe in YouTube through the evolution of values associated with the $itag$ parameter. Therefore, the $itag$ parameter provides a reference for comparison between YouTube and another \ac{DASH} based protocol implementation, in terms of the video quality adaptation over multiple available resolutions. Further, the $rbuf$ parameter helps us to compare the performance between YouTube and another \ac{DASH} based protocol, in terms of receive buffer occupancy. \fig\ref{fig:buf_reply} plots the receive buffer evolution of \ac{DASH-IF}. By comparing this figure with \fig\ref{fig:chap03s1:rbuf_evol}, we can see that YouTube buffer evolution is more consistent as compared to \ac{DASH-IF} buffer evolution, the obvious reason being that \ac{DASH-IF} does not use a sophisticated buffer management policy as YouTube does, where the segment lengths of the incoming video chunks are adapted based on the status of the receive buffer.
+%\noteng{Not sure whether it is obvious from the result - needs more explanantion}
 
-% 
+%
 % \begin{figure}[h]
 % \centering
 % \includegraphics[width=2.5in]{img/replay/plot_timerange}
 % \caption{Plot for time range of different quality in open dashjs with same configuration}
 % \label{fig:timespent_replay}
 % \end{figure}
-% 
+%
 \subsection{Comparison in Terms of QoE: Use of $itag$ Parameter}
 
-It can be noted that comparing the QoE of YouTube with that of another DASH implementation is not straight-forward. By observing $itag$ values, we can say what particular video quality is requested by YouTube client at a given time, although the actual perception will depend on the resolution at which the user renders the video. For example, a $240p$ video may give good user perception if it is played on a smart-phone screen, although the quality of that video rendering will be bad over a high resolution desktop. Therefore, we use the following methodology for finding out the QoE of a YouTube video. We take a reference resolution, and convert all the video chunks to that resolution from the one specified by the $itag$ parameter. Similarly, we observe at what resolution the video gets rendered in \texttt{dashif} player and convert that resolution to the reference resolution. Now both YouTube rendered video and \texttt{dashif} rendered video are in same resolution, and we can compare them using the standard QoE metric. In \fig\ref{fig:qoe_ytds} we show the comparison between YouTube and Open-DASH in terms of PSNR, for six reference videos. The X-axis shows the video IDs as per YouTube. In general the PSNR is low for Open-DASH, although it gets higher for some cases as Open-DASH may download more number of higher resolution frames. 
+It can be noted that comparing the \ac{QoE} of YouTube with that of another \ac{DASH} implementation is not straight-forward. By observing $itag$ values, we can say what particular video quality is requested by YouTube client at a given time, although the actual perception will depend on the resolution at which the user renders the video. For example, a $240p$ video may give good user perception if it is played on a smart-phone screen, although the quality of that video rendering will be bad over a high resolution desktop. Therefore, we use the following methodology for finding out the \ac{QoE} of a YouTube video. We take a reference resolution, and convert all the video chunks to that resolution from the one specified by the $itag$ parameter. Similarly, we observe at what resolution the video gets rendered in \ac{DASH-IF} player and convert that resolution to the reference resolution. Now both YouTube rendered video and \ac{DASH-IF} rendered video are in same resolution, and we can compare them using the standard \ac{QoE} metric. In \fig\ref{fig:qoe_ytds} we show the comparison between YouTube and \ac{DASH-IF} in terms of \ac{PSNR}, for six reference videos. The X-axis shows the video IDs as per YouTube. In general the \ac{PSNR} is low for \ac{DASH-IF}, although it gets higher for some cases as \ac{DASH-IF} may download more number of higher resolution frames.
 
-It is interesting to observe from our study that Open-DASH works in a best-effort manner, whereas YouTube uses a progressive approach which is similar to the elastic behavior of TCP traffic. Just like TCP increases the data rate until it experience congestion, YouTube goes for higher quality video and higher streaming rate till the receive buffer is steady. TCP drops data rate in a conservative approach as it experience congestion, and similarly YouTube drops video quality and segment length when it observes declined buffer size.   
+It is interesting to observe from our study that \ac{DASH-IF} works in a best-effort manner, whereas YouTube uses a progressive approach which is similar to the elastic behavior of \ac{TCP} traffic. Just like \ac{TCP} increases the data rate until it experience congestion, YouTube goes for higher quality video and higher streaming rate till the receive buffer is steady. \ac{TCP} drops data rate in a conservative approach as it experience congestion, and similarly YouTube drops video quality and segment length when it observes declined buffer size.
 
 
 \section{A Predictive Model for Data Consumption During ABR Streaming}
@@ -57,7 +57,7 @@ As mentioned in \S\ref{chap03s1:sec:introduction}, we realize that early predict
 In order to achieve this, we propose an analytical model, with a machine learning based classifier, which we describe next.
 
 Let $i,\ 1 \leq i \leq n$ represent an $itag$ value; where $n$ is the total number of $itag$ values used by YouTube.
-Let $\lambda_i$ represent the frame rate for $itag$ value $i$; from our observations, frame rate per $itag$ is constant. 
+Let $\lambda_i$ represent the frame rate for $itag$ value $i$; from our observations, frame rate per $itag$ is constant.
 Let us also consider an indicator variable $p(t)$, where $p(t)=1$ denotes that at a particular instance of time ($t$), a key-frame has arrived.
 Let $\alpha_i$ be the size of a key-frame (in bits) for $itag$ value $i$, and $\beta_i$ be the size of an intra-frame (in bits) at $itag$ value $i$.
 Therefore, the amount of data arrived (in bits) in a single frame for $itag$ $i$, say $\mu_{i}$, is given by:

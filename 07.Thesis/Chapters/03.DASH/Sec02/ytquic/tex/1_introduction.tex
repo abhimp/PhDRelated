@@ -7,9 +7,9 @@
 %%A factor behind this gain is the use of UDP by QUIC.
 %Megyesi et al.~\cite{quicisquic} have also performed an experimental evaluation of QUIC, HTTP and SPDY to arrive at similar benefits of QUIC for reducing page load time. This opens the curiosity whether QUIC can be a protocol of choice for latency sensitive video streaming applications.
 
-In this section, we first aim to compare the performance of YouTube streaming over QUIC with that of TCP. 
+In this section, we first aim to compare the performance of YouTube streaming over \ac{QUIC} with that of \ac{TCP}. 
 %We focus on a specific video streaming application, namely YouTube, which can send its traffic over QUIC.
-The goal is to quantify the advantages and disadvantages of choosing QUIC by systematically monitoring video quality parameters, such as bitrate, number of bitrate switches, rebuffering, and data wastage, as we have seen in the previous chapter. We setup a controlled environment to capture the traffic streamed to a browser from YouTube server, and analyze it to quantify the metrics. The important contribution of this section is in objectively identifying the merits and demerits of QUIC for streaming. 
+The goal is to quantify the advantages and disadvantages of choosing \ac{QUIC} by systematically monitoring video quality parameters, such as bitrate, number of bitrate switches, rebuffering, and data wastage, as we have seen in the previous chapter. We setup a controlled environment to capture the traffic streamed to a browser from YouTube server, and analyze it to quantify the metrics. The important contribution of this section is in objectively identifying the merits and demerits of \ac{QUIC} for streaming. 
 
 %Using data gathered from $175$ video streams, we observe that QUIC maintains a higher bitrate on average compared to that of streaming over TCP, while incurring lower number of bitrate switches. However, QUIC suffers from higher rebuffering events, and also downloads more data than that of TCP streams.
 %Thus QUIC achieves better performance at a hidden cost, which is brought out in this paper.
