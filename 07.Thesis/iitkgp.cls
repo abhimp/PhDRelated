@@ -30,6 +30,8 @@
 % Abstract text
 \newcommand{\Abstract}[1]{\gdef\@Abstract{#1}}
 
+\newcommand{\Bio}[1]{\gdef\@bio{#1}}
+
 % Acknowledgments text
 \newcommand{\Acknowledgments}[1]{\gdef\@Acknowledgments{#1}}
 
@@ -176,6 +178,7 @@
     \certificatepage
     \dedicationpage
     \acknowledgmentspage 
+    \makebiographypage
     \addcontentsline{toc}{chapter}{Declaration}
     \declarationpage    
     \abstractpage     
@@ -549,4 +552,19 @@ This is to certify that the thesis entitled \textbf{\TitleFull}, submitted by \t
     \clearemptydoublepage
   }
 
+% ==========================BIO======================
+\newcommand{\makebiographypage}{
+	\renewcommand{\baselinestretch}{1}\small\normalsize
+	\thispagestyle{empty}
+	\begin{center}
+		\providecommand\pdfbookmark[3][]{} \pdfbookmark[0]{\bf Author's Biography}{bm:Bio}    
+		%\vspace*{0.375in}
+		{\Large \bf Author's Biography}\\[2\baselineskip]
+	\end{center}
+	
+	\renewcommand{\baselinestretch}{1.1} \small\normalsize%
+	\parskip 8pt
+	\@bio 
+	\clearemptydoublepage
+}
 
