@@ -1,0 +1,69 @@
+\chapter*{List of Symbols}
+\addcontentsline{toc}{chapter}{List of Symbols}
+\markboth{List of Symbols}{List of Symbols}
+
+\begin{table}[h!]
+\begin{tabular}{rcl}
+	$N$ &=& Number of segments in a video \\
+	$q(.)$ &=& Utility function \\
+	$R_i$ &=& Quality level of $i^\text{th}$ segment \\
+	$\lambda$ &=& Quality fluctuation penalty multiplier (usually 1) \\
+	$\mu$ &=& Rebuffering penalty multiplier (usually 4.7) \\
+	$\mu_s$ &=& Startup delay penalty multiplier \\
+	$\delta_i$ &=& Rebuffering delay for $i^\text{th}$ segment ($\delta_0 = 0$) \\
+	$T_s$ &=& Startup delay \\
+	$n$ &=& Total number of $itag$s in a YouTube video\\
+	$\lambda_i$ &=& Frame rate for $i^\text{th}$ $itag$ \\
+	$p(t)$ &=& Indication if a key frame presents or not at time $t$ \\
+	$\alpha_i$ &=& Size of keyframe (in bits) \\
+	$\beta_i$ &=& Size of intra-frame (in bits) \\
+	$\phi_i$ &=& Average size of each frame (in bits) \\
+	$\psi_i$ &=& Data size per unit time (in bits) \\
+	$q_i(t)$ &=& Indicate if $i^\text{th}$ $itag$ downloaded for time $t$ \\
+	$\tau$ &=& Total playback duration a video \\
+	$f(t)$ &=& Maximum available $itag$ value at time $t$ \\
+	$\rho$ &=& Data actually played \\
+	$\omega$ &=& Data downloaded but not played ({\it i.e.} wasted) \\
+%	$t$ &=& slot number \\
+%	$x$ &=& History to anahistory \\
+%	$T$ &=& Slot duration \\
+%	$P_x$ &=& Historical window to consider data to predict f \\
+%	$F_T$ &=& prediction for $T$ future \\
+%	$\kappa$ &=& slot \\
+	$\hat{\tau}_{{\kappa}}$ &=& Predicted throughput for $\kappa$ slot\\
+%	$B_{av_\kappa}$ &=& Average buffer size \\
+%	${\mathcal{X}}$ &=& Buffer changes\\
+%	$B_\kappa$ &=& Buffer length at slot $\kappa$\\
+	$E_{\mathrm{\mathcal{L}}_\kappa}$ &=& Energy requirement by $\mathcal{L}$ algorithm for slot $\kappa$ \\
+	$S_{i}$ &=& Bitrate select engines state for $i^\text{th}$ segment \\
+	$\hat{\mathcal{B}_\kappa}$ &=& Predicted playback buffer length for slot $\kappa$ \\
+	$\tau_c(i-1)$ &=& Throughput observed during last segment \\
+	$d_{i-1}$ &=& Time taken to download last segment \\
+	$l_{i-1}$ &=& Bitrate of last segment \\
+%	$B_{i}$ &=& Available playback buffer length \\
+%	$\zeta_{i}\in\bracket{s_1,s_2,\cdots s_m}$ &=& Possible size of next video chunk ($m$ available sizes)\\
+%	$r_{i+1}\in \bracket{R_1, R_2,\cdots, R_6}$ &=& Possible bitrate levels for next video chunk.\\
+	$A_i$ &=& Optimal bitrate decision for the next chunk \\
+%	$\mathcal{P}$ &=& A player\\
+	$\mathcal{T}$ &=& Threshold segment to measure bandwidth \\
+%	$G$ &=& coalition\\
+	$Q_i$ &=& Target quality of a coalition or a player $i$ \\
+	$t_d$ &=& Threshold delay between two players \\
+\end{tabular}
+\end{table}
+%\setlength{\@fptop}{0pt}
+
+\makeatletter
+\setlength{\@fptop}{0pt}
+\makeatother
+
+\begin{table}[ht!]
+\begin{tabular}{rcl}
+	$\mathcal{O}_{s_{i}}$ &=& The owner/leader for segment $i$ \\
+	$\mathcal{I}_x$ &=& Idle time of player $x$ \\
+	$\mathcal{D}{q_x}$ &=& Download queue length of player $x$ \\
+	$\mathcal{D}{l_x}$ &=& Download status (\% remaining) of ongoing segment download of player $x$\\
+	$\mathcal{M}$ &=& Deadline miss penalty \\
+\end{tabular}
+\end{table}
+\vfill

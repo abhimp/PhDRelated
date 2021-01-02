@@ -40,7 +40,7 @@ The adaptive bitrate algorithms are the heart of the DASH-based streaming system
 \end{itemize}
 \begin{equation}
 \label{eqn:QoE}
-QoE = \sum_{i=1}^N q(R_i) - \lambda\sum_{i=1}^{N-1}\left|q(R_{i+1})-q(R_i) - \mu\sum_{i=1}^N \delta_i - \mu_s T_s\right|
+QoE = \sum_{i=1}^N q(R_i) - \lambda\sum_{i=1}^{N-1}\left|q(R_{i+1})-q(R_i)\right| - \mu\sum_{i=1}^N \delta_i - \mu_s T_s
 \end{equation}
 \eqn{\ref{eqn:QoE}} is used by most modern \ac{ABR} algorithms which measure the \ac{QoE} for a video with $N$ segments, where $R_i$ represents the bitrate of $i^{th}$ segment, $q(.)$ is the utility function, $\delta_i$ is the stall before the $i^{th}$ segment ($\delta_0$ is always zero), $T_s$ is the startup delay. $\lambda$, $\mu$ and $\mu_s$ are constant weights to define importance of individual parameters.
 

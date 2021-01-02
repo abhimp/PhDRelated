@@ -23,20 +23,20 @@ For each of the features we obtain the $\mathrm{25^{th}}$, $\mathrm{75^{th}}$, a
 \indent The components of the \ac{RL} algorithm corresponding to the buffer decision engine are as follows:\\
 % \begin{itemize}
 \noindent \textbf{(i) Environment}  \ti{E} - video player.\\
-\noindent \textbf{(ii) Input state at timeslot \mq{t}} $S_t$ =  ($\hat{\tau}_{{t}}$, $B_{av_t}$, ${\mathcal{X}}$), where
-  $\hat{\tau}_{{t}}$ is the  average predicted cellular network throughput,
- $B_{av_t}$ is the current playback buffer capacity available in seconds,
-$\mathcal{X}$ is the set of possible changes in buffer length. If the current buffer length is $B_{t-1}$, the next buffer length can be predicted to be $\hat{B_t}= B_t+x$ where $x\in\mathcal{X}:=\{-2,-1,0,+1,+2\}$. $x=1$ implies an increase in buffer length by a single chunk.\\
+\noindent \textbf{(ii) Input state at timeslot `$\kappa$'} $S_\kappa$ =  ($\hat{\tau}_{{\kappa}}$, $B_{av_\kappa}$, ${\mathcal{X}}$), where
+  $\hat{\tau}_{{\kappa}}$ is the  average predicted cellular network throughput,
+ $B_{av_\kappa}$ is the current playback buffer capacity available in seconds,
+$\mathcal{X}$ is the set of possible changes in buffer length. If the current buffer length is $B_{\kappa-1}$, the next buffer length can be predicted to be $\hat{B_\kappa}= B_\kappa+x$ where $x\in\mathcal{X}:=\{-2,-1,0,+1,+2\}$. $x=1$ implies an increase in buffer length by a single chunk.\\
 %, each chunk is of eight seconds.\\
-\noindent \textbf{(iii) Action} $A_t$ - Decisions on the increase or decrease of buffer length at timeslot $t$. \\
+\noindent \textbf{(iii) Action} $A_\kappa$ - Decisions on the increase or decrease of buffer length at timeslot $\kappa$. \\
 \noindent \textbf{(iv) Reward} - The reward function is defined as a linear weighted function of energy savings with respect to a baseline \ac{ABR} algorithm and the \ac{QoE} score:
     \begin{equation}
-    \Xi_{\mathrm{bufflen}} = w_1 \cdot (\left|E_{\mathrm{EnDASH}_t}-E_{\mathrm{old}_t}\right|)+w_2 \cdot QoE
+    \Xi_{\mathrm{bufflen}} = w_1 \cdot (\left|E_{\mathrm{EnDASH}_\kappa}-E_{\mathrm{old}_\kappa}\right|)+w_2 \cdot QoE
     \end{equation}
 
-\indent The first term in the reward function gives the energy savings with respect to a baseline \ac{ABR} algorithm. In this work, we have chosen BOLA \cite{Spiteri2016} as the baseline since its energy consumption is the lowest among existing algorithms (excluding EnDASH, \S{\ref{sec:chap04:evaluation}}).  $E_{\mathrm{old}_t}$ and $E_{\mathrm{EnDASH}_t}$ represent the energy consumption of BOLA and of EnDASH at time \mq{t}, respectively. The energy consumed while using one particular algorithm is obtained as follows:  the \ac{RRC} states are first identified from the download packet capture of a video trace. Next, the dwell time in each \ac{RRC} state is multiplied by the corresponding power consumption (obtained from the \ac{RRC} state machine) to get the energy quantities. We calculate the energy savings in this manner because the ground truth on energy consumption cannot be obtained.
+\indent The first term in the reward function gives the energy savings with respect to a baseline \ac{ABR} algorithm. In this work, we have chosen BOLA \cite{Spiteri2016} as the baseline since its energy consumption is the lowest among existing algorithms (excluding EnDASH, \S{\ref{sec:chap04:evaluation}}).  $E_{\mathrm{old}_\kappa}$ and $E_{\mathrm{EnDASH}_\kappa}$ represent the energy consumption of BOLA and of EnDASH at time \mq{\kappa}, respectively. The energy consumed while using one particular algorithm is obtained as follows:  the \ac{RRC} states are first identified from the download packet capture of a video trace. Next, the dwell time in each \ac{RRC} state is multiplied by the corresponding power consumption (obtained from the \ac{RRC} state machine) to get the energy quantities. We calculate the energy savings in this manner because the ground truth on energy consumption cannot be obtained.
 
-\indent Second term in the reward function is the \textbf{\ac{QoE}} metric  \cite{yin2015control}:
+\indent Second term in the reward function is the \textbf{\ac{QoE}}\footnote{It is same as \eqn\ref{eqn:chap03s2:QoE}} metric  \cite{yin2015control}:
 \begin{equation}\label{eq:chap04:QoE}
    \text{QoE} = \sum_{i=1}^N q(R_i) - \mu\sum_{i=1}^N \delta_i - \sum_{i=1}^{N-1}\left|q(R_{i+1})-q(R_i)\right|
 \end{equation}
@@ -46,10 +46,10 @@ The $\text{QoE}$ metric is defined for a video with N chunks. $R_i$ is the bitra
 The predicted playback buffer length is next used for selecting optimal chunk bitrates using a deep \ac{RL} based algorithm. The components of the \ac{RL} algorithm are:\\
 
 \noindent\textbf{(i) Environment}  \ti{E} - video player.\\
-\noindent\textbf{(ii) Input state before downloading the chunk \mq{n}}, \\$S_{n}$ = ($\hat{\mathcal{B}_t}, \tau_c(n-1)$, $d_{n-1}$, $l_{n-1}$, $B_{n}$, $\zeta_{n}$, $r_{n}$), where $\hat{\mathcal{B}_t}$- predicted playback buffer length for current slot \mq{t}, $\tau_c(n-1)$= throughput of last chunk, $d_{n-1}$ = time taken to download last chunk, $l_{n-1}$ = bitrate of last chunk, $B_{n}$ = available playback buffer length, $\zeta_{n}\in\bracket{s_1,s_2,\cdots s_m}$ = Possible size of next video chunk  ($m$ available sizes), $r_{n+1}\in \bracket{R_1, R_2,\cdots, R_6}$ = Possible bitrate levels for next video chunk.\\
-\noindent\textbf{(iii) Action} $A_n$ - Optimal bitrate decision for the next chunk.\\
+\noindent\textbf{(ii) Input state before downloading the chunk `$i$'}, \\$S_{i}$ = ($\hat{\mathcal{B}_\kappa}, \tau_c(i-1)$, $d_{i-1}$, $l_{i-1}$, $B_{i}$, $\zeta_{i}$, $r_{i}$), where $\hat{\mathcal{B}_\kappa}$- predicted playback buffer length for current slot \mq{\kappa}, $\tau_c(i-1)$ = throughput of last chunk, $d_{i-1}$ = time taken to download last chunk, $l_{i-1}$ = bitrate of last chunk, $B_{i}$ = available playback buffer length, $\zeta_{i}\in\bracket{s_1,s_2,\cdots s_m}$ = Possible size of next video chunk  ($m$ available sizes), $r_{i+1}\in \bracket{R_1, R_2,\cdots, R_6}$ = Possible bitrate levels for next video chunk.\\
+\noindent\textbf{(iii) Action} $A_i$ - Optimal bitrate decision for the next chunk.\\
 \noindent\textbf{(iv) Reward}- \ac{QoE} score obtained from \eqn\ref{eq:chap04:QoE}.\\
-\indent The buffer length and bitrate decision engines run at two different time scales. So, time slot indices for the variables related to the buffer length decision engine and the bitrate decision engine are denoted by  \mq{t} and \mq{n}, respectively.
+\indent The buffer length and bitrate decision engines run at two different time scales. So, time slot indices for the variables related to the buffer length decision engine and the bitrate decision engine are denoted by  \mq{\kappa} and \mq{n}, respectively.
 
 \section{Emulation Environment for \acs{RL} Training}
 \label{sec:chap04:environment}
