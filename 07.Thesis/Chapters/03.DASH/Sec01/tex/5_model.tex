@@ -60,20 +60,20 @@ Let $i,\ 1 \leq i \leq n$ represent an $itag$ value; where $n$ is the total numb
 Let $\lambda_i$ represent the frame rate for $itag$ value $i$; from our observations, frame rate per $itag$ is constant.
 Let us also consider an indicator variable $p(t)$, where $p(t)=1$ denotes that at a particular instance of time ($t$), a key-frame has arrived.
 Let $\alpha_i$ be the size of a key-frame (in bits) for $itag$ value $i$, and $\beta_i$ be the size of an intra-frame (in bits) at $itag$ value $i$.
-Therefore, the amount of data arrived (in bits) in a single frame for $itag$ $i$, say $\mu_{i}$, is given by:
+Therefore, the amount of data arrived (in bits) in a single frame for $itag$ $i$, say $\phi_{i}$, is given by:
 \begin{equation}
- \mu_i = \lbrack p(t).\alpha_i + \left\{1-p(t)\right\}.\beta_i \rbrack
+ \phi_i = \lbrack p(t).\alpha_i + \left\{1-p(t)\right\}.\beta_i \rbrack
 \end{equation}
 Since frame rate is $\lambda_i$, the amount of data (in bits) downloaded per unit time for $itag$ $i$, is given by:
 \begin{equation}
- \delta_i = \mu_i.\lambda_i
+ \psi_i = \phi_i.\lambda_i
 \end{equation}
-Let us consider an infinitesinally small time instance $dt$, during the YouTube streaming process. The amount of data downloaded per instance of time would be: $\delta_i.dt$, for a single $itag$ $i$.
+Let us consider an infinitesinally small time instance $dt$, during the YouTube streaming process. The amount of data downloaded per instance of time would be: $\psi_i.dt$, for a single $itag$ $i$.
 However, data may be downloaded for different $itag$ values at the same time instance, which is where the data wastage stems from.
 Let us define another indicator variable $q_{i}(t)$, where $q_{i}(t)=1$ indicates that data corresponding to $itag$ $i$ has been downloaded at time $t$.
 In such a scenario, the total amount of data (in bits) downloaded in playback time duration $\tau$, is given by:
 \begin{equation}
- \Delta = \int_{0}^{\tau} \left\{\sum_{i=1}^{n} q_{i}(t).\delta_{i}\right\}\ dt %= \int_{0}^{\tau} \lbrack \sum_{i=1}^{n} q_{i}(t)\lbrack p(t).\alpha_i + \left\{1-p(t)\right\}.\beta_i \rbrack.\lambda_i\ dt
+ \Delta = \int_{0}^{\tau} \left\{\sum_{i=1}^{n} q_{i}(t).\psi_{i}\right\}\ dt %= \int_{0}^{\tau} \lbrack \sum_{i=1}^{n} q_{i}(t)\lbrack p(t).\alpha_i + \left\{1-p(t)\right\}.\beta_i \rbrack.\lambda_i\ dt
 \end{equation}
 $\Delta$ is the measure of {\it data consumption} due to YouTube playback.\\
 Let us also define $f(t)$, which is the maximum $itag$ value at time $t$, for which data is available (since data may be available for multiple $itag$ values simultaneously):
@@ -82,7 +82,7 @@ Let us also define $f(t)$, which is the maximum $itag$ value at time $t$, for wh
 \end{equation}
 Therefore, the data (in bits) actually played by the YouTube player in time $\tau$, is given by:
 \begin{equation}
- \rho = \int_{0}^{\tau} q_{f}(t).\delta_{f}\ dt
+ \rho = \int_{0}^{\tau} q_{f}(t).\psi_{f}\ dt
 \end{equation}
 $\rho$ is therefore the measure of {\it productive data} downloaded during YouTube streaming.
 Consequently, data wastage ratio (say $\omega$), is defined as:
