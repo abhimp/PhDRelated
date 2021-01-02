@@ -8,15 +8,18 @@ To explore this interplay among various parameters that impact the \ac{ABR} deci
 Consequently, we adopt a focused approach to understand the internals of YouTube's bitrate and quality adaptation algorithm.
 We endeavor to explore YouTube's implementation of the DASH recommendations by studying the interplay between various parameters of YouTube adaptive video streaming.
 In terms of methodology, we capture a sizeable volume of YouTube traffic traces ($\sim500$ videos) in the form of \ac{HAR}, which give us access to the contents of HTTP request and response message headers;
-from these headers, we first identify the parameters used by YouTube in their rate adaptation algorithm, followed by controlled experiments to understand their individual roles. In summary, our contributions in this study are as follows.
+from these headers, we first identify the parameters used by YouTube in their rate adaptation algorithm, followed by controlled experiments to understand their individual roles.
+\begin{comment}
+In summary, our contributions in this study are as follows.
 \begin{enumerate}
 	\item We illustrate a methodology to study YouTube's adaptive streaming behavior in-depth (\S\ref{chap03s1:sec:experiments}) -- we identify and closely study the interplay among important parameters enabling this streaming algorithm (\S\ref{chap03s1:sec:parameters}).
 	\item Our experiments reveal that YouTube adapts the {\it segment length} parameter before attempting to adapt video resolution -- a phenomenon not reported in the literature (\S\ref{chap03s1:subsec:seglength}).
 	\item We observe that segment length adaptation leads to much lower values of data wastage on average, than reported by prior studies.
 	\item We propose an analytical model, augmented with a machine learning based classifier, which enables prediction of data consumption for an initial playback video quality when it is possible to estimate the network conditions a priori using existing mechanism like~\cite{Zou2015}  (\S\ref{chap03s1:sec:model}).
 \end{enumerate}
+\end{comment}
 
-The rest of the chapter is organized as follows.  
+The rest of the chapter is organized as follows. Section~\S\ref{sec:overview} describes a birds-eye view of YouTube and its experimental setup. In section~\S\ref{chap03s1:sec:experiments}, we provide a detailed experimental setup. We analyze the HTTP request parameters in section~\S\ref{chap03s1:sec:parameters}. We provide an insight into YouTube's adaptive system in section~\S\ref{chap03s1:subsec:seglength}. Section~\S\ref{sec:open-dash} compares QoE parameters in YouTube and DASH-IF players, and section~\S\ref{chap03s1:sec:model} illustrates a predictive model for data consumption during ABR.
 
 %The rest of the chapter is organized as follows. Section~\ref{chap03s1:sec:introduction} analyzes the YouTube streaming protocol by exploiting a large dataset of network traces during YouTube video playback. In Section~\ref{chap03s2:sec:quic}, we perform a measurement study over an in-house testbed setup to explore the adaptive streaming performance over QUIC as the transport protocol. The effect of mobility and energy consumption over DASH has been analyzed in Section~\ref{sec:chap03:DASHinMobility}. Finally, Section~\ref{sec:chap03:summary} summarizes the chapter.
 
