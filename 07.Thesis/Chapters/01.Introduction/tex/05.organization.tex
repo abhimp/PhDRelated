@@ -1,12 +1,20 @@
 \section{Organization of the Thesis}
-Henceforth, this synopsis report of the thesis is organized as follows. Section 2 gives a broad overview of the existing literature and its limitations. Section 3 highlights our contributions in exploring the YouTube \ac{ABR} mechanism over today's Internet and the importance of various parameters that govern the YouTube streaming algorithm. In Section 4, we summarize our observations in exploring the protocol and mobility choices for designing \ac{ABR} algorithms while keeping energy-efficiency as an objective. Section  5 discusses EnDASH, and adaptive streaming mechanism, which considers energy-efficiency as a goal while developing the \ac{ABR}. Section 6 constitutes the summary of FLiDASH -- an adaptive live streaming mechanism to improve the \ac{QoE} while reducing the network overhead. Finally, Section 7 gives the thesis's organization, and Section 8 concludes the report by highlighting the publications out of the thesis in Section 9.
-
-%In this section, we provide a brief description of the organization of the thesis.
+%Henceforth, this synopsis report of the thesis is organized as follows. 
 %\begin{itemize}
-%	\item {\bf Chapter 2} provide details of online video streaming system and different ABR algorithm developed in the past. Moreover, it iterates over the merits and demerits of the proposed solution to the problem broadly linked with this thesis.
-%	\item {\bf Chapter 3} present the study on YouTube video streaming service and analyses the adaptation technique taken by YouTube.
-%	\item {\bf Chapter 3} performs a study to analyze the performance difference between two transport protocols, TCP and QUIC, on the video streaming system, both YouTube and DASH. We further analyze the energy consumption by a smartphone during online video streaming in various scenarios.
-%	\item {\bf Chapter 4} present a novel ABR algorithm EnDASH to reduce energy consumption during the online streaming by optimizing the segmented schedule in buffer length.
-%	\item {\bf Chapter 5} proposes a DASH based video streaming system which exploits the locality information to improve the video QoE and decrease the network usage by sharing segment among local players. It also describes a novel approach to form a coalition among local players and decide bitrate for the entire coalition.
-%	\item {\bf Chapter 7} concludes the thesis by summarizing our contributions and listing down the possible future directions.
+%	\item Section 2 gives a broad overview of the existing literature and its limitations. 
+%	\item Section 3 highlights our contributions in exploring the YouTube \ac{ABR} mechanism over today's Internet and the importance of various parameters that govern the YouTube streaming algorithm. 
+%	\item In Section 4, we summarize our observations in exploring the protocol and mobility choices for designing \ac{ABR} algorithms while keeping energy-efficiency as an objective. 
+%	\item Section  5 discusses EnDASH, and adaptive streaming mechanism, which considers energy-efficiency as a goal while developing the \ac{ABR}. 
+%	\item Section 6 constitutes the summary of FLiDASH -- an adaptive live streaming mechanism to improve the \ac{QoE} while reducing the network overhead. 
+%	\item Finally, Section 7 gives the thesis's organization, and Section 8 concludes the report by highlighting the publications out of the thesis in Section 9.
 %\end{itemize}
+
+In this section, we provide a brief description of the organization of the thesis.
+\begin{itemize}
+	\item {\bf Chapter 2} provides the details of an online video streaming system and different ABR algorithms developed in the past. Moreover, it iterates over the merits and demerits of the proposed solution to the problem broadly linked with this thesis. 
+	\item {\bf Chapter 3} presents the study on YouTube video streaming service and analyses the bitrate adaptation technique taken by YouTube.
+	\item {\bf Chapter 3} performs a study to analyze the performance difference of ABR algorithms running over two different transport protocols, TCP and QUIC. We analyze the system both for YouTube as well as for a standard DASH player. To explore the energy consumption behavior of the ABR algorithms, we further analyze the energy consumption by a smartphone during online video streaming in various scenarios.
+	\item {\bf Chapter 4} presents a novel ABR algorithm, called EnDASH, to reduce the energy consumption during the online streaming by optimizing the segmented schedule in buffer length. We discuss the design, implementation, and performance analysis of EnDASH in this chapter. 
+	\item {\bf Chapter 5} proposes a DASH-based live video streaming system that exploits the locality information to improve the video QoE and thus decreases the network usage by sharing the video segments among local players. This chapter also describes a novel approach to form a coalition among local players and decide the bitrate for the entire coalition. We also highlight the implementation and performance aspects of the proposed technique in this chapter. 
+	\item Finally, {\bf Chapter 7} concludes the thesis by summarizing our contributions and listing down possible future directions of research in this area.
+\end{itemize}
