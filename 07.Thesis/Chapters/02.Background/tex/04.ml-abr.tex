@@ -31,6 +31,7 @@ Grad~\cite{10.1145/3394171.3413512} is an overhead-award \ac{ABR} for \ac{SVC}-b
 Machine learning and deep learning can perform better than classical systems if trained correctly. The \ac{ABR} algorithms, like Pensieve, Oboe, etc., show the potential of the machine learning algorithms. The idea of super-resolution and liveClip gives another perspective to the video streaming paradigm. While all these \ac{ABR} algorithms work well in the evaluation, these are not easy to deploy widely. Most of the \ac{ABR} algorithm needs to train for a long time before they can be used. The training time is enormous and computationally heavy. Training needs to be done frequently and sometimes, per video. Another big hurdle in the deployment of these algorithms is their library dependency. To infer the correct decision from a pre-trained model, an \ac{ML} algorithm needs to run in the player. Library supports are essential to run \ac{ML} algorithms in players, and not all the different platforms support all the libraries. Inference can be made by offloading computation to a server. However, it is incredibly inefficient as it involves network delay. We feel there is much work needed before any of the algorithms can be deployed widely and efficiently.
 
 \begin{table}[h!]
+		\caption{\label{chapter02:table:comparison_ml}Comparisons of \acs{ML}-based \acs{ABR} Algorithms}
 	\resizebox{\textwidth}{!}{
 		\begin{tabular}{|l|cccc|c|c|l|l}
 			\hline
@@ -49,5 +50,4 @@ Machine learning and deep learning can perform better than classical systems if 
 			\hline
 		\end{tabular}
 	}
-	\caption{\label{chapter02:table:comparison_ml}Comparisons of \acs{ML} based \acs{ABR} algorithms}
 \end{table}

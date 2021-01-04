@@ -6,23 +6,23 @@
 \begin{tabular}{rcl}
 	$N$ &=& Number of segments in a video \\
 	$q(.)$ &=& Utility function \\
-	$R_i$ &=& Quality level of $i^\text{th}$ segment \\
+	$R_i$ &=& Quality level of the $i^\text{th}$ segment \\
 	$\lambda$ &=& Quality fluctuation penalty multiplier (usually 1) \\
 	$\mu$ &=& Rebuffering penalty multiplier (usually 4.7) \\
 	$\mu_s$ &=& Startup delay penalty multiplier \\
-	$\delta_i$ &=& Rebuffering delay for $i^\text{th}$ segment ($\delta_0 = 0$) \\
+	$\delta_i$ &=& Rebuffering delay for the $i^\text{th}$ segment ($\delta_0 = 0$) \\
 	$T_s$ &=& Startup delay \\
 	$n$ &=& Total number of $itag$s in a YouTube video\\
 	$\lambda_i$ &=& Frame rate for $i^\text{th}$ $itag$ \\
 	$p(t)$ &=& Indication if a key frame presents or not at time $t$ \\
-	$\alpha_i$ &=& Size of keyframe (in bits) \\
-	$\beta_i$ &=& Size of intra-frame (in bits) \\
+	$\alpha_i$ &=& Size of a keyframe (in bits) \\
+	$\beta_i$ &=& Size of an intra-frame (in bits) \\
 	$\phi_i$ &=& Average size of each frame (in bits) \\
 	$\psi_i$ &=& Data size per unit time (in bits) \\
 	$q_i(t)$ &=& Indicate if $i^\text{th}$ $itag$ downloaded for time $t$ \\
 	$\tau$ &=& Total playback duration a video \\
 	$f(t)$ &=& Maximum available $itag$ value at time $t$ \\
-	$\rho$ &=& Data actually played \\
+	$\rho$ &=& Data actually played by a video player\\
 	$\omega$ &=& Data downloaded but not played ({\it i.e.} wasted) \\
 %	$t$ &=& slot number \\
 %	$x$ &=& History to anahistory \\
@@ -37,9 +37,9 @@
 	$E_{\mathrm{\mathcal{L}}_\kappa}$ &=& Energy requirement by $\mathcal{L}$ algorithm for slot $\kappa$ \\
 	$S_{i}$ &=& Bitrate select engines state for $i^\text{th}$ segment \\
 	$\hat{\mathcal{B}_\kappa}$ &=& Predicted playback buffer length for slot $\kappa$ \\
-	$\tau_c(i-1)$ &=& Throughput observed during last segment \\
-	$d_{i-1}$ &=& Time taken to download last segment \\
-	$l_{i-1}$ &=& Bitrate of last segment \\
+	$\tau_c(i-1)$ &=& Throughput observed during the last segment \\
+	$d_{i-1}$ &=& Time taken to download the last segment \\
+	$l_{i-1}$ &=& Bitrate of the last segment \\
 %	$B_{i}$ &=& Available playback buffer length \\
 %	$\zeta_{i}\in\bracket{s_1,s_2,\cdots s_m}$ &=& Possible size of next video chunk ($m$ available sizes)\\
 %	$r_{i+1}\in \bracket{R_1, R_2,\cdots, R_6}$ &=& Possible bitrate levels for next video chunk.\\
@@ -60,9 +60,9 @@
 \begin{table}[ht!]
 \begin{tabular}{rcl}
 	$\mathcal{O}_{s_{i}}$ &=& The owner/leader for segment $i$ \\
-	$\mathcal{I}_x$ &=& Idle time of player $x$ \\
-	$\mathcal{D}{q_x}$ &=& Download queue length of player $x$ \\
-	$\mathcal{D}{l_x}$ &=& Download status (\% remaining) of ongoing segment download of player $x$\\
+	$\mathcal{I}_x$ &=& Idle time of a player $x$ \\
+	$\mathcal{D}{q_x}$ &=& Download queue length of a player $x$ \\
+	$\mathcal{D}{l_x}$ &=& Download status (\% remaining) of ongoing segment download of a player $x$\\
 	$\mathcal{M}$ &=& Deadline miss penalty \\
 \end{tabular}
 \end{table}
