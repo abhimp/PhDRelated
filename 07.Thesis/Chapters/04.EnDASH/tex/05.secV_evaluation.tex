@@ -6,16 +6,16 @@ To train and test the throughput engine of EnDASH, we have used a corpus of thro
 The baseline \ac{ABR} streaming algorithms that we have used are \ti{BOLA} \cite{Spiteri2016}, \textit{Pensieve}\cite{mao2017neural}, \textit{Fast MPC} \cite{yin2015control}, and \textit{Robust MPC} \cite{yin2015control}.
 
 \begin{figure}[h]
-	\captionsetup[subfigure]{width=0.49\linewidth}
+	\captionsetup[subfigure]{}
 	\begin{center}
 		\subfloat[\label{fig:chap04:EnDASH_en}Energy Consumption]{
-			\includegraphics[width=0.33\textwidth]{new_results/simres/Energy}
+			\includegraphics[width=0.49\textwidth]{new_results/simres/Energy}
 		}
 		\subfloat[\label{fig:chap04:EnDASH_QoE}QoE score (\eqn\ref{eq:chap04:QoE})]{
-			\includegraphics[width=0.33\textwidth]{new_results/simres/QoE}
-		}
+			\includegraphics[width=0.49\textwidth]{new_results/simres/QoE}
+		}\\
 		\subfloat[\label{fig:chap04:EnDASH_buff}CDF of buffer length]{
-			\includegraphics[width=0.33\textwidth]{new_results/simres/BuffOccu}
+			\includegraphics[width=0.49\textwidth]{new_results/simres/BuffOccu}
 		}
 	\end{center}
 	\caption{\label{fig:chap04:EnDASH_vs_others}Performance comparison of EnDASH with baseline \acs{ABR} streaming algorithms, BOLA \cite{Spiteri2016}, Pensieve \cite{mao2017neural}, Fast MPC \cite{yin2015control}, Robust MPC \cite{yin2015control}}
