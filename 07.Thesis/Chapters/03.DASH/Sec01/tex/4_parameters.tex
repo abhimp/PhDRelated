@@ -74,7 +74,7 @@ We observe that $rbuf$, $rn$ and $range$ change even for a single $itag$; wherea
 
 
 {\bf {\em lmt}:} Our analysis reveals that the numeric values expressed by this parameter resemble Unix timestamps, although the length is $6$ digits longer.
-The values, converted using {\em epoch converter}\footnote{\url{http://www.epochconverter.com/}}, are shown in \tbl\ref{table:chap03s1:itag-lmt-ts} for our {\it sample video} (defined in \S\ref{chap03s1:sec:experiments}).
+The values, converted using {\em epoch converter}\footnote{\url{https://www.epochconverter.com/} (\lastaccessedtoday)}, are shown in \tbl\ref{table:chap03s1:itag-lmt-ts} for our {\it sample video} (defined in \S\ref{chap03s1:sec:experiments}).
 We find that the date matches with the video upload date, while the time changes slightly.
 We repeat this experiment for many other randomly chosen YouTube videos, and conclude that $lmt$ defines the time when the chunk was created at the YouTube server.
 However, it does not participate in video bitrate adaptation; since YouTube downloads data from multiple servers~\cite{krishnappa2013dashing}, $lmt$ is possibly used to avoid playing outdated video chunks.
@@ -129,7 +129,7 @@ The $range$ values consist of two integers separated by `-'; the first integer i
 We also observe that the sizes of the response payloads are given by ($end - start + 1$).
 We conclude that $range$ is the byte range parameter in \ac{HTTP} request header.
 As a proof of concept, we also perform the following experiment:
-YouTube provides an \ac{API} called \texttt{get\_video\_info} through the \ac{URL}~\url{http://www.youtube.com/get_video_info?video_id=<video_ID>} -- the \ac{API} provides information regarding $itag$ values used in a video, as well as URLs to download a complete video (with unrestricted access), or video chunks (using $range$) for a particular $itag$.
+YouTube provides an \ac{API} called \texttt{get\_video\_info} through the \ac{URL}~\url{https://www.youtube.com/get_video_info?video_id=<video_ID>} -- the \ac{API} provides information regarding $itag$ values used in a video, as well as URLs to download a complete video (with unrestricted access), or video chunks (using $range$) for a particular $itag$.
 Using the \ac{API}, we download the video chunks of different videos for different available $itag$ values.
 Then for these videos, we also download different video chunks using the \texttt{wget} utility, by changing the values of the $range$ parameter.
 We observe that \acsu{MD5}\cite{rfc1321_md5} checksums of the downloaded video chunks for a $itag$ value are equal to the \acsu{MD5} checksum of the byte range of the original video of that particular $itag$.

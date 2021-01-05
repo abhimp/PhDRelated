@@ -35,9 +35,9 @@ Additionally, we note the resolution in which the video is rendered, w.r.t. time
 \subsection{Experimental Setup to Identify Parameters and Their Interplay} 
 Since \ac{DASH} works on top of \ac{HTTP}, the video playback information and the requested video quality are embedded in HTTP request/response headers.
 As part of the {\em developer tools} for Mozilla Firefox, a {\em network monitor} is available, where the browser dumps information regarding all requests made by the current page -- \ac{HTTP}-request, \ac{HTTP}-response, request/response time, link speed, etc.
-The entire information can be exported to \ac{HAR} files, which are in the \ac{JSON}\footnote{\url{http://www.json.org/}} file format.
-We develop an automated tool called {\em AutoHARExporter} using \texttt{Selenium}\footnote{\url{http://www.seleniumhq.org/}} to capture a \ac{HAR} from the browser with the help of \texttt{har\_export\_trigger} (version 0.5.0-beta) Firefox plugin.
-This tool automatically opens a Firefox browser, loads a YouTube video (in the format {\tt \url{https://youtube.com/watch?v=<video id>}}), waits for the video to finish, and finally saves the \ac{HAR} and other information to the disk.
+The entire information can be exported to \ac{HAR} files, which are in the \ac{JSON}\footnote{\url{http://www.json.org/} (\lastaccessedtoday)} file format.
+We develop an automated tool called {\em AutoHARExporter} using \texttt{Selenium}\footnote{\url{http://www.seleniumhq.org/} (\lastaccessedtoday)} to capture a \ac{HAR} from the browser with the help of \texttt{har\_export\_trigger} (version 0.5.0-beta) Firefox plugin.
+This tool automatically opens a Firefox browser, loads a YouTube video (in the format {\tt \url{https://youtube.com/watch?v=<video id>} (\lastaccessedtoday)}), waits for the video to finish, and finally saves the \ac{HAR} and other information to the disk.
 During video playback, we also control network bandwidth (using the throttling mechanism described earlier) by progressively increasing and then dropping it from a given set of bandwidth levels ranging from $200$ Kbps to $2400$ Kbps, in a step of $200$ Kbps.
 Each level of bandwidth is kept fixed for $200$ seconds. 
 We repeat the experiment for $\sim500$ videos (detailed statistics shown in \tbl{\ref{table:chap03s1:statvid}}), the list of which is collected in advance by crawling the YouTube website.
