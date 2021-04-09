@@ -1,0 +1,1050 @@
+﻿Loaction 1:
+
+RSSI Range:  -105 -111
+Duration:  38
+mean RSSI=  -107
+RSSI variance =  3
+median =  -108.0
+-108  :  21.05263157894737
+-105  :  15.789473684210526
+-107  :  15.789473684210526
+-109  :  15.789473684210526
+-110  :  15.789473684210526
+-106  :  7.894736842105263
+-111  :  7.894736842105263
+
+packet count =  7517
+total buffer =  6580.22  KB
+total duration =  28.660403  seconds
+avg throughput =  229.59272415  KBps
+Total energy =  10.55 Joules
+active energy =  10.0 Joules
+tail energy =  1.05 Joules
+ramp energy =  0.4 Joules
+
+
+Loaction 2:
+
+60023 -> 62289 (Horizontal,  LTE )
+62289 -> 66952 (Horizontal,  LTE )
+66952 -> 60023 (Horizontal,  LTE )
+60023 -> 62289 (Horizontal,  LTE )
+62289 -> 60023 (Horizontal,  LTE )
+60023 -> 60000 (Horizontal,  LTE )
+
+RSSI Range:  -101 -110
+Duration:  88
+mean RSSI=  -106
+RSSI variance =  5
+median =  -107.0
+-107  :  19.318181818181817
+-109  :  17.045454545454547
+-106  :  13.636363636363637
+-104  :  10.227272727272727
+-105  :  10.227272727272727
+-108  :  9.090909090909092
+-101  :  6.818181818181818
+-103  :  6.818181818181818
+-110  :  6.818181818181818
+
+packet count =  7822
+total buffer =  6629.056  KB
+total duration =  74.264469  seconds
+avg throughput =  89.2628209595  KBps
+Total energy =  24.8 Joules
+active energy =  21.6 Joules
+tail energy =  2.7 Joules
+ramp energy =  1.4 Joules
+
+
+
+
+
+
+
+Loaction 3:
+
+RSSI Range:  -99 -109
+Duration:  50
+mean RSSI=  -104
+RSSI variance =  8
+median =  -104.0
+-104  :  18.0
+-105  :  18.0
+-100  :  12.0
+-102  :  12.0
+-107  :  12.0
+-109  :  12.0
+-103  :  6.0
+-106  :  6.0
+-99  :  4.0
+
+packet count =  7863
+total buffer =  6616.144  KB
+total duration =  40.489361  seconds
+avg throughput =  163.404505198  KBps
+Total energy =  15.8 Joules
+active energy =  15.6 Joules
+tail energy =  0.9 Joules
+ramp energy =  0.2 Joules
+
+
+
+Loaction 4:
+
+60023 -> 62289 (Horizontal,  LTE )
+62289 -> 60023 (Horizontal,  LTE )
+60023 -> 60005 (Horizontal,  LTE )
+
+RSSI Range:  -97 -106
+Duration:  49
+mean RSSI=  -101
+RSSI variance =  5
+median =  -101
+-101  :  28.571428571428573
+-102  :  18.367346938775512
+-100  :  12.244897959183673
+-104  :  12.244897959183673
+-97  :  10.204081632653061
+-99  :  6.122448979591836
+-103  :  6.122448979591836
+-106  :  6.122448979591836
+
+packet count =  7647
+total buffer =  6591.676  KB
+total duration =  33.336404  seconds
+avg throughput =  197.732064922  KBps
+Total energy =  12.55 Joules
+active energy =  12.0 Joules
+tail energy =  1.05 Joules
+ramp energy =  0.4 Joules
+
+
+
+
+
+
+
+
+Loaction 5:
+
+RSSI Range:  -97 -105
+Duration:  45
+mean RSSI=  -101
+RSSI variance =  4
+median =  -102
+-102  :  33.333333333333336
+-100  :  26.666666666666668
+-97  :  6.666666666666667
+-98  :  6.666666666666667
+-99  :  6.666666666666667
+-103  :  6.666666666666667
+-104  :  6.666666666666667
+-105  :  6.666666666666667
+
+packet count =  7633
+total buffer =  6595.513  KB
+total duration =  31.903013  seconds
+avg throughput =  206.736366875  KBps
+Total energy =  11.3 Joules
+active energy =  10.4 Joules
+tail energy =  1.2 Joules
+ramp energy =  0.6 Joules
+
+
+Loaction 6:
+
+RSSI Range:  -99 -113
+Duration:  41
+mean RSSI=  -102
+RSSI variance =  8
+median =  -101
+-100  :  29.26829268292683
+-101  :  14.634146341463415
+-102  :  14.634146341463415
+-105  :  14.634146341463415
+-103  :  9.75609756097561
+-99  :  7.317073170731708
+-107  :  7.317073170731708
+-113  :  2.4390243902439024
+
+
+
+packet count =  7324
+total buffer =  6568.08  KB
+total duration =  30.42476  seconds
+avg throughput =  215.879435039  KBps
+Total energy =  11.4 Joules
+active energy =  11.2 Joules
+tail energy =  0.9 Joules
+ramp energy =  0.2 Joules
+
+
+
+
+
+
+
+
+
+
+
+
+Loaction 7:
+
+RSSI Range:  -104 -110
+Duration:  48
+mean RSSI=  -106
+RSSI variance =  2
+median =  -106.0
+-104  :  25.0
+-107  :  25.0
+-106  :  18.75
+-105  :  12.5
+-108  :  12.5
+-110  :  6.25
+
+
+packet count =  6535
+total buffer =  6510.568  KB
+total duration =  28.87552  seconds
+avg throughput =  225.470156035  KBps
+Total energy =  10.15 Joules
+active energy =  9.6 Joules
+tail energy =  1.05 Joules
+ramp energy =  0.4 Joules
+
+
+Loaction 8:
+
+RSSI Range:  -99 -107
+Duration:  35
+mean RSSI=  -104
+RSSI variance =  7
+median =  -104
+-107  :  31.428571428571427
+-103  :  17.142857142857142
+-99  :  8.571428571428571
+-100  :  8.571428571428571
+-102  :  8.571428571428571
+-104  :  8.571428571428571
+-105  :  8.571428571428571
+-106  :  8.571428571428571
+
+
+packet count =  7495
+total buffer =  6579.862  KB
+total duration =  29.205216  seconds
+avg throughput =  225.297494804  KBps
+Total energy =  11.0 Joules
+active energy =  10.8 Joules
+tail energy =  0.9 Joules
+ramp energy =  0.2 Joules
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Loaction 9:
+
+RSSI Range:  -98 -103
+Duration:  36
+mean RSSI=  -101
+RSSI variance =  3
+median =  -102.5
+-103  :  50.0
+-99  :  16.666666666666668
+-101  :  16.666666666666668
+-98  :  8.333333333333334
+-102  :  8.333333333333334
+
+packet count =  7507
+total buffer =  6577.116  KB
+total duration =  29.633087  seconds
+avg throughput =  221.951766281  KBps
+Total energy =  10.95 Joules
+active energy =  10.4 Joules
+tail energy =  1.05 Joules
+ramp energy =  0.4 Joules
+
+
+Loaction 10:
+
+60005 -> 62289 (Horizontal,  LTE )
+
+RSSI Range:  -83 -101
+Duration:  111
+mean RSSI=  -92
+RSSI variance =  11
+median =  -93
+-93  :  19.81981981981982
+-92  :  16.216216216216218
+-94  :  16.216216216216218
+-91  :  10.81081081081081
+-89  :  5.405405405405405
+-95  :  5.405405405405405
+-96  :  4.504504504504505
+-83  :  2.7027027027027026
+-85  :  2.7027027027027026
+-86  :  2.7027027027027026
+-87  :  2.7027027027027026
+-88  :  2.7027027027027026
+-90  :  2.7027027027027026
+-98  :  2.7027027027027026
+-101  :  2.7027027027027026
+
+packet count =  7822
+total buffer =  6688.552  KB
+total duration =  107.678346  seconds
+avg throughput =  62.1160358462  KBps
+Total energy =  31.15 Joules
+active energy =  24.0 Joules
+tail energy =  6.45 Joules
+ramp energy =  1.6 Joules
+
+
+
+
+
+
+
+
+
+Loaction 11:
+
+RSSI Range:  -84 -92
+Duration:  57
+mean RSSI=  -88
+RSSI variance =  5
+median =  -89
+-86  :  21.05263157894737
+-90  :  21.05263157894737
+-89  :  15.789473684210526
+-85  :  10.526315789473685
+-88  :  10.526315789473685
+-91  :  10.526315789473685
+-84  :  5.2631578947368425
+-92  :  5.2631578947368425
+
+packet count =  7541
+total buffer =  6586.712  KB
+total duration =  47.628903  seconds
+avg throughput =  138.292330604  KBps
+Total energy =  17.7 Joules
+active energy =  16.8 Joules
+tail energy =  1.2 Joules
+ramp energy =  0.6 Joules
+
+
+Loaction 12:
+
+RSSI Range:  -86 -92
+Duration:  45
+mean RSSI=  -89
+RSSI variance =  3
+median =  -89
+-88  :  33.333333333333336
+-90  :  20.0
+-91  :  13.333333333333334
+-92  :  13.333333333333334
+-86  :  6.666666666666667
+-87  :  6.666666666666667
+-89  :  6.666666666666667
+
+packet count =  7841
+total buffer =  6666.528  KB
+total duration =  39.442872  seconds
+avg throughput =  169.017306853  KBps
+Total energy =  13.35 Joules
+active energy =  11.6 Joules
+tail energy =  1.65 Joules
+ramp energy =  1.0 Joules
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Loaction 13:
+
+RSSI Range:  -44 -105
+Duration:  55
+mean RSSI=  -92
+RSSI variance =  212
+median =  -96
+-95  :  16.363636363636363
+-100  :  16.363636363636363
+-97  :  10.909090909090908
+-98  :  10.909090909090908
+-105  :  10.909090909090908
+-44  :  7.2727272727272725
+-86  :  5.454545454545454
+-88  :  5.454545454545454
+-89  :  5.454545454545454
+-93  :  5.454545454545454
+-96  :  5.454545454545454
+
+packet count =  7866
+total buffer =  6622.471  KB
+total duration =  47.281288  seconds
+avg throughput =  140.065367932  KBps
+Total energy =  14.8 Joules
+active energy =  12.4 Joules
+tail energy =  2.7 Joules
+ramp energy =  0.6 Joules
+
+
+Loaction 14:
+
+RSSI Range:  -94 -111
+Duration:  83
+mean RSSI=  -102
+RSSI variance =  24
+median =  -101
+-100  :  10.843373493975903
+-105  :  10.843373493975903
+-95  :  7.228915662650603
+-97  :  7.228915662650603
+-98  :  7.228915662650603
+-99  :  7.228915662650603
+-101  :  7.228915662650603
+-104  :  7.228915662650603
+-107  :  7.228915662650603
+-108  :  7.228915662650603
+-110  :  7.228915662650603
+-94  :  3.6144578313253013
+-103  :  3.6144578313253013
+-109  :  3.6144578313253013
+-111  :  2.4096385542168677
+
+packet count =  7968
+total buffer =  6631.448  KB
+total duration =  71.497009  seconds
+avg throughput =  92.7514044678  KBps
+Total energy =  26.95 Joules
+active energy =  26.4 Joules
+tail energy =  1.05 Joules
+ramp energy =  0.4 Joules
+
+
+
+
+Loaction 15:
+
+62289 -> 60004 (Horizontal,  LTE )
+
+RSSI Range:  -88 -102
+Duration:  81
+mean RSSI=  -95
+RSSI variance =  17
+median =  -95
+-90  :  11.11111111111111
+-92  :  11.11111111111111
+-97  :  11.11111111111111
+-99  :  11.11111111111111
+-91  :  7.407407407407407
+-93  :  7.407407407407407
+-100  :  7.407407407407407
+-101  :  7.407407407407407
+-88  :  3.7037037037037037
+-89  :  3.7037037037037037
+-94  :  3.7037037037037037
+-95  :  3.7037037037037037
+-96  :  3.7037037037037037
+-98  :  3.7037037037037037
+-102  :  3.7037037037037037
+
+
+packet count =  7654
+total buffer =  6597.208  KB
+total duration =  71.596883  seconds
+avg throughput =  92.1437878797  KBps
+Total energy =  26.7 Joules
+active energy =  26.0 Joules
+tail energy =  1.2 Joules
+ramp energy =  0.4 Joules
+
+
+Loaction 16:
+
+RSSI Range:  -88 -102
+Duration:  39
+mean RSSI=  -94
+RSSI variance =  14
+median =  -95
+-92  :  15.384615384615385
+-93  :  15.384615384615385
+-95  :  15.384615384615385
+-98  :  15.384615384615385
+-88  :  7.6923076923076925
+-91  :  7.6923076923076925
+-97  :  7.6923076923076925
+-100  :  7.6923076923076925
+-102  :  7.6923076923076925
+
+packet count =  7401
+total buffer =  6569.204  KB
+total duration =  29.450785  seconds
+avg throughput =  223.057008497  KBps
+Total energy =  11.0 Joules
+active energy =  10.8 Joules
+tail energy =  0.9 Joules
+ramp energy =  0.2 Joules
+
+
+
+Loaction 17:
+
+RSSI Range:  -96 -110
+Duration:  34
+mean RSSI=  -101
+RSSI variance =  10
+median =  -100.0
+-100  :  26.470588235294116
+-99  :  17.647058823529413
+-104  :  17.647058823529413
+-96  :  8.823529411764707
+-98  :  8.823529411764707
+-102  :  8.823529411764707
+-106  :  8.823529411764707
+-110  :  2.9411764705882355
+
+packet count =  6246
+total buffer =  6485.672  KB
+total duration =  27.407919  seconds
+avg throughput =  236.634966704  KBps
+Total energy =  10.2 Joules
+active energy =  10.0 Joules
+tail energy =  0.9 Joules
+ramp energy =  0.2 Joules
+
+
+Loaction 18:
+
+RSSI Range:  -101 -121
+Duration:  31
+mean RSSI=  -113
+RSSI variance =  30
+median =  -114
+-114  :  29.032258064516128
+-101  :  9.67741935483871
+-109  :  9.67741935483871
+-113  :  9.67741935483871
+-116  :  9.67741935483871
+-117  :  9.67741935483871
+-118  :  9.67741935483871
+-121  :  9.67741935483871
+-104  :  3.225806451612903
+
+packet count =  6400
+total buffer =  6496.044  KB
+total duration =  28.177017  seconds
+avg throughput =  230.544063625  KBps
+Total energy =  10.6 Joules
+active energy =  10.4 Joules
+tail energy =  0.9 Joules
+ramp energy =  0.2 Joules
+
+
+
+
+
+
+
+
+
+
+
+
+
+Loaction 19:
+
+60004 -> 68212 (Horizontal,  LTE )
+68212 -> 60004 (Horizontal,  LTE )
+60004 -> 68212 (Horizontal,  LTE )
+
+RSSI Range:  -105 -115
+Duration:  48
+mean RSSI=  -110
+RSSI variance =  6
+median =  -110.0
+-110  :  18.75
+-113  :  16.666666666666668
+-107  :  12.5
+-112  :  12.5
+-108  :  10.416666666666666
+-109  :  10.416666666666666
+-105  :  6.25
+-111  :  6.25
+-115  :  6.25
+
+packet count =  7529
+total buffer =  6594.052  KB
+total duration =  36.939639  seconds
+avg throughput =  178.508837079  KBps
+Total energy =  14.2 Joules
+active energy =  14.0 Joules
+tail energy =  0.9 Joules
+ramp energy =  0.2 Joules
+
+Loaction 20:
+
+RSSI Range:  -103 -120
+Duration:  132
+mean RSSI=  -111
+RSSI variance =  18
+median =  -111.0
+-111  :  15.909090909090908
+-116  :  13.636363636363637
+-104  :  9.090909090909092
+-114  :  9.090909090909092
+-109  :  6.818181818181818
+-110  :  6.818181818181818
+-115  :  6.818181818181818
+-117  :  6.818181818181818
+-106  :  4.545454545454546
+-107  :  4.545454545454546
+-112  :  4.545454545454546
+-103  :  2.272727272727273
+-108  :  2.272727272727273
+-113  :  2.272727272727273
+-118  :  2.272727272727273
+-120  :  2.272727272727273
+
+packet count =  8086
+total buffer =  6639.712  KB
+total duration =  138.963534  seconds
+avg throughput =  47.7802471546  KBps
+Total energy =  51.0 Joules
+active energy =  48.8 Joules
+tail energy =  2.7 Joules
+ramp energy =  0.4 Joules
+
+
+Loaction 21:
+
+68212 -> 60005 (Horizontal,  LTE )
+60005 -> 68212 (Horizontal,  LTE )
+68212 -> 62289 (Horizontal,  LTE )
+
+RSSI Range:  -102 -116
+Duration:  214
+mean RSSI=  -109
+RSSI variance =  9
+median =  -109.0
+-109  :  12.616822429906541
+-111  :  12.616822429906541
+-107  :  11.214953271028037
+-108  :  11.214953271028037
+-110  :  8.411214953271028
+-112  :  8.411214953271028
+-113  :  7.94392523364486
+-114  :  7.94392523364486
+-106  :  7.009345794392523
+-105  :  5.607476635514018
+-104  :  2.803738317757009
+-116  :  2.803738317757009
+-102  :  1.4018691588785046
+
+packet count =  8036
+total buffer =  6635.48  KB
+total duration =  205.079359  seconds
+avg throughput =  32.3556696898  KBps
+Total energy =  64.35 Joules
+active energy =  54.0 Joules
+tail energy =  7.65 Joules
+ramp energy =  3.6 Joules
+
+
+Loaction 22:
+
+62289 -> 68212 (Horizontal,  LTE )
+
+RSSI Range:  -104 -120
+Duration:  166
+mean RSSI=  -112
+RSSI variance =  14
+median =  -112.0
+-115  :  16.265060240963855
+-108  :  9.036144578313253
+-109  :  9.036144578313253
+-110  :  9.036144578313253
+-112  :  9.036144578313253
+-117  :  9.036144578313253
+-111  :  7.228915662650603
+-113  :  5.421686746987952
+-114  :  5.421686746987952
+-116  :  5.421686746987952
+-107  :  3.6144578313253013
+-119  :  3.0120481927710845
+-104  :  1.8072289156626506
+-106  :  1.8072289156626506
+-118  :  1.8072289156626506
+-120  :  1.8072289156626506
+-105  :  1.2048192771084338
+
+packet count =  7883
+total buffer =  6643.04  KB
+total duration =  161.474496  seconds
+avg throughput =  41.1398714011  KBps
+Total energy =  53.95 Joules
+active energy =  47.6 Joules
+tail energy =  4.05 Joules
+ramp energy =  3.2 Joules
+
+
+
+
+
+
+
+
+
+
+
+Loaction 23:
+
+68212 -> 60022 (Horizontal,  LTE )
+
+RSSI Range:  -106 -113
+Duration:  97
+mean RSSI=  -108
+RSSI variance =  2
+median =  -109
+-107  :  24.742268041237114
+-110  :  24.742268041237114
+-109  :  19.587628865979383
+-108  :  12.371134020618557
+-111  :  6.185567010309279
+-112  :  6.185567010309279
+-106  :  3.0927835051546393
+-113  :  3.0927835051546393
+
+packet count =  7942
+total buffer =  6625.472  KB
+total duration =  89.371757  seconds
+avg throughput =  74.1338452147  KBps
+Total energy =  34.55 Joules
+active energy =  34.0 Joules
+tail energy =  1.05 Joules
+ramp energy =  0.4 Joules
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Loaction 24:
+
+RSSI Range:  -107 -115
+Duration:  38
+mean RSSI=  -110
+RSSI variance =  5
+median =  -111.0
+-108  :  23.68421052631579
+-112  :  21.05263157894737
+-113  :  15.789473684210526
+-107  :  7.894736842105263
+-109  :  7.894736842105263
+-110  :  7.894736842105263
+-111  :  7.894736842105263
+-115  :  7.894736842105263
+
+packet count =  7565
+total buffer =  6588.012  KB
+total duration =  30.006557  seconds
+avg throughput =  219.552413161  KBps
+Total energy =  10.95 Joules
+active energy =  10.4 Joules
+tail energy =  1.05 Joules
+ramp energy =  0.4 Joules
+
+
+
+
+Loaction 25:
+
+60022 -> 62289 (Horizontal,  LTE )
+62289 -> 68212 (Horizontal,  LTE )
+68212 -> 62289 (Horizontal,  LTE )
+62289 -> 60022 (Horizontal,  LTE )
+
+RSSI Range:  -102 -113
+Duration:  68
+mean RSSI=  -107
+RSSI variance =  7
+median =  -108.0
+-109  :  17.647058823529413
+-108  :  13.235294117647058
+-110  :  13.235294117647058
+-111  :  13.235294117647058
+-104  :  11.764705882352942
+-105  :  8.823529411764707
+-106  :  8.823529411764707
+-102  :  4.411764705882353
+-107  :  4.411764705882353
+-113  :  4.411764705882353
+
+packet count =  7200
+total buffer =  6559.66  KB
+total duration =  57.86238  seconds
+avg throughput =  113.366577732  KBps
+Total energy =  19.1 Joules
+active energy =  16.4 Joules
+tail energy =  2.4 Joules
+ramp energy =  1.2 Joules
+
+
+
+
+
+Loaction 26:
+
+RSSI Range:  -104 -113
+Duration:  37
+mean RSSI=  -108
+RSSI variance =  6
+median =  -109
+-107  :  24.324324324324323
+-111  :  16.216216216216218
+-110  :  13.513513513513514
+-106  :  8.108108108108109
+-108  :  8.108108108108109
+-109  :  8.108108108108109
+-112  :  8.108108108108109
+-113  :  8.108108108108109
+-104  :  5.405405405405405
+
+packet count =  6744
+total buffer =  6518.732  KB
+total duration =  29.285191  seconds
+avg throughput =  222.59482617  KBps
+Total energy =  10.15 Joules
+active energy =  9.6 Joules
+tail energy =  1.05 Joules
+ramp energy =  0.4 Joules
+
+
+
+
+
+Loaction 27:
+
+60022 -> 0 (Horizontal,  LTE )
+0 -> 60022 (Horizontal,  LTE )
+60022 -> 62289 (Horizontal,  LTE )
+62289 -> 68212 (Horizontal,  LTE )
+68212 -> 62289 (Horizontal,  LTE )
+62289 -> 68212 (Horizontal,  LTE )
+68212 -> 62289 (Horizontal,  LTE )
+62289 -> 68212 (Horizontal,  LTE )
+
+RSSI Range:  -99 -114
+Duration:  100
+mean RSSI=  -106
+RSSI variance =  13
+median =  -107.0
+-107  :  15.0
+-109  :  14.0
+-108  :  12.0
+-102  :  9.0
+-100  :  6.0
+-103  :  6.0
+-104  :  6.0
+-105  :  6.0
+-106  :  6.0
+-110  :  6.0
+-112  :  6.0
+-113  :  3.0
+-114  :  3.0
+-99  :  2.0
+
+packet count =  7732
+total buffer =  6611.752  KB
+total duration =  94.568575  seconds
+avg throughput =  69.9148950907  KBps
+Total energy =  32.4 Joules
+active energy =  29.2 Joules
+tail energy =  3.3 Joules
+ramp energy =  0.8 Joules
+
+
+Loaction 28:
+
+68212 -> 66952 (Horizontal,  LTE )
+66952 -> 62289 (Horizontal,  LTE )
+62289 -> 68212 (Horizontal,  LTE )
+68212 -> 66952 (Horizontal,  LTE )
+66952 -> 81999 (Horizontal,  LTE )
+
+RSSI Range:  -98 -115
+Duration:  155
+mean RSSI=  -107
+RSSI variance =  15
+median =  -108
+-106  :  20.64516129032258
+-109  :  17.419354838709676
+-110  :  13.548387096774194
+-103  :  7.096774193548387
+-102  :  5.806451612903226
+-114  :  5.806451612903226
+-105  :  3.870967741935484
+-108  :  3.870967741935484
+-111  :  3.870967741935484
+-112  :  3.870967741935484
+-107  :  3.225806451612903
+-115  :  3.225806451612903
+-98  :  1.935483870967742
+-99  :  1.935483870967742
+-101  :  1.935483870967742
+-113  :  1.935483870967742
+
+packet count =  5276
+total buffer =  4304.046  KB
+total duration =  154.02364  seconds
+avg throughput =  27.9440610545  KBps
+Total energy =  49.65 Joules
+active energy =  43.6 Joules
+tail energy =  6.15 Joules
+ramp energy =  0.8 Joules
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Loaction 29:
+
+81999 -> 0 (Horizontal,  LTE )
+0 -> 62289 (Horizontal,  LTE )
+
+RSSI Range:  -108 -123
+Duration:  80
+mean RSSI=  -116
+RSSI variance =  23
+median =  -117.0
+-111  :  11.25
+-112  :  11.25
+-118  :  11.25
+-122  :  11.25
+-110  :  7.5
+-119  :  7.5
+-121  :  7.5
+-123  :  7.5
+-108  :  6.25
+-113  :  3.75
+-115  :  3.75
+-116  :  3.75
+-117  :  3.75
+-120  :  3.75
+
+packet count =  8526
+total buffer =  6761.174  KB
+total duration =  80.408821  seconds
+avg throughput =  84.0849786866  KBps
+Total energy =  28.05 Joules
+active energy =  26.4 Joules
+tail energy =  1.95 Joules
+ramp energy =  0.6 Joules
+
+
+
+
+Loaction 30:
+
+62289 -> 60023 (Horizontal,  LTE )
+60023 -> 62289 (Horizontal,  LTE )
+62289 -> 60023 (Horizontal,  LTE )
+60023 -> 62289 (Horizontal,  LTE )
+62289 -> 68212 (Horizontal,  LTE )
+68212 -> 62289 (Horizontal,  LTE )
+62289 -> 68212 (Horizontal,  LTE )
+68212 -> 62289 (Horizontal,  LTE )
+62289 -> 68212 (Horizontal,  LTE )
+68212 -> 62289 (Horizontal,  LTE )
+62289 -> 66952 (Horizontal,  LTE )
+66952 -> 60013 (Horizontal,  LTE )
+60013 -> 60022 (Horizontal,  LTE )
+60022 -> 66952 (Horizontal,  LTE )
+66952 -> 60023 (Horizontal,  LTE )
+60023 -> 60013 (Horizontal,  LTE )
+60013 -> 60023 (Horizontal,  LTE )
+
+RSSI Range:  -94 -116
+Duration:  274
+mean RSSI=  -106
+RSSI variance =  16
+median =  -107.0
+-104  :  15.328467153284672
+-108  :  12.773722627737227
+-106  :  9.854014598540147
+-109  :  8.75912408759124
+-112  :  7.664233576642336
+-107  :  7.299270072992701
+-110  :  6.569343065693431
+-103  :  5.474452554744525
+-105  :  5.474452554744525
+-102  :  4.37956204379562
+-114  :  4.37956204379562
+-101  :  2.18978102189781
+-113  :  2.18978102189781
+-100  :  1.8248175182481752
+-111  :  1.4598540145985401
+-94  :  1.094890510948905
+-97  :  1.094890510948905
+-98  :  1.094890510948905
+-116  :  1.094890510948905
+
+packet count =  7943
+total buffer =  6631.826  KB
+total duration =  290.396917  seconds
+avg throughput =  22.8371088389  KBps
+Total energy =  71.95 Joules
+active energy =  44.4 Joules
+tail energy =  22.65 Joules
+ramp energy =  5.8 Joules

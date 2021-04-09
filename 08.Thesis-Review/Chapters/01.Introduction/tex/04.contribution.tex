@@ -1,0 +1,36 @@
+\section{Contributions}
+This thesis consists of four contributory chapters. The significant contributions of the individual chapters are given below. 
+
+\subsection{Adaptive Bitrate Streaming over Today's Internet: A Case Study of YouTube}
+In this chapter, we perform reverse engineering over the YouTube \ac{ABR} streaming algorithm to find out how it works and what are the parameters that impact the performance of \ac{ABR} streaming over a large-scale Internet scenario. The contributions in this chapter are as follows. 
+\begin{itemize}
+	\item We illustrate a methodology to study YouTube's adaptive streaming behavior in-depth -- we identify and closely study the interplay among important parameters enabling this streaming algorithm.
+	\item Our experiments reveal that YouTube adapts the {\it segment length} parameter before attempting to adjust video resolution -- a phenomenon not reported in the literature.
+	\item We observe that segment length adaptation leads to much lower data wastage values on average than the ones reported by prior studies.
+	\item We propose an analytical model, augmented with a machine learning-based classifier, which enables prediction of data consumption for an initial playback video quality when it is possible to estimate the network conditions a priori using existing mechanism like~\cite{Zou2015}.
+\end{itemize}
+
+\subsection{Transport Protocols and Mobility Choices for ABR Streaming: Performance vs. Energy Efficiency}
+In the second contributory chapter of the thesis, we analyze various state-of-the-art \ac{ABR} techniques under different transport protocols and mobility choices. This analysis gives us an idea about how \ac{ABR} algorithms work in diverse scenarios, evident over today's Internet. The contributions in this chapter are summarized below. 
+\begin{itemize}
+	\item Like the previous chapter, we first conduct a study over YouTube to analyze YouTube \ac{ABR} performance over two different transport protocols -- \ac{TCP} and \ac{QUIC}.
+	\item We then perform a study over a controlled environment, to explore how different modern \ac{ABR} algorithms like BOLA~\cite{Spiteri2016}, MPC~\cite{yin2015control}, Pensieve~\cite{mao2017neural}, etc. work over \ac{QUIC} in comparison to \ac{TCP}.
+	\item Finally, to understand the impact of \ac{ABR} streaming over the energy consumption of a mobile device, we conduct a thorough experiment using commodity smartphones and commercial cellular network connections under different mobility scenarios. We observed that arbitrary data download through \ac{ABR} may impact the smartphone's energy consumption behavior when some \ac{OTT} media application runs for streaming a video. 
+\end{itemize}
+
+\subsection{EnDASH - A Mobility Adapted Energy Efficient ABR Video Streaming for Cellular Networks}
+This chapter develops an energy-efficient video streaming algorithm while preserving the \ac{QoE} performance of the \ac{ABR} mechanism. The salient contributions of this chapter are as follows. 
+\begin{itemize}
+	\item With the observation from previous chapters, we developed a throughput prediction engine to predict average throughput for a short future.
+	\item We design an \ac{ABR} algorithm based on the throughput prediction algorithms and instantaneous parameters to reduce the power consumption by optimally adjust the playback buffer lengths.
+	\item We performed thorough experiments in an emulated environment to show the performance of the proposed mechanism, called \textit{EnDASH}. We observe that the proposed mechanism significantly saves energy consumption during video streaming with marginal compromise in the overall \ac{QoE}. 
+\end{itemize}
+
+\subsection{Federated Adaptive Bitrate Live Streaming over Locality Sensitive Playback Coalitions}
+In the final contributory chapter of the thesis, we focus on \ac{ABR} for the live streaming of videos and develop an architecture to support efficient adaptive live streaming over the Internet. The contributions of this chapter are as follows. 
+\begin{itemize}
+	\item In this chapter, we have identified the possibility of exploiting the local network to reduce server load during live streaming, which improves the \ac{QoE} for the streaming application.
+	\item The work proposes a novel way to share segments among users reasonably and efficiently by forming a coalition among nearby and similar types of video players.
+	\item It also proposes a novel algorithm to select bitrates adaptively to increase the \ac{QoE} of the entire coalition simultaneously, instead of individual \ac{QoE} only.
+	\item We have evaluated the proposed system over an emulation environment, and we observe that our system can significantly improve the live streaming \ac{QoE} compared to other baselines. 
+\end{itemize}

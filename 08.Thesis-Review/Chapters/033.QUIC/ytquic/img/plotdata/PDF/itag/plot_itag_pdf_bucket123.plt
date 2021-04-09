@@ -1,0 +1,51 @@
+set terminal postscript eps enhanced color "Helvetica,Bold" 40
+set output "plot_itag_pdf_bucket123.eps"
+set size 5.1,1.2
+set yrange [0:0.6]
+set multiplot 
+set lmargin 2
+#set bmargin 5
+#set tmargin 1
+
+set size 1.5,1.2
+set origin 0.2, 0.0
+set xlabel "itag"
+set ylabel "PDF" offset 2,0,0  
+set ytics autofreq 0.2
+unset key
+set boxwidth 1
+set style data histograms
+set style fill solid border
+set style histogram cluster gap 1
+set key left
+set title "(a)" font ",50"
+plot "QUIC/bucket1" using 4:xtic(2)  lc rgb "red" title "QUIC", "TCP/bucket1" using 4 lc rgb "blue" title "TCP"
+
+set size 1.5,1.2
+set origin 1.9, 0.0
+set xlabel "itag"
+set ylabel "PDF" offset 2,0,0
+set ytics autofreq 0.2
+unset key
+set boxwidth 1
+set style data histograms
+set style fill solid border
+set style histogram cluster gap 1
+set key left
+set title "(b)" font ",50"
+plot "QUIC/bucket2" using 4:xtic(2)  lc rgb "red" title "QUIC", "TCP/bucket2" using 4 lc rgb "blue" title "TCP"
+
+set size 1.5,1.2
+set origin 3.6, 0.0
+set xlabel "itag"
+set ylabel "PDF" offset 2,0,0
+set ytics autofreq 0.2
+unset key
+set boxwidth 1
+set style data histograms
+set style fill solid border
+set style histogram cluster gap 1
+set key left
+set title "(c)" font ",50"
+plot "QUIC/bucket3" using 4:xtic(2)  lc rgb "red" title "QUIC", "TCP/bucket3" using 4 lc rgb "blue" title "TCP"
+

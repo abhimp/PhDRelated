@@ -1,0 +1,91 @@
+\fussy
+
+\frontmatter
+
+\makepreliminarypages
+
+\clearemptydoublepage
+
+\clearemptydoublepage
+
+\fontsize{12}{13.2}\selectfont
+
+\fancyhead[RO]{\textbf{\rightmark}}
+
+\fancyhead[LE]{\textbf{\leftmark}}
+\fancyfoot{}
+\fancyfoot[CO,CE]{\textbf{\thepage}}
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername \ \thechapter \ \ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection \ \ #1}}
+
+\fontsize{12}{13.5}\selectfont
+
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+
+\clearemptydoublepage
+
+\listoffigures  
+\thispagestyle{empty}
+\clearemptydoublepage
+
+
+\listoftables
+\thispagestyle{empty}
+\clearemptydoublepage
+
+\input{Chapters/symbols}
+\thispagestyle{empty}
+\clearemptydoublepage
+
+\input{Chapters/acronym}
+\thispagestyle{empty}
+\clearemptydoublepage
+
+
+\fontsize{12}{14.5}\selectfont
+ \mainmatter
+
+\abovedisplayskip=5pt \belowdisplayskip=5pt
+\renewcommand{\baselinestretch}{1.37}\small\normalsize
+\parskip 7pt
+%
+\makeatletter
+\newlength{\mySpaceUnder}
+\newlength{\mySpaceOver}
+\setlength{\mySpaceUnder}{.15cm plus .2ex}  % 4cm as an example ;-)
+\setlength{\mySpaceOver}{.4cm plus -1ex minus-.2ex}   % 3cm as an example
+\renewcommand\section{\@startsection {section}{1}{\z@}%
+                                   {\mySpaceOver}%
+                                   {\mySpaceUnder}%
+                                   {\normalfont\Large\bfseries}}
+%
+\newlength{\mySpaceUndera}
+\newlength{\mySpaceOvera}
+\setlength{\mySpaceUndera}{.1cm plus .1ex}  % 4cm as an example ;-)
+\setlength{\mySpaceOvera}{.3cm plus -1ex minus-.1ex}   % 3cm as an example
+\renewcommand\subsection{%
+ \def\@seccntformat##1{\csname the##1\endcsname\hspace{.25in}}
+ \@startsection{subsection}{1}{\z@}{\mySpaceOvera}%
+                                   {\mySpaceUndera}%
+                                   {\normalfont\large\bfseries}
+}
+%
+%
+\renewcommand\subsubsection{%
+ \def\@seccntformat##1{\csname the##1\endcsname\hspace{.25in}}
+ \@startsection{subsubsection}{1}{\z@}{.2cm}%
+                                   {.01cm}%
+                                   {\normalfont\em\bfseries}
+}
+%
+\makeatother
+%
+\newenvironment{my_item}{
+\begin{enumerate}
+  \setlength{\itemsep}{2pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{enumerate}}

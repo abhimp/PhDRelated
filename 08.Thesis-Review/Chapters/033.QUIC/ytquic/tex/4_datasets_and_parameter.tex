@@ -1,0 +1,91 @@
+\subsection{Dataset and Parameters}
+In this subsection, we give the details of the data collected to analyze YouTube adaptive streaming performance over \ac{QUIC}. The complete dataset is available at \url{https://abhijitmondal.in/links/YouTubeQuicDataset} (\lastaccessedtoday). 
+%\noteam{test2}
+
+\subsubsection{Dataset}
+   
+%We wanted the bandwidth cycle to repeat at least once so we selected the videos that are on an average more than $30$ minutes in duration. The following table summaries the statistics about the data.
+
+\begin{table}[t!]
+    \centering
+    \footnotesize
+    \caption{Statistics of YouTube videos used in experiments. `\#' and 'Duration' indicate the number of videos and total playback duration, respectively.}
+    \label{table:1}
+    \begin{tabular}{| p{3cm} |l |p{2cm}|| p{3cm} |l |p{2cm}|} 
+        \hline
+        \textbf{Video Length (mins)} & \textbf{\#} & \textbf{Duration} & \textbf{Video Length (mins)} & \textbf{\#} & \textbf{Duration}  \\ [0.5ex] 
+        \hline\hline
+        $<$ 30 & 13 & 5h 59m & 30--40& 30 & 17h 08m\\ 
+        \hline
+        40--50 & 90 & 66h 09m & 50--60 & 31 & 27h 56m  \\ 
+        \hline
+        60--70 & 6 & 6h 29m &  $>$ 70 & 5 & 6h 11m\\ 
+        \hline
+    \end{tabular}
+\end{table}
+
+%\noteam{Other stat is almost done. I shall add it tomorrow evening.}
+
+\begin{table}[!t]
+    \centering
+    \caption{\label{table:quality}Video categories with available levels and total durations. `fps' indicates frame per second.}
+    \footnotesize
+    \csvreader[tabular=|p{2cm}|p{1.5cm}|p{1.5cm}|p{3cm}|,
+    separator=semicolon,
+    %    table head=\hline Max Quality & Number of Video & Total Duration & Number of Quality Levels & Quality Levels\\\hline\hline,
+    table head = \hline \textbf{Max Quality} & \textbf{Number of Videos} & \textbf{Total Duration} & \textbf{Number of Quality Levels}  \\\hline\hline,
+    late after line=\\\hline]%
+    {Chapters/033.QUIC/ytquic/csv/videocatagories.csv}{}%
+    {\csvcoli&\csvcolii&\csvcoliii&\csvcolv}
+\end{table}
+
+
+With the setup described earlier, we have collected the \ac{HAR} data for a total of $175$ videos for both \ac{QUIC} and \ac{TCP}. We have ensured that similar throttling behavior is applied during streaming over \ac{QUIC} and streaming over \ac{TCP}. The details of the video \ac{HAR} data downloaded using this procedure have been summarized in \tbl\ref{table:1}. These videos can be further categorized using the best (maximum) quality and the number of quality levels available on YouTube, as shown in \tbl\ref{table:quality}. However, we do not observe all these different quality levels during the video playback, as it depends on the YouTube streaming quality adaptation algorithm based on available channel condition during the playback as well as on the playback screen resolution. We have performed these experiments with standard definition display without full screen mode. Therefore we observe maximum playback quality of 480p even if the video supports 1080p \ac{HD} rendering. 
+%HD streaming requires very hing bandwidth at the network backbone, and it was difficult to get that bandwidth continuously during the experiment phase. However, the observed behaviors are sufficiently generalized, because we can get video bit-rate adaptation with at least $4$ different quality levels for most of the videos.     
+
+%We can categorize the videos we played in our experiments in eight different categories based on the best quality of a video available on YouTube. In \tbl\ref{table:quality} give a detailed view of different categories.
+
+%From \tbl\ref{table:quality}, we can see that we have used broad categories of videos regarding quality and bitrate. A total number of quality levels depend on maximum quality available for a video. In general, frame rate for a video is 30fps (frame per second). However, there are other options for high-definition (HD) videos. HD video can be 60fps or 50fps also. But they always have the 30fps option. In the case of a full HD (1080p) video have a higher frame rate, HD (720p) version also have the higher frame rate.
+
+%Although most of the videos we played in our experiments have higher quality options, actual playback quality depends on the playback screen resolution. As we performed these experiments with standard HD (720p) display without full-screen mode, playback quality never goes beyond 480p. It is a way; YouTube saves viewers' bandwidth. It downloads the quality it can render on the viewing screen.
+
+\subsubsection{Parameters Considered}
+Similar to the previous chapter, From the \ac{HAR} traces, we observe that YouTube uses a video playback request to grab the media data from the server. \acp{URL} for these video requests contain several parameters and their values~\cite{mondal2017youtube}. From these parameters, we found that three parameters \textit{itag}, \textit{range} and  \textit{rbuf} provide adaptive streaming performance related information which are useful for our analysis. %The details of these parameters are as follows. 
+%We will not discuss how we conclude these parameters are related to DASH for space contraint. \noteam{We can refer our NOSSDAV paper here} We are going to describe each of these parameter here.
+
+%\begin{table}[t!]
+%	\centering
+%	\footnotesize
+%	\caption{Information about \textit{itag} values. The quality parameter indicates the quality level indicator for a resolution.}
+%	\label{table:itag}
+%	\begin{tabular}{|c|c||c|c||c|c|} 
+%		\hline
+%		\textbf{Quality} & \textbf{Resolution} & \textbf{Type} & \textbf{itag} & \textbf{Type} & \textbf{itag}  \\ [0.5ex] 
+%		\hline\hline 
+%		144p & 256x144 & mp4 & 160 & webm & 278\\ 
+%		\hline
+%		240p & 426x240 & mp4 & 133 & webm & 242\\
+%		\hline
+%		360p & 640x360 & mp4 & 134 & webm & 243\\
+%		\hline
+%	    480p & 854x480 & mp4 & 135 & webm & 244\\
+%		\hline
+%	\end{tabular}
+%\end{table}
+%
+%
+%\textbf{\textit{itag}:} It is a numeric value to identify the type of media. It defines codec, resolution, frame rate and type of the media. It can be noted that YouTube uses separate connections for audio and video, and therefore the type of the media can be either audio or video. Here we analyze the video streaming behavior. Although there is a large number of \textit{itag}s\footnote{\url{http://www.genyoutube.net/formats-resolution-youtube-videos.html} (\lastaccessedtoday)} supported by YouTube, we found a handful of them in our experiment which are supported by browsers, as listed in \tbl\ref{table:itag}.
+%
+%%\subsubsection{\textit{clen}} From our observation, we understand that \textit{clen} is the content length of a specific media with a specific \textit{itag} for a video in the number of bytes. It varies only with video and \textit{itag}.
+%
+%\textbf{\textit{range:}} The range parameter provides the byte range of the requested video segment. Apart from video quality, YouTube also adapts this parameter based on available channel quality~\cite{mondal2017youtube,anorga2017analysis}. If the channel quality is good, YouTube downloads data at a larger video segment by increasing the range values. 
+% The \textit{range} values have two integers separated by a dash (-). The first integer is always smaller than the second one, and therefore we can say that these two integers are the \textit{start} and \textit{end} of the \textit{range} values. It behaves like range parameter in HTTP request header. It was concluded that range defines the byte range of the video for a \textit{itag} value that the client requests from the server. YouTube client adaptively changes this parameter to increase or to decrease the video chunk size to download, based on network conditions.
+
+%\textbf{\textit{rbuf}:} \textit{rbuf} is the receive buffer occupancy at the client side~\cite{anorga2017analysis}. This gives an indication of the streaming performance as well as video quality of experience (QoE) performance in terms of rebuffering counts. When \textit{rbuf} becomes zero, the streaming client initiates a rebuffering of data which reduces the video QoE. A larger value of \textit{rbuf} indicates better video quality for YouTube. 
+%The initial observations indicate that \textit{rbuf} grows as the YouTube client fetches more data from the server. However, with a close inspection of the HTTP request messages, we observe that the value of \textit{rbuf} decreases if there is no request from the client to the server. Further, whenever \textit{rbuf} starts decreasing, the client starts fetching data for a different \textit{itag} value (as we observe near lower bandwidth ranges).
+
+%\subsubsection{\textit{rn}} It is a non-decreasing parameter for a session. It does not depend on any other parameter. By observing the sequence of HTTP requests sent by the YouTube client to YouTube server, we can conclude that \textit{rn} is the request number to identify a DASH video playback request uniquely.
+
+%URLs for these video playback requests contain 35 parameters and their values:  \textit{pl, dur, expire, sver, gir, pcm2cms, mime, itag, signature, ipbits, source, keepalive, mt, mv, ms, mm, mn, key, clen, requiressl, lmt, initcwndbps, id, upn, sparams, fexp, ip, cpn, alr, ratebypass, c, cver, range, rn, and rbuf.} By close inspection of these parameters, we observe that the HTTP requests and responses are forwarded separately for the audio channel and the video channel. The value of the parameter \textit{mime} indicates whether the request is for audio channel or for video channel. Then, we figure out that the parameter \textit{itag} actually indicates the video quality for which a DASH request is made. YouTube samples every video under different video quality levels based on its resolution, bit rate and encoding techniques used for sampling, and assigns a numeric level to every quality, which is the itag value. The mapping between a particular \textit{itag} value and the corresponding video resolution, bit-rate and encoding parameters are given in \tbl\ref{table:itag}.
+
+%The behavior of these parameters under different scenarios like {\em Multiple videos multiple sessions, Single video multiple sessions, Single video single session} was observed. When a value does not change over multiple videos multiple sessions, then it indicates that the parameter does not take part in video adaptation procedure, and it basically forwards some static information, like the device and the operating system related information. If the value of a parameter changes for multiple video multiple sessions, but does not change for single video multiple sessions, then we can say that it is a video specific parameter.  If the value of a parameter changes for single video multiple sessions, but does not change for a single video single session even if the network quality changes, then we can say that it is session specific. The parameters that change only in this scenario when we change the link bandwidth, indicate that they possibly take part in the video adaptation process. From here, it was figured out in that  \textit{clen, dur, itag, lmt, mime, rbuf, rn, signature and range} are such parameters. However through close inspection, we find the parameters  \textit{mime} and  \textit{signature} relate to video channels, as we already discussed. Further the parameter  \textit{dur} denotes video duration, and it was observed that it changes only at microsecond order which is due to the change in video encoding technique. Consequently, we go for comparison of the other parameters between QUIC and TCP - \textit{ clen, itag, lmt, range, rbuf and rn.} It was observed that for the single video single session scenario, \textit{rbuf, rn} and \textit{range} change even for a single \textit{itag}. On the other hand, parameters like \textit{clen} change overall, but remain constant for a single \textit{itag} value.
