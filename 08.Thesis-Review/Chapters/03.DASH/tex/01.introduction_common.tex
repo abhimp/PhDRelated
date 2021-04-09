@@ -1,0 +1,46 @@
+%\section{Introduction}
+
+The \ac{QoE} of online video streaming is highly dependent on the efficacy of the underlying \ac{ABR} algorithm. Researchers worldwide are trying to develop a perfect \ac{ABR} algorithm to provide the best possible \ac{QoE} for all the scenarios. However, none of the existing \ac{ABR} algorithms are perfect, and every one of them improves \ac{QoE} in some scenarios while suffers in some others. Any \ac{ABR} algorithm directly or indirectly depends on the observed network bandwidth of the player. However, due to network conditions' unpredictability, current network throughput can change arbitrarily from the previously observed throughput. Thus it is hard to design a perfect \ac{ABR} system if not impossible. 
+
+To explore this interplay among various parameters that impact the \ac{ABR} decisions, in this chapter, we first analyze the video streaming system of YouTube, one of the most popular video streaming services. Although YouTube, in general, follows \ac{DASH} guidelines, it deviates a lot from the standard DASH-based streaming applications. For example, YouTube does not use the standard \ac{MPD} file to describe the media; instead, it uses a self-defined description. It is also known that YouTube uses a parameter called {\tt itag} to describe a streaming format. This {\tt itag} is unique for each format and does not change from video to video. Similarly, several other optimizations or parameters are there which are not known. 
+%We analyze a large dataset collected during YouTube streaming to understand those parameters which govern the streaming decision and the overall streaming and ABR strategies.
+
+Consequently, we adopt a focused approach to understand the internals of YouTube's bitrate and quality adaptation algorithm.
+We endeavor to explore YouTube's implementation of the DASH recommendations by studying the interplay between various parameters of YouTube adaptive video streaming.
+In terms of methodology, we capture a sizeable volume of YouTube traffic traces ($\sim500$ videos) in the form of \ac{HAR}, which give us access to the contents of HTTP request and response message headers;
+from these headers, we first identify the parameters used by YouTube in their rate adaptation algorithm, followed by controlled experiments to understand their individual roles.
+\begin{comment}
+In summary, our contributions in this study are as follows.
+\begin{enumerate}
+	\item We illustrate a methodology to study YouTube's adaptive streaming behavior in-depth (\S\ref{chap03s1:sec:experiments}) -- we identify and closely study the interplay among important parameters enabling this streaming algorithm (\S\ref{chap03s1:sec:parameters}).
+	\item Our experiments reveal that YouTube adapts the {\it segment length} parameter before attempting to adapt video resolution -- a phenomenon not reported in the literature (\S\ref{chap03s1:subsec:seglength}).
+	\item We observe that segment length adaptation leads to much lower values of data wastage on average, than reported by prior studies.
+	\item We propose an analytical model, augmented with a machine learning based classifier, which enables prediction of data consumption for an initial playback video quality when it is possible to estimate the network conditions a priori using existing mechanism like~\cite{Zou2015}  (\S\ref{chap03s1:sec:model}).
+\end{enumerate}
+\end{comment}
+
+The rest of the chapter is organized as follows. Section~\S\ref{sec:overview} describes a birds-eye view of YouTube and its experimental setup. In section~\S\ref{chap03s1:sec:experiments}, we provide a detailed experimental setup. We analyze the HTTP request parameters in section~\S\ref{chap03s1:sec:parameters}. We provide an insight into YouTube's adaptive system in section~\S\ref{chap03s1:subsec:seglength}. Section~\S\ref{sec:open-dash} compares QoE parameters in YouTube and DASH-IF players, and section~\S\ref{chap03s1:sec:model} illustrates a predictive model for data consumption during ABR.
+
+%The rest of the chapter is organized as follows. Section~\ref{chap03s1:sec:introduction} analyzes the YouTube streaming protocol by exploiting a large dataset of network traces during YouTube video playback. In Section~\ref{chap03s2:sec:quic}, we perform a measurement study over an in-house testbed setup to explore the adaptive streaming performance over QUIC as the transport protocol. The effect of mobility and energy consumption over DASH has been analyzed in Section~\ref{sec:chap03:DASHinMobility}. Finally, Section~\ref{sec:chap03:summary} summarizes the chapter.
+
+%\blue{Online video streaming service is one of the most popular online services on the Internet. As per Sandvine's\footnote{\url{https://www.sandvine.com/hubfs/downloads/phenomena/2018-phenomena-report.pdf} (\lastaccessedtoday)} report, video streaming takes almost 58\% of total downstream traffic of global Internet traffic. Google's YouTube, already a part of the common Internet parlance, has emerged as the largest player in the mobile video market, accounting for 40--70\% of total video traffic across most mobile networks\footnote{\url{https://www.ericsson.com/assets/local/mobility-report/documents/2016/ericsson-mobility-report-november-2016.pdf} (\lastaccessedtoday)}.
+%Dynamic Adaptive Streaming over HTTP(S) or DASH is a technology to streaming video over HTTP/HTTPS protocols. All the video streaming services, including YouTube, NetFlix usages technology similar to DASH. The DASH is resilient to firewall and NAT filters as traffic goes through widely accepted HTTP and HTTPS protocol.
+%}
+%
+%\blue{
+%YouTube is a fast evolving platform for DASH live video streaming. 
+%Even though a significant researcher have studied the YouTube video streaming system, there remains scope for further exploration. 
+%In this chapter we have focused on evaluating the performance of ABR streaming algorithm with respect to YouTube. 
+%Google is developing a new transport protocol QUIC and started serving all the service over the QUIC instead of the traditional TCP. In this we also study the effect of QUIC on DASH based video streaming system. We are interested to know effect of QUIC on the recently developed ABR algorithms.
+%Although we have studied the YouTube ABR streaming algorithm and the effect of QUIC transport protocol on ABR video streaming, YouTube has gained major popularity due to widesprade availability of smartphones. Smartphones are energy limited devices and therefore player online video consumes large amount of battery in different stages. So in the next stage we have studied the energy performance of smartphones in mobile condition.
+%}
+
+%\blue{
+%The DASH and DASH like streaming system are a hot topic for the researcher. Google developed a new transport protocol, QUIC, and other optimization in the YouTube player to improve the user experience. In this chapter, we perform an analysis of YouTube's video streaming system, the effect of QUIC protocol on DASH-based streaming, and YouTube's streaming behavior while the user is mobile.
+%}
+
+%\blue{YouTube being one of the biggest player in the video streaming service, Google developed various optimizations and technologies to provide better playback experience to its users.
+%Not surprisingly, YouTube has garnered significant interest in the research community over the years, furnishing studies which explore various aspects of the service -- a large majority of which focus on its video playback mechanism.
+%However, the interest in YouTube's video streaming behavior is far from satiated -- a phenomenon largely propelled by YouTube's practice of incessant technical evolution.
+%}
+

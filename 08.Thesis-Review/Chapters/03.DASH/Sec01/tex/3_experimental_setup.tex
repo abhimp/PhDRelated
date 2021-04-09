@@ -1,0 +1,44 @@
+\section{Detailed Experimental Setup}
+\label{chap03s1:sec:experiments}
+
+In this study, experiments are conducted with two broad objectives: (1) Observing YouTube's adaptive streaming behavior under different network conditions, and (2) Extracting protocol level parameters from granular video playback data under controlled network conditions, and deducing their individual roles.
+
+\begin{comment}
+\subsection{Experimental Setup for Observing Streaming Behavior} In the preliminary experiment, we play a YouTube video with frequent scene changes (video title: {\em ``The Division Walkthrough Gameplay Part 1 -- The Virus (PS4 Xbox One)''}, video ID: {\em b80ShWk\_Aro}, URL: \url{https://www.youtube.com/watch?v=b80ShWk_Aro}, video duration: $34$ min. $22$ sec.) by varying the link bandwidth using a dynamic throttling mechanism.
+We refer to this video as our {\it sample video} throughout the rest of the this chapter.
+Link throttling is enabled using the Unix library \texttt{NetFilterQueue}\footnote{\url{http://www.netfilter.org/projects/libnetfilter_queue/}}, which is a user-space library with an API to handle packets queued by the kernel packet filter.
+Based on this library, we develop a traffic shaper to control link bandwidth.
+We continuously monitor the bandwidth experienced at the browser, and ensure that the data is collected at intended bandwidth values.
+During the video playback, we capture video data packets using the packet capture tool \texttt{tcpdump}; from these packet traces, we extract the amount of video data transferred from the YouTube server to the browser, with respect to time.
+Additionally, we note the resolution in which the video is rendered, w.r.t. time.
+\end{comment}
+\begin{table}[!t]
+ \small
+ \centering
+ \caption{\small{Information regarding YouTube videos used in the experiments}}
+ \label{table:chap03s1:statvid}
+ \begin{tabular}{|c|c|c|}
+  \hline 
+  \textbf{Video Size} & \textbf{Number of Videos} & \textbf{Total Playback Duration} \\
+  \hline \hline 
+  $<10$ mins & $195$ & $19$h $44$m \\
+  \hline 
+  $10-30$ mins & $104$ & $26$h $07$m \\
+  \hline 
+  $30-60$ mins & $122$ & $94$h $33$m \\
+  \hline 
+  $>60$ mins & $30$ & $37$h $15$m \\
+  \hline 
+ \end{tabular}
+\end{table}
+
+\subsection{Experimental Setup to Identify Parameters and Their Interplay} 
+Since \ac{DASH} works on top of \ac{HTTP}, the video playback information and the requested video quality are embedded in HTTP request/response headers.
+As part of the {\em developer tools} for Mozilla Firefox, a {\em network monitor} is available, where the browser dumps information regarding all requests made by the current page -- \ac{HTTP}-request, \ac{HTTP}-response, request/response time, link speed, etc.
+The entire information can be exported to \ac{HAR} files, which are in the \ac{JSON}\footnote{\url{http://www.json.org/} (\lastaccessedtoday)} file format.
+We develop an automated tool called {\em AutoHARExporter} using \texttt{Selenium}\footnote{\url{http://www.seleniumhq.org/} (\lastaccessedtoday)} to capture a \ac{HAR} from the browser with the help of \texttt{har\_export\_trigger} (version 0.5.0-beta) Firefox plugin.
+This tool automatically opens a Firefox browser, loads a YouTube video (in the format { \url{https://youtube.com/watch?v=<video id>} (\lastaccessedtoday)}), waits for the video to finish, and finally saves the \ac{HAR} and other information to the disk.
+During video playback, we also control network bandwidth (using the throttling mechanism described earlier) by progressively increasing and then dropping it from a given set of bandwidth levels ranging from $200$ Kbps to $2400$ Kbps, in a step of $200$ Kbps.
+Each level of bandwidth is kept fixed for $200$ seconds. 
+We repeat the experiment for $\sim500$ videos (detailed statistics shown in \tbl{\ref{table:chap03s1:statvid}}), the list of which is collected in advance by crawling the YouTube website.
+
