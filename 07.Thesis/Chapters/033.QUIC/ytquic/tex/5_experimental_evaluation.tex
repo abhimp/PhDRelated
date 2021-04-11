@@ -109,7 +109,7 @@ Since QUIC tries to maintain a high video quality, therefore, even at low bandwi
 
 %Next we observe another important and critical QoE metric, which is rebuffering count. During a rebuffering event, the streaming client's playback buffer becomes zero, and the video rendering halts at this point, resulting in poor QoE. As rebuffering depends on the available channel bandwidth along with current playback quality, we plot total rebuffering counts over all the dataset for two different bandwidth levels -- (a) channel bandwidth less than  $512$ Kbps and (b) channel bandwidth greater than $512$ Kbps. The resultant plot is shown in \fig\ref{fig:rebuffering}. We have interesting observation here. When the channel bandwidth is less than $512$ Kbps, QUIC shows significantly higher numbers of rebuffering events compared to TCP. On contrary, with channel bandwidth more than $512$ Kbps, QUIC performs better than TCP. So, in terms of rebuffering, we can say that QUIC performs poorly compared to TCP when channel quality is bad. Incidentally, we observe that QUIC tries to download high quality videos even at low bandwidth availability, which we presume as one of the reasons for the large number of rebuffering events.  
 
-In summary, we observe that although \ac{QUIC} tries to download high quality videos even at low bandwidth availability and reduces number of quality switches during adaptive streaming, it can significantly increase the rebuffering events when video quality if low. 
+In summary, we observe that although \ac{QUIC} tries to download high quality videos even at low bandwidth availability and reduces number of quality switches during adaptive streaming, it can significantly increase the rebuffering events when video quality low. 
 If this rebuffering count goes beyond a threshold, \ac{QoE} for the video streaming application may suffer. 
 As the rebuffering count during the video streaming over \ac{QUIC} is significantly higher than that of \ac{TCP}, when channel quality is poor, we conclude that \ac{QUIC} may not improve overall video \ac{QoE} under all conditions. 
 
@@ -119,7 +119,7 @@ As the rebuffering count during the video streaming over \ac{QUIC} is significan
 \subsection{Impact of ABR Streaming over Data Consumption: QUIC vs TCP}
 
 %Adaptive video streaming improves QoE by dynamically adapting video quality levels based on available channel bandwidth, however it has a direct implication of the amount of data that is downloaded at the client side. 
-Existing studies on adaptive video streaming has shown that the complete data, which is downloaded by the streaming media client, is not utilized during the actual video playback~\cite{krishnappa2013dashing}. 
+Existing studies on adaptive video streaming have shown that the complete data, which is downloaded by the streaming media client, is not utilized during the actual video playback~\cite{krishnappa2013dashing}. 
 %A significant amount of data is wasted during the quality adaptation, as the streaming clients use a conservative approach during quality switching. 
 In this section, we discuss the performance of adaptive streaming over \ac{QUIC} and \ac{TCP} in terms of data consumption. 
 
@@ -133,13 +133,13 @@ In this section, we discuss the performance of adaptive streaming over \ac{QUIC}
 %			\includegraphics[width=0.48\linewidth]{img/CDF/data_downloaded_bw}
 %		}
         \includegraphics[width=0.9\linewidth]{img/plotdata/CDF/downloaded/data_dowloaded_itag_bw}
-		\caption{\label{fig:data_download}Data downloaded: (a) Different quality levels, (b) Different channel bandwidth}
+		\caption{\label{fig:data_download}Data downloaded: (a) Different quality levels, (b) Different channel bandwidths}
 	\end{center}
 \end{figure}
 
 
 \subsubsection{Data Download for Adaptive Video Streaming}
-We first look into the total data downloaded with \ac{QUIC} and \ac{TCP} during the playback of same set of videos under similar channel conditions. \fig\ref{fig:data_download}(a) shows the total data downloaded for different quality levels, and \fig\ref{fig:data_download}(b) plots the total data downloaded under various channel conditions in terms of bandwidth availability. We observe that \ac{QUIC} downloads more data under itag value $243$ and $244$ which are the best quality levels observed in the collected data set. 
+We first look into the total data downloaded with \ac{QUIC} and \ac{TCP} during the playback of same set of videos under similar channel conditions. \fig\ref{fig:data_download}(a) shows the total data downloaded for different quality levels, and \fig\ref{fig:data_download}(b) plots the total data downloaded under various channel conditions in terms of bandwidth availability. We observe that \ac{QUIC} downloads more data under itag values $243$ and $244$ which are the best quality levels observed in the collected data set. 
 %We then look into the total data download under various network conditions (channel bandwidth availability). \fig\ref{fig:down_band} plots the total amount of data downloaded over all the sampled videos grouped into four different available bandwidth conditions. 
 Further, the figure indicates that the total data downloaded with \ac{QUIC} is high compared to \ac{TCP} when the available channel bandwidth is less than $1$ Mbps. Therefore, we hypothesize that with \ac{QUIC} enabled YouTube streaming can download high quality videos even at the low network quality. 
 However, as we mentioned earlier, there is a possibility of data wastage during the quality switching with adaptive video streaming over the web. Next, we first explain the reason for this data wastage, and then we go for a thorough analysis of the data wastage for the two protocols. 
@@ -204,7 +204,7 @@ However, this results in data waste when the request for high quality video segm
 %			\includegraphics[width=0.48\linewidth]{img/CDF/data_wasted_bw}
 %		}
         \includegraphics[width=0.9\linewidth]{img/plotdata/CDF/downloaded/data_wasted_itag_bw}
-		\caption{\label{fig:data_wasted}Data wasted: (a) Different quality levels, (b) Different channel bandwidth}
+		\caption{\label{fig:data_wasted}Data wasted: (a) Different quality levels, (b) Different channel bandwidths}
 	\end{center}
 \end{figure}
 
@@ -364,7 +364,7 @@ Consequently, \ac{QUIC} results in more data waste. In the next section, we give
 \subsection{Impact of Channel Bandwidth over Video Streaming: QUIC vs TCP}
 From the previous discussion and analysis, we have observed that the performance of video streaming over \ac{QUIC} has a dependency over the available channel bandwidth. 
 %The data wastage due to YouTube adaptive streaming is more when channel bandwidth is low. To explore this behavior further, we next analyze the adaptive streaming behavior over QUIC under different channel conditions measured in terms of available channel bandwidth. 
-Here, we particularly look the evolution of three parameters at different available bandwidth, which control the adaptive streaming behavior -- (a) quality switching (using \textit{itag}), (b) buffer occupancy at the YouTube streaming client (using \textit{rbuf}) and (c) segment length adaptation during streaming (using \textit{range} ). We consider three channel conditions -- (a) poor (available bandwidth is less than $64$ Kbps), (b) medium (available bandwidth is in between $64$ Kbps and $1$ Mbps), and (c) good (available bandwidth is more than $1$ Mbps).
+Here, we particularly look the evolution of three parameters at different available bandwidth, which control the adaptive streaming behavior -- (a) quality switching (using \textit{itag}), (b) buffer occupancy at the YouTube streaming client (using \textit{rbuf}) and (c) segment length adaptation during streaming (using \textit{range}). We consider three channel conditions -- (a) poor (available bandwidth is less than $64$ Kbps), (b) medium (available bandwidth is in between $64$ Kbps and $1$ Mbps), and (c) good (available bandwidth is more than $1$ Mbps).
 
 \subsubsection{Video Quality Adaptation}
 %For a particular bandwidth level we counted the number of requests made for each \textit{itag} and from that we calculated the probability for an  \textit{itag} as the number of requests made for that itag divided by total number of requests made.
@@ -424,9 +424,9 @@ We observe that at poor bandwidth, \ac{QUIC} has higher tendency than \ac{TCP} t
 
 \fig\ref{fig:rbuf} shows playback buffer occupancy distribution at the YouTube client in terms of \ac{CDF} for various \textit{rbuf} values extracted from the playback requests. We observe that at high bandwidth, there is not much difference between \ac{TCP} and \ac{QUIC} in terms of playback buffer occupancy. However, at low bandwidth, \ac{QUIC} fills up the playback buffer faster than \ac{TCP}, resulting in higher values of \textit{rbuf}. 
 %has higher tendency towards higher \textit{rbuf} values when compared to TCP, indicating that QUIC tries to fill the client buffer fast even when the bandwidth is low. 
-YouTube uses playback buffer occupancy as a feedback for video quality adaptation~\cite{mondal2017youtube,krishnappa2013dashing}
+YouTube uses playback buffer occupancy as a feedback for video quality adaptation~\cite{mondal2017youtube,krishnappa2013dashing}.
 % -- if the buffer fills fast, the adaptive streaming client assumes the channel quality to be good, and switches to a high quality level for next video segment requests. However, as we have observed earlier, 
-This sometime triggers a unsuccessful quality upgrade request for \ac{QUIC} enabled streaming, as the actual channel quality may not be suitable for high bitrate video streaming. This results in large number of rebuffering (\fig\ref{fig:bitrate_rebuffering}(b)) and comparatively high data waste (\fig\ref{fig:data_wasted}).
+This sometime triggers an unsuccessful quality upgrade request for \ac{QUIC} enabled streaming, as the actual channel quality may not be suitable for high bitrate video streaming. This results in large number of rebuffering (\fig\ref{fig:bitrate_rebuffering}(b)) and comparatively high data waste (\fig\ref{fig:data_wasted}).
 
 %This majorly implies that the chance for buffering is lower for QUIC when compared to TCP as buffering mainly occurs at poor Internet speeds supporting the statement made by Google that there were fewer rebuffers when QUIC is used instead of TCP.
 
