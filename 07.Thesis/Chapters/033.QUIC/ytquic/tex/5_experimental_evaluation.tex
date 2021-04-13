@@ -105,9 +105,10 @@ We counted the number of rebuffering events during playback for both \ac{QUIC} a
 We used two bandwidth settings: (a) low bandwidth at less than 512 Kbps, (b) high bandwidth at greater than 512 Kbps.
 \fig\ref{fig:bitrate_rebuffering}(b) shows the frequency of rebuffering events.
 When the channel bandwidth is less than $512$ Kbps, QUIC shows runs out of buffered data more frequently than TCP. 
-Since QUIC tries to maintain a high video quality, therefore, even at low bandwidth it does not quickly switch to a low bitrate leading to buffer depletion and triggers rebuffering.
+%Since QUIC tries to maintain a high video quality, therefore, even at low bandwidth it does not quickly switch to a low bitrate leading to buffer depletion and triggers rebuffering.
+\RC{As YouTube does not change quality more frequently over QUIC than TCP and tries to play better quality, it incurs more rebuffering time. It requires more time to download the better quality video as the overall link bandwidth is the same.}
 
-%Next we observe another important and critical QoE metric, which is rebuffering count. During a rebuffering event, the streaming client's playback buffer becomes zero, and the video rendering halts at this point, resulting in poor QoE. As rebuffering depends on the available channel bandwidth along with current playback quality, we plot total rebuffering counts over all the dataset for two different bandwidth levels -- (a) channel bandwidth less than  $512$ Kbps and (b) channel bandwidth greater than $512$ Kbps. The resultant plot is shown in \fig\ref{fig:rebuffering}. We have interesting observation here. When the channel bandwidth is less than $512$ Kbps, QUIC shows significantly higher numbers of rebuffering events compared to TCP. On contrary, with channel bandwidth more than $512$ Kbps, QUIC performs better than TCP. So, in terms of rebuffering, we can say that QUIC performs poorly compared to TCP when channel quality is bad. Incidentally, we observe that QUIC tries to download high quality videos even at low bandwidth availability, which we presume as one of the reasons for the large number of rebuffering events.  
+ 
 
 In summary, we observe that although \ac{QUIC} tries to download high quality videos even at low bandwidth availability and reduces number of quality switches during adaptive streaming, it can significantly increase the rebuffering events when video quality low. 
 If this rebuffering count goes beyond a threshold, \ac{QoE} for the video streaming application may suffer. 

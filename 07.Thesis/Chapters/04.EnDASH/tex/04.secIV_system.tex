@@ -26,7 +26,7 @@ For each of the features we obtain the $\mathrm{25^{th}}$, $\mathrm{75^{th}}$, a
 \noindent \textbf{(ii) Input state at timeslot `$\kappa$'} $S_\kappa$ =  ($\hat{\tau}_{{\kappa}}$, $B_{av_\kappa}$, ${\mathcal{X}}$), where
   $\hat{\tau}_{{\kappa}}$ is the  average predicted cellular network throughput,
  $B_{av_\kappa}$ is the current playback buffer capacity available in seconds,
-$\mathcal{X}$ is the set of possible changes in buffer length. If the current buffer length is $B_{\kappa-1}$, the next buffer length can be predicted to be $\hat{B_\kappa}= B_\kappa+x$ where $x\in\mathcal{X}:=\{-2,-1,0,+1,+2\}$. $x=1$ implies an increase in buffer length by a single chunk.\\
+$\mathcal{X}$ is the set of possible changes in buffer length. If the current buffer length is $B_{\kappa-1}$, the next buffer length can be predicted to be $\hat{B_\kappa}= B_{\kappa-1}+x$ where $x\in\mathcal{X}:=\{-2,-1,0,+1,+2\}$. $x=1$ implies an increase in buffer length by a single chunk.\\
 %, each chunk is of eight seconds.\\
 \noindent \textbf{(iii) Action} $A_\kappa$ - Decisions on the increase or decrease of buffer length at timeslot $\kappa$. \\
 \noindent \textbf{(iv) Reward} - The reward function is defined as a linear weighted function of energy savings with respect to a baseline \ac{ABR} algorithm and the \ac{QoE} score:
