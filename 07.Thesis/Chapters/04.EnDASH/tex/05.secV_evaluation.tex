@@ -46,12 +46,27 @@ EnDASH consumes much less energy because the video chunk download, and hence the
 
 \begin{figure}[ht]%
 	\centering
-	{\fbox{\includegraphics[width=0.7\linewidth]{new_results/simres/EnergyConsumption}}}
+	{\includegraphics[width=0.7\linewidth]{new_results/simres/EnergyConsumption}}
 	\caption{Energy Consumption and Extra Playtime obtained w.r.t. Fast MPC, which has the highest energy consumption}\vspace*{-0.5cm}
 	\label{fig:chap04:vid_time_save}
 \end{figure}
 \subsection{Gain from Energy Savings}
 \indent In this section, we discuss the gain in video playback time achieved by using EnDASH. FastMPC has the highest energy consumption among all algorithms. \fig{\ref{fig:chap04:vid_time_save}} shows the gain in video playback time achieved by the algorithms with respect to FastMPC while streaming a 2200 second video. It shows that using the energy saved by streaming the video using EnDASH, one can gain an additional 1403 seconds and 1440 seconds of video playback time in comparison with BOLA and Pensieve, respectively. Thus, one may infer that EnDASH can be used as a potential \ac{ABR} streaming algorithm for increasing battery backup in smartphones.
+
+\subsection{Energy Efficiency Compared to Lowe Quality Video}
+\begin{figure}[h]
+	\captionsetup[subfigure]{width=0.49\linewidth}
+	\begin{center}
+		\subfloat[\label{fig:chap04:energyWF}Avg. Bitrates in Mbps]{
+			\includegraphics[width=0.49\linewidth]{new_results/simres/EnergyWF}
+		}
+		\subfloat[\label{fig:chap04:energyperbit}Stall Time per segment (in seconds)]{
+			\includegraphics[width=0.49\linewidth]{new_results/simres/EnergyPerBitWF}
+		}
+	\end{center}
+	\caption{\label{fig:chap04:energycost}Comparison of energy consumption and energy efficiency between different ABR algorithm and lowest quality video playback.}
+\end{figure}
+\RC{Apparently it looks like that EnDASH saves energy just by reducing the video quality. Although quality is compromised a bit to save energy, the scheduling is also very important. We can understand this from \fig{\ref{fig:chap04:energycost}}. The \fig{\ref{fig:chap04:energyWF}} clearly shows that over energy consumption of the ABR algorithms without proper segment download schedule takes more or less same even if the video is being played in lowest quality. \fig{\ref{fig:chap04:energyperbit}} depict the energy requirement per bit downloaded data. Here interestingly we can see that energy requirement per bit for lowest quality video is very high. The primary reason is that there is no segment download scheduling available. Energy consumption per bit for EnDASH is comparable with other ABR algorithm although it is slightly less efficient. In the end we can conclude that energy consumption per bit is not that important as compared to the overall energy consumption and video quality.}
 
 \subsection{Feature Importance Study on Throughput Prediction Engine} The primary objective of the throughput prediction engine is to account for the impact of cellular network technology change, i.e., the switching between \ac{2G}, \ac{3G}, \ac{4G}, etc., on network throughput.
 \fig{\ref{fig:chap04:feature_imp}} shows the feature importance of different input parameters when predicting throughput. We observe that vertical handovers and associated technology (Network Type) have the highest weightage among all parameters, 0.32 and 0.21, respectively. The importance of such features in throughput prediction points out to
