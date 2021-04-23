@@ -1,21 +1,21 @@
 \section{Working of YouTube: A 1000 Feet View}
 \label{sec:overview}
 
-\begin{figure}[!t]
+\begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.85]{img/burst.eps}
 	\caption{Packet length distribution}
 	\label{fig:packet}
 \end{figure}
 
-\begin{figure}[!t]
+\begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.85]{img/burst_scale.eps}
 	\caption{Packet bursts with respect to time}
 	\label{fig:burst}
 \end{figure}
 
-\begin{figure}[!t]
+\begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.85]{img/bw_reso.eps}
 	\caption{Video resolution vs link bandwidth}
@@ -37,8 +37,9 @@ In the preliminary experiment, we play a YouTube video (video title: {\em ``The 
 During the video playback, we capture video data packets using the Unix tool \texttt{tcpdump}. From these packet traces, we extract the amount of video data transferred from the YouTube server to the YouTube client, with respect to time. Further, during video playback, we note down the resolution in which the video is rendered, with respect to time. 
 
 \subsection{Observations and Analysis}
+\RC{\fig{\ref{fig:packet}} and \fig{\ref{fig:burst}} shows the instantaneous data download rate (bytes per 10ms) from the YouTube server to YouTube client with respect to time and changing link bandwidth, while  \fig{\ref{fig:reso}} indicates the video playback resolution with respect to time. In both the graphs, we show the change in link bandwidth (through the throttling mechanism) with respect to time, using the right hand side Y-axis. From \fig{\ref{fig:packet}}, we can clearly see that download rate increases as we increase the bandwidth and drop when link bandwidth is decreased. \fig{\ref{fig:burst}} shows the same thing by scaling up the time axis, and this figure indicates that in YouTube, data are indeed transferred in bursts. A group of data transferred and buffered at the YouTube client, and then there is a silent zone when no data is transferred. From these two figures it is also clear that the size of bursts are not the same. From these observations, we can conclude that YouTube dynamically changes content length in each burst based on link bandwidth. It transfers content in data bursts, and reduces (increases) the content length when link bandwidth is low (high).}
 
-\fig{\ref{fig:packet}} and \fig{\ref{fig:burst}} show the sequence of packets received from YouTube server to YouTube client with respect to time and changing link bandwidth, while \fig{\ref{fig:reso}} indicates the video playback resolution with respect to time. In both the graphs, we show the change in link bandwidth (through the throttling mechanism) with respect to time, using the right hand side Y-axis. From \fig{\ref{fig:packet}}, we can clearly observe that packet length increases with increase in link bandwidth, and drops when link bandwidth is decreased. \fig{\ref{fig:burst}} shows the sequence of packets received by scaling up the time axis, and this figure indicates that in YouTube, packets are indeed transferred in bursts. A group of packets are transferred and buffered at the YouTube client, and then there is a silent zone when no packet is transferred. From these two figures it is clear that YouTube dynamically changes content length in data packets based on link bandwidth. It transfers content in data bursts, and reduces (increases) the content length when link bandwidth is low (high). 
+%\fig{\ref{fig:packet}} and \fig{\ref{fig:burst}} show the sequence of packets received from YouTube server to YouTube client with respect to time and changing link bandwidth, while \fig{\ref{fig:reso}} indicates the video playback resolution with respect to time. In both the graphs, we show the change in link bandwidth (through the throttling mechanism) with respect to time, using the right hand side Y-axis. From \fig{\ref{fig:packet}}, we can clearly observe that packet length increases with increase in link bandwidth, and drops when link bandwidth is decreased. \fig{\ref{fig:burst}} shows the sequence of packets received by scaling up the time axis, and this figure indicates that in YouTube, packets are indeed transferred in bursts. A group of packets are transferred and buffered at the YouTube client, and then there is a silent zone when no packet is transferred. From these two figures it is clear that YouTube dynamically changes content length in data packets based on link bandwidth. It transfers content in data bursts, and reduces (increases) the content length when link bandwidth is low (high). 
 
 Next, we observe the impact of link bandwidth on video playback/rendering resolution as plotted in \fig{\ref{fig:reso}}. The figure indicates that YouTube increases playback resolution as the link bandwidth improves. It keeps on rendering the video at high resolution till it has high resolution video data in its buffer, and if the link bandwidth drops by that time, it starts buffering as well as rendering video at lower resolution. In the figure, we can see that YouTube keeps on playing the video at high resolution till $1600$ seconds, as it has already received the data for high resolution, and as the link bandwidth drops by that time, the playback video resolution also drops for the new data that it receives. However, after that as the link bandwidth increases, YouTube progressively improves the playback video resolution by downloading higher resolution video content.
 

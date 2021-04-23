@@ -43,7 +43,7 @@ We quantify video quality using three parameters which impact \ac{QoE}~\cite{bal
 %    \end{center}
 %\end{figure}
 
-We compare the number of switches in video quality, both in terms of quality upgrades and quality drops, as shown in \fig\ref{fig:reschange}.
+We compare the \RC{total} number of switches in video quality, both in terms of quality upgrades and quality drops, as shown in \fig\ref{fig:reschange}.
 We observe that \ac{QUIC} incurs less quality switches than that of \ac{TCP} for almost all the cases. 
 %To quantify the improvement in quality switching with QUIC, we define a metric called \textit{Percentage Quality Switch Reduction with QUIC} (PQSRQ) which is defined as follows. For two quality levels $\mathcal{Q}_1$ and $\mathcal{Q}_2$, let $QSQ(\mathcal{Q}_1,\mathcal{Q}_2)$ and and $QST(\mathcal{Q}_1,\mathcal{Q}_2)$ denote the number of quality switch from $\mathcal{Q}_1$ to $\mathcal{Q}_2$ with QUIC and TCP, respectively.  Then, $PQSRQ(\mathcal{Q}_1,\mathcal{Q}_2) = \frac{QSQ(\mathcal{Q}_1,\mathcal{Q}_2)}{QST(\mathcal{Q}_1,\mathcal{Q}_2)} \times 100\%$. \fig\ref{fig:reschange_percent} plots the value of PQSRQ for various quality levels, both during quality improvements and quality drops. We observe that 
 It is evident from the figure that for some quality levels, the percentage reduction in quality switches is more than $20\%$ during quality upgrades, and more than $40\%$ during quality drops. For the few cases when \ac{QUIC} performs worse than \ac{TCP}, we actually note that the number of data points for those quality levels is less in our collected dataset. Interestingly, in terms of percentage quality switch reduction, \ac{QUIC} outperforms \ac{TCP}  more during quality drops compared to quality upgrades, which is an indication of good \ac{QoE}.  Nevertheless, it is expected that the overall playback quality should be biased towards the high quality video segments for supporting better viewing experiences to the end users, which we explore next. 
@@ -134,7 +134,7 @@ In this section, we discuss the performance of adaptive streaming over \ac{QUIC}
 %			\includegraphics[width=0.48\linewidth]{img/CDF/data_downloaded_bw}
 %		}
         \includegraphics[width=0.9\linewidth]{img/plotdata/CDF/downloaded/data_dowloaded_itag_bw}
-		\caption{\label{fig:data_download}\RC{Overall d}ata downloaded: (a) Different quality levels, (b) Different channel bandwidths}
+		\caption{\label{fig:data_download}\RC{Total d}ata downloaded: (a) Different quality levels, (b) Different channel bandwidths}
 	\end{center}
 \end{figure}
 
